@@ -10,7 +10,7 @@ import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
 
 public class DuckShotModel {
 
-	// Game objects
+	// Game objects 
 	public Vector<Wave> mWaves = new Vector<Wave>();
 	public Vector<Stone> mStones = new Vector<Stone>();
 	public Vector<Integer> mYes = new Vector<Integer>();
