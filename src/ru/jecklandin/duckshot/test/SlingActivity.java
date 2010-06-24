@@ -88,7 +88,7 @@ class SlingView extends View {
 			path.lineTo(b, a);
 			
 			double alpha = Math.asin(a / Math.sqrt(a*a + b*b));
-			Log.d("alpha", ""+(a / Math.sqrt(a*a + b*b)));
+			//Log.d("alpha", ""+(a / Math.sqrt(a*a + b*b)));
 			  
 			double beta = Math.PI/2 - alpha;
 			
