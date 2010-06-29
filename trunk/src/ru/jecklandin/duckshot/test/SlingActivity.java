@@ -36,8 +36,12 @@ public class SlingActivity extends Activity {
 
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
-		v.x = (int) event.getX();
-		v.y = (int) event.getY();
+    	if (true || event.getY() > 350) {
+    		
+    		v.sly = (int) event.getY();
+    	}
+    	v.slx = (int) event.getX();
+
 		return super.onTouchEvent(event);
 	}
 
@@ -46,8 +50,8 @@ public class SlingActivity extends Activity {
 
 class SlingView extends View {
 
-    int x;
-    int y;
+    int slx;
+    int sly;
 	
    Bitmap sling;
    Bitmap left_el;
@@ -65,43 +69,32 @@ class SlingView extends View {
 		socket = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling_socket );
 	}
 	
-		@Override 
+	@Override
 	public void draw(Canvas canvas) {
-//			Log.d("?????", "!!!!!"+ScreenProps.screenHeight);
-			Paint p = new  Paint();
-			p.setAntiAlias(true);
-			p.setColor(Color.RED);
-			canvas.drawBitmap(sling, 80, ScreenProps.screenHeight-sling.getHeight(), p);
-//			Matrix m = new Matrix();
-//			m.setTranslate(80, ScreenProps.screenHeight-sling.getHeight());
-//			canvas.drawBitmap(left_el, m, p);
-//			m.postTranslate(160, 0);
-//			canvas.drawBitmap(right_el, m, p);
-//			m.setTranslate(100, ScreenProps.screenHeight-sling.getHeight()+left_el.getHeight());
-			canvas.drawBitmap(socket, x-socket.getWidth()/2, y-socket.getHeight()/2, p);
-			
-			Path path = new Path();
-			path.setLastPoint(0, 0);
-			
-			int b = 200;
-			int a = 200;
-			path.lineTo(b, a);
-			
-			double alpha = Math.asin(a / Math.sqrt(a*a + b*b));
-			//Log.d("alpha", ""+(a / Math.sqrt(a*a + b*b)));
-			  
-			double beta = Math.PI/2 - alpha;
-			
-			double l = 50;
-			double y = Math.sin(beta)*l;
-			double x = Math.sqrt(l*l - y*y);
-			
-			path.lineTo((int)(b+x), (int)(a-y));
-			
-			Path p2 = getRectangle(150, 250, 50, 50, 100);
-			p.setPathEffect(new CornerPathEffect(15));
-			canvas.drawPath(p2, p);
-			invalidate();
+		Paint p = new Paint();
+		p.setAntiAlias(true);
+		p.setColor(Color.RED);
+		canvas.drawBitmap(sling, 80, ScreenProps.screenHeight
+				- sling.getHeight(), p);
+		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
+				- socket.getHeight() / 2, p);
+
+		// p.setPathEffect(new CornerPathEffect(15));
+
+		Path p0 = getRectangle(190, 190, 50, 100, 20);
+		Path p01 = getRectangle(200, 400, 100, 200, 20);
+		canvas.drawPath(p0, p);
+		canvas.drawPath(p01, p);
+
+		Path p2 = getRectangle(90, ScreenProps.screenHeight - sling.getHeight()
+				+ 20, slx - socket.getWidth() / 2, sly, 15);
+		canvas.drawPath(p2, p);
+
+		Path p3 = getRectangle(slx + socket.getWidth() / 2, sly, 270,
+				ScreenProps.screenHeight - sling.getHeight() + 10, 15);
+		canvas.drawPath(p3, p);
+
+		invalidate();
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
@@ -111,9 +104,9 @@ class SlingView extends View {
 			
 			int b = x2 - x1;
 			int a = y2 - y1;
-			
-			double alpha = Math.asin(a / Math.sqrt(a*a + b*b));
-			double beta = Math.PI/2 - alpha;
+
+			double alpha = getAngle(x2-x1, y2-y1);
+			double beta = ((y2-y1) > 0 ? 1 : 3)*Math.PI/2 - alpha;
 			
 			double y = Math.sin(beta)*l;
 			double x = Math.sqrt(l*l - y*y);
@@ -128,5 +121,22 @@ class SlingView extends View {
 			return path;
 		}
 
+		private double getAngle(int dx, int dy) {
+	    	double alpha = Math.asin( Math.abs(dy) / Math.hypot(dx, dy) );
+	    	if (dx > 0) {
+	    		if (dy > 0) {
+	    			//nothing
+	    		} else {
+	    			alpha *= -1; 
+	    		}
+	    	} else {
+	    		if (dy > 0) {
+	    			alpha = Math.PI - alpha;
+	    		} else {
+	    			alpha = Math.PI + alpha;
+	    		}
+	    	}
+	    	return alpha;
+		}
 	
 }
