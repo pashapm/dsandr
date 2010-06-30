@@ -29,17 +29,18 @@ public class DuckShotModel {
 	private final int WAVES_GAP = 28;
 	
 	public static final int MAX_MSEC = 1999;
+	public static int WAVES_OFFSET;
 	
 	public DuckShotModel() {
 		
-		int waves_offset = ScreenProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight(); 
+		WAVES_OFFSET = ScreenProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight() - 80; 
 		
 		int waves_height = WAVES_NUM * WAVES_GAP;
 		
 		
 		// loading Y-coord
 		for (int i=0; i<WAVES_NUM; ++i) {
-			mYes.add(waves_offset + i * WAVES_GAP);
+			mYes.add(WAVES_OFFSET + i * WAVES_GAP);
 		}
 		
 		for (int i=0; i<mYes.size(); ++i) {

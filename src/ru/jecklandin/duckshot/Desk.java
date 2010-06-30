@@ -49,22 +49,22 @@ public class Desk {
 		matrix.setTranslate(x, y);
 		c.drawBitmap(mDesk, matrix, p);
 		
-		//draw indent
-		matrix.postTranslate(mDesk.getWidth() - mIndent.getWidth() - 20, (mDesk.getHeight() - mIndent.getHeight())/2);
-		c.drawBitmap(mIndent, matrix, p);
-		
-		//draw power
-		matrix.postTranslate(5,5); 
-		if (this.power != 0) {
-			addit_m.reset();
-			c.drawBitmap(mPower, matrix, p);	
-			float part = 1 - ((float)this.power / DuckShotModel.MAX_MSEC);
-			part = part < 0 ? 0 : part;
-			addit_m.setScale(part, 1); 
-			addit_m.postConcat(matrix); 
-			c.drawBitmap(mStub, addit_m, p);	
-			
-		} 
+//		//draw indent
+//		matrix.postTranslate(mDesk.getWidth() - mIndent.getWidth() - 20, (mDesk.getHeight() - mIndent.getHeight())/2);
+//		c.drawBitmap(mIndent, matrix, p);
+//		
+//		//draw power
+//		matrix.postTranslate(5,5); 
+//		if (this.power != 0) {
+//			addit_m.reset();
+//			c.drawBitmap(mPower, matrix, p);	
+//			float part = 1 - ((float)this.power / DuckShotModel.MAX_MSEC);
+//			part = part < 0 ? 0 : part;
+//			addit_m.setScale(part, 1); 
+//			addit_m.postConcat(matrix); 
+//			c.drawBitmap(mStub, addit_m, p);	
+//			
+//		} 
 		
 		
 		if (this.power != 0) {

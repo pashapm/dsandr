@@ -22,6 +22,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import ru.jecklandin.duckshot.test.SlingView;
 
 public class DuckGame extends Activity {
     
@@ -32,6 +33,7 @@ public class DuckGame extends Activity {
     Typeface mTypeface;
     DuckTimer timer;
     FPSPrinter fpspr;
+    SlingView sling;
     
     boolean mShownDialog = false;
     
@@ -48,11 +50,15 @@ public class DuckGame extends Activity {
 		ImgManager.loadImages(this);
         gf = new GameField(this);
         
-        sf = new SFGameField(this);
+//        sf = new SFGameField(this);
        
         
         timer = new DuckTimer(gf);
         setContentView(gf);
+        
+        sling = new SlingView(this);
+        getWindow().addContentView(sling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        
         
         //debug btn
         LinearLayout lay = (LinearLayout)View.inflate(this, R.layout.btns, null);
@@ -101,9 +107,20 @@ public class DuckGame extends Activity {
 		super.onResume();
 	}
 
-	@Override
+//	@Override
+//	public boolean onTouchEvent(MotionEvent event) {
+//		gf.touch(event);
+//		return super.onTouchEvent(event);
+//	}
+	
+    @Override
 	public boolean onTouchEvent(MotionEvent event) {
-		gf.touch(event);
+    	if ( event.getY() > 350) {
+    		
+    		sling.sly = (int) event.getY();
+    	}
+    	sling.slx = (int) event.getX();
+
 		return super.onTouchEvent(event);
 	}
 	
