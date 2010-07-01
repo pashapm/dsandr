@@ -12,19 +12,29 @@ import android.view.View;
 
 public class SlingView extends View {
 
-	public int slx;
-    public int sly;
+   public int slx;
+   public int sly;
 	
    Bitmap sling;
    Bitmap socket;
    
+   private static int SLING_X;
+   private static int SLING_Y;
    
+   private static int SOCKET_DEFAULT_X;
+   private static int SOCKET_DEFAULT_Y;
    
 	
 	public SlingView(Context context) {
 		super(context);
 		sling = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling2 );
 		socket = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling_socket );
+		
+		SLING_X = 80;
+		SLING_Y = ScreenProps.screenHeight - sling.getHeight() + 20;
+		
+		SOCKET_DEFAULT_X = SLING_X + 84;
+		SOCKET_DEFAULT_Y = SLING_Y + 40;
 	}
 	
 	@Override 
@@ -32,29 +42,24 @@ public class SlingView extends View {
 		Paint p = new Paint();
 		p.setAntiAlias(true);
 		p.setColor(Color.parseColor("#a76e21"));
-		canvas.drawBitmap(sling, 80, ScreenProps.screenHeight  
-				- sling.getHeight() + 20, p);
-		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
-				- socket.getHeight() / 2, p);
+		canvas.drawBitmap(sling, SLING_X, SLING_Y, p);
+
 
 		// p.setPathEffect(new CornerPathEffect(15));
 
-//		Path p0 = getRectangle(190, 190, 50, 100, 20);
-//		Path p01 = getRectangle(200, 400, 100, 200, 20);
-//		canvas.drawPath(p0, p);
-//		canvas.drawPath(p01, p);
-
-		Path p2 = getRectangle(90, ScreenProps.screenHeight - sling.getHeight()
-				+ 20, slx - socket.getWidth() / 2, sly, 15);
+		Path p2 = getRectangle(SLING_X + 28, SLING_Y + 24, slx - socket.getWidth() / 2 + 10, sly, 8);
 		canvas.drawPath(p2, p);
-
-		Path p3 = getRectangle(slx + socket.getWidth() / 2, sly, 270,
-				ScreenProps.screenHeight - sling.getHeight() + 10, 15);
+		
+		Path p3 = getRectangle(slx + socket.getWidth() / 2 - 10, sly, SLING_X + 142, SLING_Y + 28, 8);
 		canvas.drawPath(p3, p);
 
 //		invalidate(0, ScreenProps.screenHeight - sling.getHeight(), 
 //				ScreenProps.screenWidth, 
 //				ScreenProps.screenWidth);
+		
+		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
+				- socket.getHeight() / 2, p);
+		
 		invalidate();
 	}
 		
@@ -99,5 +104,19 @@ public class SlingView extends View {
 	    	}
 	    	return alpha;
 		}
+
+		public void setXY(float x, float y) {
+	    	if ( y > 350) {
+	    		sly = (int) y;
+	    	}
+	    	slx = (int) x;
+		}
+
+		public void shot(float x, float y) {
+			slx = SOCKET_DEFAULT_X;
+			sly = SOCKET_DEFAULT_Y;
+			
+		}
+
 	
 }
