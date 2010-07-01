@@ -115,11 +115,13 @@ public class DuckGame extends Activity {
 	
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
-    	if ( event.getY() > 350) {
-    		
-    		sling.sly = (int) event.getY();
+    	if (event.getAction() == MotionEvent.ACTION_MOVE) {
+    		sling.setXY(event.getX(), event.getY());
+    	} else if (event.getAction() == MotionEvent.ACTION_UP) {
+    		sling.shot(event.getX(), event.getY());
     	}
-    	sling.slx = (int) event.getX();
+    	
+
 
 		return super.onTouchEvent(event);
 	}
