@@ -137,7 +137,6 @@ public class DuckGame extends Activity {
 		Handler han = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				Log.d(TAG, "!!!!!!!!!");
 				timer.setRunning(true);
 				fpspr.setRunning(true);
 				mShownDialog = false;
