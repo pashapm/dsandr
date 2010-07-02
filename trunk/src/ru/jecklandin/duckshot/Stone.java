@@ -25,18 +25,27 @@ public class Stone extends GameObject {
 	private int rot_degree = 0;
 	private boolean fallen = false;
 	private boolean vibrated = false;
-	private int y_dest;
+	private float y_dest;
+	private float x_dest;
 	private int anim_frame = 0;
 	public boolean sank = false;
 	
+	private static int SPEED_Y = 20;
 	
-	public SpeedVector mVector;
+	SpeedVector mVector;
+	SpeedVector mDeltaVector;
 	
-	public Stone(int x, int y_dest) {
+	public Stone(int x_dest, int y_dest) {
 		super();
-		this.x = x;
-		this.y = ScreenProps.screenHeight;
+		this.x = SlingView.SOCKET_DEFAULT_X;
+		this.y = SlingView.SOCKET_DEFAULT_Y;
 		this.y_dest = y_dest;
+		this.x_dest = x_dest;
+		
+		mVector = new SpeedVector(this.x, this.y);
+		
+		float ratio = (this.y - this.y_dest) / (x_dest - SlingView.SOCKET_DEFAULT_X);
+		mDeltaVector = new SpeedVector(SPEED_Y/ratio, -SPEED_Y);
 	}
 	
 	@Override
@@ -49,13 +58,16 @@ public class Stone extends GameObject {
 			}
 
 			if (makeFountain) {
-				matrix.setTranslate(x, y);
+//				matrix.setTranslate(x, y);
+				matrix.setTranslate(mVector.x, mVector.y);
 				drawFountain(c, p);
 			}
 	} else {
 			getNextOffset(offset);
-			matrix.setTranslate(x, y);
-			matrix.postRotate(rot_degree, x, y);
+//			matrix.setTranslate(x, y);
+//			matrix.postRotate(rot_degree, x, y);
+			matrix.setTranslate(mVector.x, mVector.y);
+			matrix.postRotate(rot_degree, mVector.x, mVector.y);
 			c.drawBitmap(mStone, matrix, p);
 		}
 		
@@ -78,13 +90,19 @@ public class Stone extends GameObject {
 
 	@Override
 	public float getNextOffset(float curOffset) {
+		mVector.add(mDeltaVector);
 		rot_degree+=3;
-    	speed += 1;
-		 
-		this.y-=(9+speed);
-		if (y <= y_dest) {   
+		
+		if (this.y_dest >= mVector.y) { 
 			fallen = true;
 		}
+		
+//    	speed += 1;
+//		 
+//		this.y-=(9+speed);
+//		if (y <= y_dest) {   
+//			fallen = true;
+//		}
 		return y;
 	}
 

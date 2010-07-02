@@ -111,8 +111,8 @@ public class Duck extends GameObject {
 		matrix.postTranslate(getNextOffset(offset), y - duckBm.getHeight() / 3);
 
 		
-		if (!isDead && mStone != null && mStone.y <= this.y) {
-			if (isIntersects(mStone.x)) {
+		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
+			if (isIntersects((int) mStone.mVector.x)) {
 				isDead = true;
 				mStone.makeFountain = false;
 				DuckShotModel.getInstance().addScore(mValue);

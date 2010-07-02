@@ -21,8 +21,8 @@ public class SlingView extends View {
    private static int SLING_X;
    private static int SLING_Y;
    
-   private static int SOCKET_DEFAULT_X;
-   private static int SOCKET_DEFAULT_Y;
+   static int SOCKET_DEFAULT_X;
+   static int SOCKET_DEFAULT_Y;
    
    private static int SLING_AREA_HEIGHT;
    

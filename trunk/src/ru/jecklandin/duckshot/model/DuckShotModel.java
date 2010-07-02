@@ -76,6 +76,7 @@ public class DuckShotModel {
 		Log.d(TAG, "!!!"+x);
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
 		mStones.add(stone);
+		checkForCollide(stone, wave_number);
 	}
 	
 	/**
@@ -106,7 +107,7 @@ public class DuckShotModel {
 	}
 	
 	private void checkForCollide(Stone stone, int ny) {
-		for (Duck duck : mWaves.get(ny).ducks) {
+		for (Duck duck : mWaves.get(ny).ducks) {  
 			duck.throwStone(stone); 
 		} 
 	}
