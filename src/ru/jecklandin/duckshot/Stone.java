@@ -29,6 +29,9 @@ public class Stone extends GameObject {
 	private int anim_frame = 0;
 	public boolean sank = false;
 	
+	
+	public SpeedVector mVector;
+	
 	public Stone(int x, int y_dest) {
 		super();
 		this.x = x;

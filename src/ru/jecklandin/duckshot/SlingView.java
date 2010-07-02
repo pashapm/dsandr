@@ -1,6 +1,6 @@
-package ru.jecklandin.duckshot.test;
+package ru.jecklandin.duckshot;
 
-import ru.jecklandin.duckshot.ScreenProps;
+import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +24,8 @@ public class SlingView extends View {
    private static int SOCKET_DEFAULT_X;
    private static int SOCKET_DEFAULT_Y;
    
+   private static int SLING_AREA_HEIGHT;
+   
 	
 	public SlingView(Context context) {
 		super(context);
@@ -35,6 +37,11 @@ public class SlingView extends View {
 		
 		SOCKET_DEFAULT_X = SLING_X + 84;
 		SOCKET_DEFAULT_Y = SLING_Y + 40;
+		
+		SLING_AREA_HEIGHT = ScreenProps.screenHeight - SOCKET_DEFAULT_Y;
+		
+		slx = SOCKET_DEFAULT_X;
+		sly = SOCKET_DEFAULT_Y;
 	}
 	
 	@Override 
@@ -112,10 +119,26 @@ public class SlingView extends View {
 	    	slx = (int) x;
 		}
 
-		public void shot(float x, float y) {
+		public void shot(int x, int y) {
+
+			
+			//calc shot
+			int center = SOCKET_DEFAULT_X;
+			
+			int a1 = Math.abs(center - x);
+			int b1 = y<SOCKET_DEFAULT_Y ? 0 : y - SOCKET_DEFAULT_Y;
+			
+//			int c1 = (int) Math.hypot(a1, b1);
+			
+			int wave_num = DuckShotModel.WAVES_NUM - 1 - b1 * DuckShotModel.WAVES_NUM / SLING_AREA_HEIGHT;
+			  
+//			//quantize
+//			int quant = SLING_AREA_HEIGHT / DuckShotModel.WAVES_NUM;
+//			int wave_num = b1 / quant - 1; 
+			
+			DuckShotModel.getInstance().launchStone(wave_num, x>center ? center-a1 : center+a1);
 			slx = SOCKET_DEFAULT_X;
 			sly = SOCKET_DEFAULT_Y;
-			
 		}
 
 	

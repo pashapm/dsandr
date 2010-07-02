@@ -116,7 +116,7 @@ class Environment {
 //		c.drawBitmap(mSun, m, p);
 //		rot_degree+=0.1;
 		
-		m.setTranslate(x_offset2, 60);
+		m.setTranslate(x_offset2, 0 );
 		c.drawBitmap(mCloud2, m, p);
 		if (x_offset2 > ScreenProps.screenWidth * 1.2) {
 			x_offset2 = -mCloud2.getWidth();
@@ -124,7 +124,7 @@ class Environment {
 			x_offset2+=0.3;
 		}
 		
-		m.setTranslate(x_offset1, 55);
+		m.setTranslate(x_offset1, 30);
 		c.drawBitmap(mCloud1, m, p);
 		if (x_offset1 > ScreenProps.screenWidth * 1.1) {
 			x_offset1 = -mCloud1.getWidth();
@@ -133,7 +133,7 @@ class Environment {
 		}
 		
 		p.setColor(Color.parseColor("#457bd5")); 
-		c.drawRect(0, DuckShotModel.WAVES_OFFSET, ScreenProps.screenWidth, ScreenProps.screenHeight, p);
+		c.drawRect(0, ScreenProps.screenHeight-200, ScreenProps.screenWidth, ScreenProps.screenHeight, p);
 		
 	}
 }

@@ -10,6 +10,8 @@ import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
 
 public class DuckShotModel {
 
+	private static String TAG = "DuckShotModel";
+	
 	// Game objects 
 	public Vector<Wave> mWaves = new Vector<Wave>();
 	public Vector<Stone> mStones = new Vector<Stone>();
@@ -25,8 +27,8 @@ public class DuckShotModel {
 		return s_instance;
 	}
 
-	private final int WAVES_NUM = 10;
-	private final int WAVES_GAP = 28;
+	public static final int WAVES_NUM = 10;
+	private static final int WAVES_GAP = 28;
 	
 	public static final int MAX_MSEC = 1999;
 	public static int WAVES_OFFSET;
@@ -60,6 +62,7 @@ public class DuckShotModel {
 		}
 	}
 	
+	@Deprecated
 	public void launchStone(int x, long msec) {
 		Stone stone = new Stone(x, getYFromMsec(msec));
 		synchronized (mStones) { 
@@ -67,6 +70,12 @@ public class DuckShotModel {
 		}
 		
 		checkForCollide(stone, mYes.size() - 1 - getYNumFromMsec(msec));
+	}
+	
+	public void launchStone(int wave_number, int x) {
+		Log.d(TAG, "!!!"+x);
+		Stone stone = new Stone(x, mWaves.get(wave_number).y);
+		mStones.add(stone);
 	}
 	
 	/**
