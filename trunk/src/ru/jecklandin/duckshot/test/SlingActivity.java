@@ -3,6 +3,7 @@ package ru.jecklandin.duckshot.test;
 
 
 import ru.jecklandin.duckshot.ScreenProps;
+import ru.jecklandin.duckshot.SlingView;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;

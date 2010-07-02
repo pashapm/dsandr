@@ -40,7 +40,7 @@ public class Desk {
 	private int x = 0;
 	
 	private Matrix matrix = new Matrix();;
-	Matrix addit_m = new Matrix();
+	private Matrix addit_m = new Matrix();
 	
 	public void draw(Canvas c, Paint p) {
 		int y = ScreenProps.screenHeight - mDesk.getHeight();
@@ -70,7 +70,6 @@ public class Desk {
 		if (this.power != 0) {
 			c.drawBitmap(mPointer, 0, DuckShotModel.getInstance().getYFromMsec(this.power), p);
 			c.drawBitmap(Stone.mStone, this.x, ScreenProps.screenHeight - Stone.mStone.getHeight()/2, p);
-			
 			//this.is.sparta
 		}
 		
@@ -78,11 +77,10 @@ public class Desk {
 //		c.drawText(String.valueOf(DuckShotModel.getInstance().getScore()), ScreenProps.screenWidth/2, 30, p);
 		
 		addit_m.reset();
-		addit_m.setScale(1f, 1f); 
-		addit_m.postTranslate(ScreenProps.screenWidth/2, 5);
+		addit_m.postTranslate(0, ScreenProps.screenHeight - 100);
 		Bitmap[] bd = getScoreDigits(DuckShotModel.getInstance().getScore());
 		for (int i=0; i<bd.length; ++i) {
-			addit_m.postTranslate(30, 0);
+			addit_m.postTranslate(20, 0);
 			c.drawBitmap(bd[i], addit_m, p);	
 		}
 		

@@ -22,7 +22,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import ru.jecklandin.duckshot.test.SlingView;
 
 public class DuckGame extends Activity {
     
@@ -115,16 +114,16 @@ public class DuckGame extends Activity {
 	
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
-    	if (event.getAction() == MotionEvent.ACTION_MOVE) {
+    	if (event.getAction() == MotionEvent.ACTION_MOVE) {  
     		sling.setXY(event.getX(), event.getY());
     	} else if (event.getAction() == MotionEvent.ACTION_UP) {
-    		sling.shot(event.getX(), event.getY());
+    		sling.shot((int)event.getX(), (int)event.getY()); 
     	}
     	
 
 
 		return super.onTouchEvent(event);
-	}
+	}  
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
