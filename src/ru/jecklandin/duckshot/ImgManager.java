@@ -13,11 +13,19 @@ public class ImgManager {
 	private static Context mCtx;
 	private static Map<String, Bitmap> mImgMap = new HashMap<String, Bitmap>();
 	private static Map<String, Bitmap[]> mAniMap = new HashMap<String, Bitmap[]>();
-	
+	  
 	public static void loadImages(Context ctx) {
-		mCtx = ctx;
+		mCtx = ctx;  
 		
 		Bitmap bm = getBitmap(R.drawable.wave);
+		
+		int qq[] = new int[bm.getWidth() * bm.getHeight()];
+		bm.getPixels(qq, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight() );
+		
+		bm = Bitmap.createBitmap(qq, 0, bm.getWidth(), bm.getWidth(), bm.getHeight(), Bitmap.Config.ARGB_8888);
+		
+		 
+		     
 		mImgMap.put("wave", bm);
 		bm = getBitmap(R.drawable.duck);
 		mImgMap.put("duck", bm);
@@ -81,14 +89,33 @@ public class ImgManager {
 		mAniMap.put("duckemerge", anim);
 		
 		bm = getBitmap(R.drawable.digits);
-		anim = new Bitmap[10];
+		anim = new Bitmap[11];
 		for (int i=0; i<anim.length; ++i) {
 			anim[i] = Bitmap.createBitmap(bm, i*30, 0, 30, 30);
 		}
 		mAniMap.put("digits", anim);
+		
+		bm = getBitmap(R.drawable.digits_red);
+		anim = new Bitmap[11]; 
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*30, 0, 30, 30);
+		}
+		mAniMap.put("digits_red", anim);
+		
+		bm = getBitmap(R.drawable.digits_time);
+		anim = new Bitmap[11]; 
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*25, 0, 25, 20);
+		}
+		mAniMap.put("digits_time", anim);
 	}
 
 	private static Bitmap getBitmap(int id) {
+		return BitmapFactory.decodeResource(mCtx.getResources(), id);
+	}
+	
+	private static Bitmap getBitmap2(int id) {
+		
 		return BitmapFactory.decodeResource(mCtx.getResources(), id);
 	}
 	

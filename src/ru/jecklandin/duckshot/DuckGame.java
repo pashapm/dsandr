@@ -27,18 +27,19 @@ public class DuckGame extends Activity {
     
 	private static final String TAG = "DuckGame";
 	
-	GameField gf;
+	GameField mGf;
     Vibrator mVibro;
     Typeface mTypeface;
-    DuckTimer timer;
-    FPSPrinter fpspr;
-    SlingView sling;
+    Match mMatch;
+//  SFGameField sf;
     
-    boolean mShownDialog = false;
+    private DuckTimer mTimer;
+    private FPSPrinter mFpsPr;
     
-    SFGameField sf;
+    private SlingView mSling;
+    private boolean mShownDialog = false;
     
-    static DuckGame s_instance;	
+   public static DuckGame s_instance;	
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,16 +48,17 @@ public class DuckGame extends Activity {
         mVibro = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         ScreenProps.initialize(this);
 		ImgManager.loadImages(this);
-        gf = new GameField(this);
+        mGf = new GameField(this);
         
-//        sf = new SFGameField(this);
+//      sf = new SFGameField(this);
        
+        mTimer = new DuckTimer(mGf);
+        setContentView(mGf);
         
-        timer = new DuckTimer(gf);
-        setContentView(gf);
-        
-        sling = new SlingView(this);
-        getWindow().addContentView(sling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        mMatch = new Match(90);
+                
+        mSling = new SlingView(this);
+        getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         
         
         //debug btn
@@ -72,10 +74,11 @@ public class DuckGame extends Activity {
 			}
 		}); 
 
-        fpspr = new FPSPrinter();
+        mFpsPr = new FPSPrinter();
         
-        timer.start();
-        fpspr.start();
+        mTimer.start();
+        mFpsPr.start();
+        mMatch.start();
         
         mTypeface = Typeface.createFromAsset(getAssets(), "Whypo.ttf");
         
@@ -87,22 +90,22 @@ public class DuckGame extends Activity {
 
 	@Override
 	protected void onPause() {
-		timer.setRunning(false);
-		fpspr.setRunning(false);
+		mTimer.setRunning(false);
+		mFpsPr.setRunning(false);
 		super.onPause();
 	}
 
 	@Override
 	protected void onStop() {
-		timer.setRunning(false);
-		fpspr.setRunning(false);
+		mTimer.setRunning(false);
+		mFpsPr.setRunning(false);
 		super.onStop();
 	} 
 
 	@Override
 	protected void onResume() {
-		timer.setRunning(!mShownDialog);
-		fpspr.setRunning(!mShownDialog);
+		mTimer.setRunning(!mShownDialog);
+		mFpsPr.setRunning(!mShownDialog);
 		super.onResume();
 	}
 
@@ -115,9 +118,11 @@ public class DuckGame extends Activity {
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
     	if (event.getAction() == MotionEvent.ACTION_MOVE) {  
-    		sling.setXY(event.getX(), event.getY());
+    		mSling.setXY(event.getX(), event.getY());
     	} else if (event.getAction() == MotionEvent.ACTION_UP) {
-    		sling.shot((int)event.getX(), (int)event.getY()); 
+    		mSling.shot((int)event.getX(), (int)event.getY()); 
+    	} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+    		mSling.grab((int)event.getX(), (int)event.getY());
     	}
     	
 
@@ -137,14 +142,14 @@ public class DuckGame extends Activity {
 		Handler han = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				timer.setRunning(true);
-				fpspr.setRunning(true);
+				mTimer.setRunning(true);
+				mFpsPr.setRunning(true);
 				mShownDialog = false;
 			}
 		};
 		
-		timer.setRunning(false);
-		fpspr.setRunning(false);
+		mTimer.setRunning(false);
+		mFpsPr.setRunning(false);
 		mShownDialog = true;
 		PauseDialog.show(this, han);
 	}
@@ -163,14 +168,14 @@ class DuckTimer extends Thread {
 	@Override
 	public void run() {
 		while (!isInterrupted()) {
-
+ 
 			if (mRunning) {
 				ObjectDrawer.sLastTick = System.currentTimeMillis();
-				FpsCounter.notifyDrawing();
+//				if (!ObjectDrawer.lock) 
 				m_view.postInvalidate();
 			}
 			try {
-				sleep(50);
+				sleep(30);
 			} catch (InterruptedException e) {
 				Log.d("DuckTimer", "Stopping");
 				// e.printStackTrace();
