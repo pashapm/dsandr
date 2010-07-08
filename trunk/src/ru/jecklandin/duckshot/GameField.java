@@ -30,7 +30,10 @@ public class GameField extends View {
 		canvas.setDrawFilter(setfil);  
 		
     	long c = System.currentTimeMillis();
+    	
+    	ObjectDrawer.lock = true;
     	mDrawer.drawObjects(canvas);
+    	ObjectDrawer.lock = false;
 //    	Log.d("FRAME:", "" + (System.currentTimeMillis() - c));
 		
 //		Log.d("LAAAATE", "late:"+late);

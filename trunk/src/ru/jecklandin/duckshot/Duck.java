@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot;
 
+import ru.jecklandin.duckshot.Desk.DigitType;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,7 +22,7 @@ public class Duck extends GameObject {
 		Duck.deadDuckBm = ImgManager.getBitmap("deadduck");
 		Duck.mAniDiving = ImgManager.getAnimation("duckdive");
 		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
-		Duck.mDigits = ImgManager.getAnimation("digits");
+		
 	}
 
 	// state
@@ -47,7 +48,7 @@ public class Duck extends GameObject {
 	private static Bitmap deadDuckBm;
 	private static Bitmap[] mAniDiving;
 	private static Bitmap[] mAniEmerging;
-	static Bitmap[] mDigits;
+	
 
 	public Wave ownedWave;
 	public int mValue = 100;
@@ -208,13 +209,10 @@ public class Duck extends GameObject {
 	
 	
 	private void drawScoreDigits(Canvas c, Paint p, Matrix mat, int score) {
-		String sc = String.valueOf(score);
-		
-		
-		for (int i=0; i<sc.length(); ++i)	{
-			Bitmap dig = mDigits[ Integer.valueOf( sc.substring(i, i+1) ) ];
+		Bitmap[] bms = Desk.getDigits(score, DigitType.YELLOW);
+		for (int i=0; i<bms.length; ++i) {
 			mat.postTranslate(15, 0);
-			c.drawBitmap(dig, mat, p);
+			c.drawBitmap(bms[i], mat, p);	
 		}
 	}
 	

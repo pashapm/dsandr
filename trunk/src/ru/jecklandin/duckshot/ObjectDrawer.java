@@ -14,6 +14,7 @@ public class ObjectDrawer {
 	private static final String TAG = "ObjectDrawer";
 	private static ObjectDrawer s_instance;
 
+	public static boolean lock = false;
 	
 	private Context mCtx;
 	private Paint mPaint;

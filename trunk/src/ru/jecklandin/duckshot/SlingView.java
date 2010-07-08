@@ -26,6 +26,7 @@ public class SlingView extends View {
    
    private static int SLING_AREA_HEIGHT;
    
+   private boolean mIsGrabbed = false;
 	
 	public SlingView(Context context) {
 		super(context);
@@ -67,7 +68,7 @@ public class SlingView extends View {
 		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
 				- socket.getHeight() / 2, p);
 		
-		invalidate();
+//		invalidate();
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
@@ -113,6 +114,10 @@ public class SlingView extends View {
 		}
 
 		public void setXY(float x, float y) {
+			if (!mIsGrabbed) {
+				return;
+			}
+			
 	    	if ( y > 350) {
 	    		sly = (int) y;
 	    	}
@@ -120,25 +125,25 @@ public class SlingView extends View {
 		}
 
 		public void shot(int x, int y) {
-
-			
-			//calc shot
+			if (!mIsGrabbed) {
+				return;
+			}
 			int center = SOCKET_DEFAULT_X;
-			
 			int a1 = Math.abs(center - x);
 			int b1 = y<SOCKET_DEFAULT_Y ? 0 : y - SOCKET_DEFAULT_Y;
-			
-//			int c1 = (int) Math.hypot(a1, b1);
-			
 			int wave_num = DuckShotModel.WAVES_NUM - 1 - b1 * DuckShotModel.WAVES_NUM / SLING_AREA_HEIGHT;
-			  
-//			//quantize
-//			int quant = SLING_AREA_HEIGHT / DuckShotModel.WAVES_NUM;
-//			int wave_num = b1 / quant - 1; 
-			
 			DuckShotModel.getInstance().launchStone(wave_num, x>center ? center-a1 : center+a1);
 			slx = SOCKET_DEFAULT_X;
 			sly = SOCKET_DEFAULT_Y;
+			mIsGrabbed = false;
+		}
+
+		public void grab(int x, int y) {
+			if (Math.abs(x-SOCKET_DEFAULT_X) < 50  
+					&&  Math.abs(y-SOCKET_DEFAULT_Y) < 40) {
+				mIsGrabbed = true;
+			}
+			
 		}
 
 	
