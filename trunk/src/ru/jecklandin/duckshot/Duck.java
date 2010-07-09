@@ -51,7 +51,7 @@ public class Duck extends GameObject {
 	
 
 	public Wave ownedWave;
-	public int mValue = 100;
+	public int mScoreValue = 100;
 
 	private Matrix emptyMatrix;
 	private Matrix addit_m;
@@ -116,7 +116,7 @@ public class Duck extends GameObject {
 			if (isIntersects((int) mStone.mVector.x)) {
 				isDead = true;
 				mStone.makeFountain = false;
-				DuckShotModel.getInstance().addScore(mValue);
+				DuckShotModel.getInstance().addScore(mScoreValue);
 				DuckGame.s_instance.mVibro.vibrate(30);
 			}
 			mStone = null;
@@ -202,7 +202,7 @@ public class Duck extends GameObject {
 		addit_m.reset();
 		addit_m.setScale(0.6f, 0.6f);
 		addit_m.postTranslate(this.offset, ownedWave.y + dead_sink);
-		drawScoreDigits(c, p, addit_m, mValue);
+		drawScoreDigits(c, p, addit_m, mScoreValue);
 		//p.setAlpha(255);
 	}
 

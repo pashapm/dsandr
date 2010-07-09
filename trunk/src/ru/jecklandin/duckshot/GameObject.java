@@ -17,7 +17,7 @@ public abstract class GameObject {
 	public float speed;
 	
 	protected Matrix matrix;
-	protected float offset = 0;
+	public float offset = 0;
 	public abstract float getNextOffset(float curOffset);
 	public abstract OBJ_TYPE getRtti();
 	public abstract void draw(Canvas c, Paint p);

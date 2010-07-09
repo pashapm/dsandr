@@ -119,19 +119,39 @@ public class DuckShotModel {
 		} 
 	}
 	
-	public void addDuck(int wave_num) {
-		int randx = (int) (Math.random() * ScreenProps.screenWidth);
-		Duck d = new Duck( randx );
-		d.mValue = 50 + 10*(mWaves.size() - 1 - wave_num);
-		d.ownedWave = mWaves.get(wave_num);
-		mWaves.get(wave_num).addDuck(d);
+	/**
+	 * 
+	 * @param wave_num
+	 * @return is it able to place one more duck
+	 */
+	public boolean addDuck(int wave_num) {
+		Wave ownedWave = mWaves.get(wave_num);
+
+		int randx;
+		int tries = 3; 
+		do {
+			randx = (int) (Math.random() * ScreenProps.screenWidth);
+			if (--tries < 0) {
+				return false;
+			}
+		} while (!ownedWave.isPlaceFree(randx));
+		
+		Duck d = new Duck( 0 );
+		d.mScoreValue = 50 + 10*(mWaves.size() - 1 - wave_num);
+		d.ownedWave =  ownedWave;
+		d.offset = randx;
+		d.ownedWave.addDuck(d);
+		return true;
 	}
-	
+
 	public void addRandomDuck() {
-		int randy = (int) (Math.random() * mWaves.size());
-		addDuck(randy);
+		int randy;
+		// look for free wave
+		do {
+			randy = (int) (Math.random() * mWaves.size());
+		} while (!addDuck(randy));
 	}
-	
+
 	public void cleanup() {
 		boolean need_gc = false;
 		synchronized (mStones) {

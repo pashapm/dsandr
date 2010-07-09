@@ -16,6 +16,8 @@ import android.util.Log;
 public class Wave extends GameObject {
 	private int MAX_OFFSET = 0;
 	private int MIN_OFFSET = -100;
+	private static int MIN_DISTANCE_APPEARANCE = 80;
+	
 	
 	static {
 		Wave.waveBm = ImgManager.getBitmap("wave");
@@ -74,5 +76,15 @@ public class Wave extends GameObject {
 		c.drawBitmap(waveBm, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
 		c.drawRect(0, y+waveBm.getHeight()-1, ScreenProps.screenWidth, y+y+waveBm.getHeight()+50, p);
+	}
+
+	public boolean isPlaceFree(int randx) {
+		boolean free = true;
+		for (Duck d : ducks) {
+			if (Math.abs(d.offset - randx) < Wave.MIN_DISTANCE_APPEARANCE) {
+				free = false;
+			}
+		}
+		return free;
 	}
 }
