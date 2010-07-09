@@ -1,7 +1,11 @@
 package ru.jecklandin.duckshot.model;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
+
+import com.flurry.android.FlurryAgent;
 
 import android.content.Context;
 import android.util.Log;
@@ -77,8 +81,11 @@ public class DuckShotModel {
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
 		mStones.add(stone);
 		checkForCollide(stone, wave_number);
+		Map<String, String> map = new HashMap<String, String>() ;
+		map.put("wave_number", ""+wave_number);
+		map.put("x", ""+x);
+		FlurryAgent.onEvent("shot", map);
 	}
-	
 	/**
 	 * Final point of stone's flight
 	 * @param msec

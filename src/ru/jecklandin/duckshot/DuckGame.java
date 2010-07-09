@@ -1,6 +1,8 @@
 package ru.jecklandin.duckshot;
 
 
+import com.flurry.android.FlurryAgent;
+
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.utils.FpsCounter;
 import android.app.Activity;
@@ -83,7 +85,8 @@ public class DuckGame extends Activity {
         mTypeface = Typeface.createFromAsset(getAssets(), "Whypo.ttf");
         
 
-		
+        FlurryAgent.onStartSession(this, "Y965UZQRQDF3DQ122CN5");
+        
 		
         
     }
@@ -97,6 +100,7 @@ public class DuckGame extends Activity {
 
 	@Override
 	protected void onStop() {
+		FlurryAgent.onEndSession(this);
 		mTimer.setRunning(false);
 		mFpsPr.setRunning(false);
 		super.onStop();
@@ -125,19 +129,19 @@ public class DuckGame extends Activity {
     		mSling.grab((int)event.getX(), (int)event.getY());
     	}
     	
-
+  
 
 		return super.onTouchEvent(event);
-	}  
+	}    
 	
-	@Override
+	@Override     
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_MENU) {
 			showPauseDialog();
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-	
+	}    
+	 
 	private void showPauseDialog() {
 		Handler han = new Handler() {
 			@Override
