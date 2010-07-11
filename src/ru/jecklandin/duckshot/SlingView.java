@@ -122,6 +122,15 @@ public class SlingView extends View {
 	    		sly = (int) y;
 	    	}
 	    	slx = (int) x;
+	    	
+	    	//setting sight
+			int center = SOCKET_DEFAULT_X;
+			int a1 = (int) Math.abs(SOCKET_DEFAULT_X - x);
+			int sightx = x>center ? center-a1 : center+a1;
+			int b1 = (int) (y<SOCKET_DEFAULT_Y ? 0 : y - SOCKET_DEFAULT_Y);
+
+			int sighty = SOCKET_DEFAULT_Y - b1 * DuckShotModel.WAVES_HEIGHT / SLING_AREA_HEIGHT;
+			Desk.getInstance().setSight(sightx, sighty);
 		}
 
 		public void shot(int x, int y) {
@@ -136,6 +145,7 @@ public class SlingView extends View {
 			slx = SOCKET_DEFAULT_X;
 			sly = SOCKET_DEFAULT_Y;
 			mIsGrabbed = false;
+			Desk.getInstance().setSightVisibility(false);
 		}
 
 		public void grab(int x, int y) {
@@ -143,7 +153,7 @@ public class SlingView extends View {
 					&&  Math.abs(y-SOCKET_DEFAULT_Y) < 40) {
 				mIsGrabbed = true;
 			}
-			
+			Desk.getInstance().setSightVisibility(true);
 		}
 
 	

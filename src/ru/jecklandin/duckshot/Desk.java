@@ -16,7 +16,7 @@ public class Desk {
 			s_instance = new Desk();
 		}
 		return s_instance;
-	}
+	} 
 	
 	static {
 		Desk.mDesk = ImgManager.getBitmap("desk");
@@ -36,7 +36,7 @@ public class Desk {
 	public static Bitmap mStub;
 	public static Bitmap mPointer;
 	public static Bitmap mPointerh;
-	public static Bitmap mSight;
+	public static Bitmap mSight; 
 	public static Bitmap[] mDigitsTime;
 	public static Bitmap[] mDigits;
 	
@@ -45,6 +45,10 @@ public class Desk {
 	
 	private Matrix matrix = new Matrix();;
 	private Matrix addit_m = new Matrix();
+	
+	private boolean mShowSight = false;
+	private int mSightX;
+	private int mSightY;
 	
 	public enum DigitType {YELLOW, RED, WHITE};
 	
@@ -100,6 +104,13 @@ public class Desk {
 			addit_m.postTranslate(20, 0);
 			c.drawBitmap(timeBms[i], addit_m, p);	
 		}
+		
+		//draw sight
+		if (mShowSight) {
+			addit_m.reset();
+			addit_m.setTranslate(mSightX-mSight.getWidth()/2, mSightY-mSight.getHeight()/2);
+			c.drawBitmap(mSight, addit_m, p);
+		}
 	}  
 	
 	public static Bitmap[] getDigits(int score, DigitType type) {
@@ -126,8 +137,18 @@ public class Desk {
 		return bd;
 	}
 	 
+	@Deprecated
 	public void setPowerIndicator(long msec, int x) {
 		this.power = (int) msec;
 		this.x = x;
+	}
+	
+	public void setSight(int x, int y) {
+		mSightX = x;
+		mSightY = y;
+	}
+	
+	public void setSightVisibility(boolean vis) {
+		mShowSight = vis;
 	}
 }
