@@ -15,7 +15,7 @@ public class Duck extends GameObject {
 	private int MAX_OFFSET = 300;
 	private int MIN_OFFSET = 0;
 
-	private int DUCK_ID = 0;
+	private static int DUCK_ID = 0;
 	static {
 		
 		Duck.duckBm = ImgManager.getBitmap("duck");
