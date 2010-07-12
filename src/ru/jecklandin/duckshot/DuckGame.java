@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
+import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -57,7 +58,18 @@ public class DuckGame extends Activity {
         mTimer = new DuckTimer(mGf);
         setContentView(mGf);
         
-        mMatch = new Match(90);
+        Handler han = new Handler(new Callback() {
+			
+			@Override
+			public boolean handleMessage(Message msg) {
+				if (msg.arg1 == 42) {
+					stopMatch();
+				}
+				return false;
+			}
+		});
+        
+        mMatch = new Match(10, han);
                 
         mSling = new SlingView(this);
         getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
@@ -158,6 +170,21 @@ public class DuckGame extends Activity {
 		PauseDialog.show(this, han);
 	}
 
+	void stopMatch() {
+//		Log.d("!!!!", "STOOOOOOOP");
+		mTimer.mRunning = false;
+		showDialog(1);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == 1) {
+			return new LevelCompletedDialog(this, mMatch);
+		} 
+		return super.onCreateDialog(id);
+	}
+	
+	
 } 
 
 class DuckTimer extends Thread {
