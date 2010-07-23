@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.os.Debug;
+import android.util.Log;
 
 public class ImgManager {
 
@@ -61,6 +63,10 @@ public class ImgManager {
 		mImgMap.put("cloud3", bm);
 		bm = getBitmap(R.drawable.sight);
 		mImgMap.put("sight", bm);
+		bm = getBitmap(R.drawable.settings_quant);
+		mImgMap.put("quant", bm);
+		bm = getBitmap(R.drawable.settings_quant_e);
+		mImgMap.put("quant_e", bm);
 
 		
 		
@@ -111,11 +117,6 @@ public class ImgManager {
 	}
 
 	private static Bitmap getBitmap(int id) {
-		return BitmapFactory.decodeResource(mCtx.getResources(), id);
-	}
-	
-	private static Bitmap getBitmap2(int id) {
-		
 		return BitmapFactory.decodeResource(mCtx.getResources(), id);
 	}
 	
