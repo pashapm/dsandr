@@ -29,6 +29,7 @@ public class Match extends Thread {
 	
 	private long mMatchMs; 
 	private boolean mPaused = false;
+	private int mScore = 0;
 	private Vector<KillEvent> mKilledDucks = new Vector<KillEvent>();
 	
 	public Match(int seconds, Handler han) {
@@ -83,6 +84,15 @@ public class Match extends Thread {
 		event.mBonusAwarded = bonus;
 		mKilledDucks.add(event);
 		return bonus;
+	}
+	
+	// score 
+	public void addScore(int sc) {
+		mScore += sc;
+	}
+	
+	public int getScore() {
+		return mScore;
 	}
 	
 	

@@ -17,7 +17,7 @@ public class Desk {
 		}
 		return s_instance;
 	} 
-	
+	 
 	static {
 		Desk.mDesk = ImgManager.getBitmap("desk");
 		Desk.mIndent = ImgManager.getBitmap("indent");
@@ -90,7 +90,7 @@ public class Desk {
 		// draw score
 		addit_m.reset();
 		addit_m.postTranslate(0, ScreenProps.screenHeight - 100);
-		Bitmap[] scoreBms = getDigits(DuckShotModel.getInstance().getScore(), DigitType.YELLOW);
+		Bitmap[] scoreBms = getDigits(DuckGame.getCurrentMatch().getScore(), DigitType.YELLOW);
 		for (int i=0; i<scoreBms.length; ++i) {
 			addit_m.postTranslate(20, 0);
 			c.drawBitmap(scoreBms[i], addit_m, p);	

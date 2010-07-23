@@ -107,14 +107,15 @@ public class DuckGame extends Activity {
 	protected void onPause() {
 		mTimer.setRunning(false);
 		mFpsPr.setRunning(false);
+		mMatch.pauseMatch();
 		super.onPause();
 	}
 
 	@Override
 	protected void onStop() {
 		FlurryAgent.onEndSession(this);
-		mTimer.setRunning(false);
-		mFpsPr.setRunning(false);
+//		mTimer.setRunning(false);
+//		mFpsPr.setRunning(false);
 		super.onStop();
 	} 
 
@@ -122,6 +123,7 @@ public class DuckGame extends Activity {
 	protected void onResume() {
 		mTimer.setRunning(!mShownDialog);
 		mFpsPr.setRunning(!mShownDialog);
+		mMatch.resumeMatch();
 		super.onResume();
 	}
 
@@ -171,11 +173,18 @@ public class DuckGame extends Activity {
 	}
 
 	void stopMatch() {
-//		Log.d("!!!!", "STOOOOOOOP");
-		mTimer.mRunning = false;
+		mTimer.setRunning(false);
 		showDialog(1);
 	}
-
+	
+	public static Match getCurrentMatch() {
+		return DuckGame.s_instance.mMatch;
+	}
+	
+	public static Vibrator getVibrator() {
+		return DuckGame.s_instance.mVibro;
+	}
+	
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == 1) {

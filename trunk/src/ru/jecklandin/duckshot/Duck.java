@@ -116,8 +116,8 @@ public class Duck extends GameObject {
 			if (isIntersects((int) mStone.mVector.x)) {
 				isDead = true;
 				mStone.makeFountain = false;
-				DuckShotModel.getInstance().addScore(mScoreValue);
-				DuckGame.s_instance.mVibro.vibrate(30);
+				DuckGame.getCurrentMatch().addScore(mScoreValue);
+				DuckGame.getVibrator().vibrate(30);
 			}
 			mStone = null;
 		}
@@ -135,9 +135,6 @@ public class Duck extends GameObject {
 				drawNormal(c, p);
 			}
 		}
-		
-//		c.drawCircle(this.offset - duckBm.getWidth()/3, y, 5, p);
-//		c.drawCircle(this.offset + 4*duckBm.getWidth()/3 , y, 5, p);
 	}
 
 	private void drawEmerging(Canvas c, Paint p) {
