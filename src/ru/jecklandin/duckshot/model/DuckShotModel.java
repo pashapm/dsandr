@@ -21,8 +21,6 @@ public class DuckShotModel {
 	public Vector<Stone> mStones = new Vector<Stone>();
 	public Vector<Integer> mYes = new Vector<Integer>();
 	
-	private int mScore = 0;
-	
 	private static DuckShotModel s_instance;
 	public static synchronized DuckShotModel getInstance() {
 		if (DuckShotModel.s_instance == null) {
@@ -33,18 +31,13 @@ public class DuckShotModel {
 
 	public static final int WAVES_NUM = 10;
 	public static int WAVES_HEIGHT = 0;
-	private static final int WAVES_GAP = 28;
-	
-	
 	public static final int MAX_MSEC = 1999;
 	public static int WAVES_OFFSET;
+	private static final int WAVES_GAP = 28;
 	
 	public DuckShotModel() {
-		
 		WAVES_OFFSET = ScreenProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight() - 80; 
-		
 		WAVES_HEIGHT = WAVES_NUM * WAVES_GAP;
-		
 		
 		// loading Y-coord
 		for (int i=0; i<WAVES_NUM; ++i) {
@@ -61,10 +54,6 @@ public class DuckShotModel {
 		
 		for (int i=0; i<3; ++i) {
 			addRandomDuck();
-//			int wave_num = i*2;
-//			Duck d = new Duck(50*i);
-//			d.ownedWave = mWaves.get(wave_num);
-//			mWaves.get(wave_num).addDuck(d);
 		}
 	}
 	
@@ -166,19 +155,12 @@ public class DuckShotModel {
 			}
 		}
 		
-		
 		if (need_gc) {
 			//System.gc();
 		}
+	}
+	
+	public void reinitialize() {
 		
 	}
-	
-	public void addScore(int sc) {
-		mScore += sc;
-	}
-	
-	public int getScore() {
-		return mScore;
-	}
-
 }

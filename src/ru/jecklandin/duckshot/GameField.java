@@ -28,44 +28,8 @@ public class GameField extends View {
 		//antialiasing for bitmaps 
 		PaintFlagsDrawFilter setfil = new PaintFlagsDrawFilter(0, Paint.FILTER_BITMAP_FLAG);
 		canvas.setDrawFilter(setfil);  
-		
-    	long c = System.currentTimeMillis();
-    	
-    	ObjectDrawer.lock = true;
-    	mDrawer.drawObjects(canvas);
-    	ObjectDrawer.lock = false;
-//    	Log.d("FRAME:", "" + (System.currentTimeMillis() - c));
-		
-//		Log.d("LAAAATE", "late:"+late);
-		FpsCounter.notifyDrawing();
-		//invalidate();
+   	
+     	mDrawer.drawObjects(canvas);
+ 		FpsCounter.notifyDrawing();
   	}    
- 
-	private long time_pressed = 0;
-
-	public void touch(MotionEvent event) {
- 	
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			time_pressed = System.currentTimeMillis();
-			break;
-		case MotionEvent.ACTION_MOVE:
-			int time_elapsed = (int) (System.currentTimeMillis() - time_pressed);
-			time_elapsed = time_elapsed < DuckShotModel.MAX_MSEC ? time_elapsed : DuckShotModel.MAX_MSEC;
-			Desk.getInstance().setPowerIndicator(time_elapsed, (int) event.getX());
-			//Log.d("qq", time_elapsed+"");
-			break;
-		case MotionEvent.ACTION_UP:
-			Desk.getInstance().setPowerIndicator(0, (int) event.getX());
-			time_elapsed = (int) (System.currentTimeMillis() - time_pressed);
-			//normalizing
-			Log.d("RES", time_elapsed+"");
-			time_elapsed = time_elapsed < DuckShotModel.MAX_MSEC ? time_elapsed : DuckShotModel.MAX_MSEC;
-			DuckShotModel.getInstance().launchStone((int) event.getX(), time_elapsed);
-			break;
-		default:
-			break;
-		}
-	}
-	
 }
