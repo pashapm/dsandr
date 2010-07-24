@@ -22,12 +22,12 @@ public class DucksSeekBar extends SeekBar {
 	public DucksSeekBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		
-	}
+	} 
 	 
 	private Matrix mMatr = new Matrix();
 	private Paint mPaint = new Paint();
 	
-	@Override 
+	@Override   
 	protected synchronized void onDraw(Canvas canvas) {
 		mMatr.reset();
 		mMatr.setTranslate(0, (getHeight()-mQuant.getHeight())/2);
