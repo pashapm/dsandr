@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent" android:layout_height="fill_parent" android:padding="3dip" android:paddingTop="20dip" android:orientation="vertical" android:background="@drawable/menubackt">
-<LinearLayout android:id="@+id/LinearLayout02" android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="bottom|center" android:minHeight="70dip"><ImageView android:id="@+id/ImageView01" android:layout_height="wrap_content" android:src="@drawable/settings_soundlab" android:layout_width="wrap_content"></ImageView>
-</LinearLayout><LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent"><ImageButton android:layout_height="wrap_content" android:src="@drawable/settings_soundoff" android:background="#00000000" android:scaleType="center" android:layout_width="wrap_content" android:layout_weight="0" android:id="@+id/soundoff"></ImageButton><ru.jecklandin.duckshot.DucksSeekBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:max="8" android:progress="4" android:minHeight="40dip" android:layout_weight="1" android:id="@+id/soundbar">
-</ru.jecklandin.duckshot.DucksSeekBar><ImageButton android:layout_height="wrap_content" android:background="#00000000" android:src="@drawable/settings_soundon" android:scaleType="center" android:layout_width="wrap_content" android:id="@+id/soundon"></ImageButton></LinearLayout><LinearLayout android:id="@+id/LinearLayout03" android:layout_height="wrap_content" android:layout_width="fill_parent" android:gravity="bottom|center" android:minHeight="70dip"><ImageView android:id="@+id/ImageView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/settings_effectslab"></ImageView>
-</LinearLayout><LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/LinearLayout09"><ImageButton android:layout_height="wrap_content" android:src="@drawable/settings_soundoff" android:background="#00000000" android:scaleType="center" android:layout_width="wrap_content" android:layout_weight="0" android:id="@+id/soundoff"></ImageButton><ru.jecklandin.duckshot.DucksSeekBar android:layout_height="wrap_content" android:layout_width="fill_parent" android:max="8" android:progress="4" android:minHeight="40dip" android:layout_weight="1" android:id="@+id/soundbar">
-</ru.jecklandin.duckshot.DucksSeekBar><ImageButton android:layout_height="wrap_content" android:background="#00000000" android:src="@drawable/settings_soundon" android:scaleType="center" android:layout_width="wrap_content" android:id="@+id/soundon"></ImageButton></LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="3dip" android:paddingTop="20dip" android:orientation="vertical"
+	android:background="#00000000">
+	<LinearLayout android:id="@+id/LinearLayout02"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"
+		android:gravity="bottom|center" android:minHeight="70dip">
+		<ImageView android:id="@+id/ImageView01"
+			android:layout_height="wrap_content" android:src="@drawable/settings_soundlab"
+			android:layout_width="wrap_content"></ImageView>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_height="wrap_content" android:layout_width="fill_parent">
+		<ImageButton android:layout_height="wrap_content"
+			android:src="@drawable/settings_soundoff" android:background="#00000000"
+			android:scaleType="center" android:layout_width="wrap_content"
+			android:layout_weight="0" android:id="@+id/soundoff"></ImageButton>
+		<ru.jecklandin.duckshot.DucksSeekBar
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:max="8" android:progress="4" android:minHeight="40dip"
+			android:layout_weight="1" android:id="@+id/soundbar">
+		</ru.jecklandin.duckshot.DucksSeekBar>
+		<ImageButton android:layout_height="wrap_content"
+			android:background="#00000000" android:src="@drawable/settings_soundon"
+			android:scaleType="center" android:layout_width="wrap_content"
+			android:id="@+id/soundon"></ImageButton>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/LinearLayout03"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"
+		android:gravity="bottom|center" android:minHeight="70dip">
+		<ImageView android:id="@+id/ImageView02"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:src="@drawable/settings_effectslab"></ImageView>
+	</LinearLayout>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="fill_parent" android:id="@+id/LinearLayout09">
+		<ImageButton android:layout_height="wrap_content"
+			android:src="@drawable/settings_soundoff" android:background="#00000000"
+			android:scaleType="center" android:layout_width="wrap_content"
+			android:layout_weight="0" android:id="@+id/soundoff"></ImageButton>
+		<ru.jecklandin.duckshot.DucksSeekBar
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:max="8" android:progress="4" android:minHeight="40dip"
+			android:layout_weight="1" android:id="@+id/soundbar">
+		</ru.jecklandin.duckshot.DucksSeekBar>
+		<ImageButton android:layout_height="wrap_content"
+			android:background="#00000000" android:src="@drawable/settings_soundon"
+			android:scaleType="center" android:layout_width="wrap_content"
+			android:id="@+id/soundon"></ImageButton>
+	</LinearLayout>
 
 
 
