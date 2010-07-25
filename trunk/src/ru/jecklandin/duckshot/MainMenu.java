@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ViewAnimator;
 
 public class MainMenu extends Activity {
 	
-	
+	private ViewAnimator mAnimator;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,9 +25,17 @@ public class MainMenu extends Activity {
 		
 		View ml = getLayoutInflater().inflate(R.layout.main, null);
 		View sl = getLayoutInflater().inflate(R.layout.settings, null);
-		
+		 
 		final ViewAnimator anim = new ViewAnimator(this);
+		anim.setBackgroundResource(R.drawable.menubackt);
+		mAnimator = anim;
+		
 		LayoutParams pars = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		
+		Animation ina = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
+		Animation outa = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
+		anim.setInAnimation(ina);
+		anim.setOutAnimation(outa);
 		
 		anim.addView(ml, 0, pars);
 		anim.addView(sl, 1, pars);
@@ -49,32 +61,15 @@ public class MainMenu extends Activity {
 				anim.showNext();
 			}
 		});
-			
-			
-//		setContentView(R.layout.main);
-//		
-//		ImageButton start = (ImageButton) findViewById(R.id.start);
-//		ImageButton settings = (ImageButton) findViewById(R.id.settings);
-//		ImageButton more = (ImageButton) findViewById(R.id.more);
-//		
-//		start.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Intent i = new Intent();
-//				i.setClass(MainMenu.this, DuckGame.class);
-//				MainMenu.this.startActivity(i);
-//			}
-//		});
-//		
-//		settings.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Intent i = new Intent();
-//				i.setClass(MainMenu.this, SettingsActivity.class);
-//				MainMenu.this.startActivity(i);
-//			}
-//		});
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && mAnimator.getDisplayedChild() == 1) {
+			mAnimator.showPrevious();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 }
