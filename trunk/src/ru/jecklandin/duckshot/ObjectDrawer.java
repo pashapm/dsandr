@@ -133,7 +133,7 @@ class Environment {
 			x_offset1+=0.1;
 		}
 		
-		p.setColor(Color.parseColor("#457bd5")); 
+		p.setColor(Color.parseColor("#5984c8")); 
 		c.drawRect(0, ScreenProps.screenHeight-200, ScreenProps.screenWidth, ScreenProps.screenHeight, p);
 		
 	}

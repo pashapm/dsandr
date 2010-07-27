@@ -9,7 +9,7 @@ import android.graphics.Paint;
 import android.util.Log;
 
 public class Desk { 
-	
+	 
 	private static Desk s_instance;
 	public synchronized static Desk getInstance() {
 		if (s_instance == null) {

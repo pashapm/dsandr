@@ -9,20 +9,18 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.Log;
-
+   
 public class Duck extends GameObject {
 
 	private int MAX_OFFSET = 300;
 	private int MIN_OFFSET = 0;
-
+ 
 	private static int DUCK_ID = 0;
 	static {
-		
 		Duck.duckBm = ImgManager.getBitmap("duck");
 		Duck.deadDuckBm = ImgManager.getBitmap("deadduck");
 		Duck.mAniDiving = ImgManager.getAnimation("duckdive");
 		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
-		
 	}
 
 	// state
