@@ -33,6 +33,7 @@ public class DuckGame extends Activity {
 	GameField mGf;
     Vibrator mVibro;
     Typeface mTypeface;
+    Typeface mHelsTypeface;
     Match mMatch;
 //  SFGameField sf;
     
@@ -69,7 +70,7 @@ public class DuckGame extends Activity {
 			}
 		});
         
-        mMatch = new Match(10, han);
+        mMatch = new Match(2, han);
                 
         mSling = new SlingView(this);
         getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
@@ -95,12 +96,9 @@ public class DuckGame extends Activity {
         mMatch.start();
         
         mTypeface = Typeface.createFromAsset(getAssets(), "Whypo.ttf");
-        
+        mHelsTypeface = Typeface.createFromAsset(getAssets(), "helsinki.ttf");
 
-        FlurryAgent.onStartSession(this, "Y965UZQRQDF3DQ122CN5");
-        
-		
-        
+//        FlurryAgent.onStartSession(this, "Y965UZQRQDF3DQ122CN5");
     }
 
 	@Override

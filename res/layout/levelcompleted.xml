@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" android:minWidth="300dip">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Level completed" android:textStyle="bold" android:textColor="#f8e000" android:layout_gravity="center" android:id="@+id/lvlc" android:layout_marginTop="5dip" android:textSize="27sp" android:layout_marginBottom="10dip"></TextView>
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Time" android:layout_margin="10dip" android:textStyle="bold" android:textColor="#f8b100" android:id="@+id/lvltime_lab" android:textSize="20sp"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/lvltime" android:layout_margin="10dip" android:textColor="#ffffff" android:textSize="20sp" android:text="0:58"></TextView>
+</LinearLayout>
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="wrap_content" android:layout_height="wrap_content"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Score" android:layout_margin="10dip" android:textStyle="bold" android:textColor="#f8b100" android:id="@+id/lvlsc_lab" android:textSize="20sp"></TextView>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="10dip" android:textColor="#f8e000" android:textSize="20sp" android:text="2044" android:id="@+id/lvlsc"></TextView>
+</LinearLayout>
+<LinearLayout android:id="@+id/LinearLayout03" android:layout_width="wrap_content" android:layout_height="wrap_content"><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Awards" android:layout_margin="10dip" android:textStyle="bold" android:textColor="#f8b100" android:id="@+id/lvlav_lab" android:textSize="20sp"></TextView>
+ 
+</LinearLayout>
+<LinearLayout android:id="@+id/LinearLayout04" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:layout_width="fill_parent"><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/woodenbutton" android:layout_margin="10dip" android:text="Retry" android:padding="10dip" android:textColor="#5e2402" android:id="@+id/retry" android:textSize="15sp"></Button>
+<LinearLayout android:id="@+id/LinearLayout05" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1"></LinearLayout><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/woodenbutton" android:layout_margin="10dip" android:text="Next level" android:padding="10dip" android:textColor="#5e2402" android:id="@+id/nextlev" android:textSize="15sp"></Button>
+
+</LinearLayout>
+</LinearLayout>
