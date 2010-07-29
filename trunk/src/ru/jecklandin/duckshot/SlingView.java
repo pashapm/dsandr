@@ -152,8 +152,9 @@ public class SlingView extends View {
 			if (Math.abs(x-SOCKET_DEFAULT_X) < 50  
 					&&  Math.abs(y-SOCKET_DEFAULT_Y) < 40) {
 				mIsGrabbed = true;
-			}
-			Desk.getInstance().setSightVisibility(true);
+				Desk.getInstance().setSightVisibility(true);
+			} 
+			
 		}
 
 	
