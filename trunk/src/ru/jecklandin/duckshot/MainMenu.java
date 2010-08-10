@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +16,7 @@ import android.widget.ViewAnimator;
 
 public class MainMenu extends Activity {
 	
+	public static final String SHOW_SETTINGS = "ru.jecklandin.duckshot.SHOW_SETTINGS"; 
 	private ViewAnimator mAnimator;
 
 	@Override
@@ -71,5 +73,4 @@ public class MainMenu extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
 }
