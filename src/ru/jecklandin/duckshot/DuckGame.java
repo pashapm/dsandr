@@ -7,6 +7,7 @@ import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.utils.FpsCounter;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,9 @@ public class DuckGame extends Activity {
     
 	private static final String TAG = "DuckGame";
 	
+	private static final int LVL_DIALOG = 1;
+	private static final int PAUSE_DIALOG = 2;
+	
 	GameField mGf;
     Vibrator mVibro;
     Typeface mTypeface;
@@ -41,25 +45,29 @@ public class DuckGame extends Activity {
     private FPSPrinter mFpsPr;
     
     private SlingView mSling;
+    
     private boolean mShownDialog = false;
+    private Handler mDialogHandler;
     
    public static DuckGame s_instance;	
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DuckGame.s_instance = this;
-        mVibro = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        ScreenProps.initialize(this);
-		ImgManager.loadImages(this);
-        mGf = new GameField(this);
         
-//      sf = new SFGameField(this);
-       
+        ScreenProps.initialize(this);
+        ImgManager.loadImages(this);
+        DuckGame.s_instance = this;
+        
+        mVibro = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        mGf = new GameField(this);
         mTimer = new DuckTimer(mGf);
+        mFpsPr = new FPSPrinter();
+        
         setContentView(mGf);
         
-        Handler han = new Handler(new Callback() {
+        //handles a match's finish
+        Handler matchHandler = new Handler(new Callback() {
 			
 			@Override
 			public boolean handleMessage(Message msg) {
@@ -69,12 +77,10 @@ public class DuckGame extends Activity {
 				return false;
 			}
 		});
+        mMatch = new Match(90, matchHandler);
         
-        mMatch = new Match(90, han);
-                
-        mSling = new SlingView(this);
+        mSling = new SlingView(this);    
         getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        
         
         //debug btn
         LinearLayout lay = (LinearLayout)View.inflate(this, R.layout.btns, null);
@@ -89,7 +95,15 @@ public class DuckGame extends Activity {
 			}
 		}); 
 
-        mFpsPr = new FPSPrinter();
+        mDialogHandler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				mTimer.setRunning(true);
+				mFpsPr.setRunning(true);
+				mMatch.resumeMatch();
+				mShownDialog = false;
+			}
+		};
         
         mTimer.start();
         mFpsPr.start();
@@ -111,7 +125,7 @@ public class DuckGame extends Activity {
 
 	@Override
 	protected void onStop() {
-		FlurryAgent.onEndSession(this);
+//		FlurryAgent.onEndSession(this);
 //		mTimer.setRunning(false);
 //		mFpsPr.setRunning(false);
 		super.onStop();
@@ -125,12 +139,6 @@ public class DuckGame extends Activity {
 		super.onResume();
 	}
 
-//	@Override
-//	public boolean onTouchEvent(MotionEvent event) {
-//		gf.touch(event);
-//		return super.onTouchEvent(event);
-//	}
-	
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
     	if (event.getAction() == MotionEvent.ACTION_MOVE) {  
@@ -140,9 +148,6 @@ public class DuckGame extends Activity {
     	} else if (event.getAction() == MotionEvent.ACTION_DOWN) {
     		mSling.grab((int)event.getX(), (int)event.getY());
     	}
-    	
-  
-
 		return super.onTouchEvent(event);
 	}    
 	
@@ -153,26 +158,19 @@ public class DuckGame extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}    
-	 
+	
+
 	private void showPauseDialog() {
-		Handler han = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				mTimer.setRunning(true);
-				mFpsPr.setRunning(true);
-				mShownDialog = false;
-			}
-		};
-		
 		mTimer.setRunning(false);
 		mFpsPr.setRunning(false);
+		mMatch.pauseMatch();
+		showDialog(PAUSE_DIALOG);
 		mShownDialog = true;
-		PauseDialog.show(this, han);
 	}
 
 	void stopMatch() {
 		mTimer.setRunning(false);
-		showDialog(1);
+		showDialog(LVL_DIALOG);
 	}
 	
 	public static Match getCurrentMatch() {
@@ -185,13 +183,13 @@ public class DuckGame extends Activity {
 	
 	@Override
 	protected Dialog onCreateDialog(int id) {
-		if (id == 1) {
+		if (id == LVL_DIALOG) {
 			return new LevelCompletedDialog(this, mMatch);
-		} 
+		} else if (id == PAUSE_DIALOG) {
+			return new PauseDialog(this, mDialogHandler);
+		}
 		return super.onCreateDialog(id);
 	}
-	
-	
 } 
 
 class DuckTimer extends Thread {

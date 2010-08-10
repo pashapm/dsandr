@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent" android:layout_height="fill_parent" android:gravity="center_horizontal" android:background="#c48458" android:orientation="vertical">
-<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pause" android:textSize="35sp" android:textColor="#330000"></TextView>
-<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Resume" android:id="@+id/resume"></Button>
+  android:layout_width="fill_parent" android:layout_height="fill_parent" android:gravity="center_horizontal" android:orientation="vertical">
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pause" android:textSize="35sp" android:id="@+id/pauselab" android:textColor="#ffffff" android:layout_marginBottom="20dip"></TextView>
+
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="wrap_content" android:layout_height="wrap_content"><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Resume" android:background="@drawable/woodenbutton_states" android:textColor="#5e2402" android:id="@+id/presume"></Button><Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/woodenbutton_states" android:text="Settings" android:layout_marginLeft="50dip" android:textColor="#5e2402" android:id="@+id/psettings"></Button>
+</LinearLayout>
 </LinearLayout>

@@ -11,7 +11,8 @@
 		android:debuggable="true">
 		<activity android:name=".DuckGame" android:label="@string/app_name"
 			android:screenOrientation="portrait"
-			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			>
 			<!--<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -20,7 +21,8 @@
 
 		<activity android:name=".MainMenu" android:label="@string/app_name"
 			android:screenOrientation="portrait"
-			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:launchMode="singleTop">
 			<intent-filter>
 
 					<action android:name="android.intent.action.MAIN" /> <category
