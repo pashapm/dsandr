@@ -114,6 +114,13 @@ public class ImgManager {
 			anim[i] = Bitmap.createBitmap(bm, i*25, 0, 25, 20);
 		}
 		mAniMap.put("digits_time", anim);
+		
+		bm = getBitmap(R.drawable.awards);
+		anim = new Bitmap[5]; 
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*35, 0, 35, 35);
+		}
+		mAniMap.put("awards", anim);
 	}
 
 	private static Bitmap getBitmap(int id) {
