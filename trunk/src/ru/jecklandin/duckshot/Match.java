@@ -8,7 +8,8 @@ import android.os.Message;
 public class Match extends Thread {
 
 	public enum Bonus {NO, DOUBLE, TRIPLE, QUAD, MAXIKILL;
-		public Bonus next() {
+
+		Bonus next() {
 			switch (this) {
 			case NO:
 				return Bonus.DOUBLE;
@@ -25,12 +26,21 @@ public class Match extends Thread {
 		}
 	}
 	
+	
 	private Handler mHandler;
 	
 	private long mMatchMs; 
 	private boolean mPaused = false;
 	private int mScore = 0;
 	private Vector<KillEvent> mKilledDucks = new Vector<KillEvent>();
+	private Vector<Bonus> mAwards = new Vector<Bonus>();
+	
+	{
+//		mAwards.add(Bonus.DOUBLE);
+		mAwards.add(Bonus.TRIPLE);
+//		mAwards.add(Bonus.QUAD);
+		mAwards.add(Bonus.MAXIKILL);
+	}
 	
 	public Match(int seconds, Handler han) {
 		mMatchMs = seconds * 1000;
@@ -93,6 +103,10 @@ public class Match extends Thread {
 	
 	public int getScore() {
 		return mScore;
+	}
+	
+	public Vector<Bonus> getAwards() {
+		return mAwards;
 	}
 	
 	

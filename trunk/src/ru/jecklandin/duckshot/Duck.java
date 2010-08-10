@@ -89,7 +89,7 @@ public class Duck extends GameObject {
 		}
 		return offset;
 	}
-
+ 
 	@Override
 	public OBJ_TYPE getRtti() {
 		return OBJ_TYPE.DUCK;

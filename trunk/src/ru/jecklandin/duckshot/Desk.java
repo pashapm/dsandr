@@ -1,5 +1,8 @@
 package ru.jecklandin.duckshot;
 
+import java.util.Vector;
+
+import ru.jecklandin.duckshot.Match.Bonus;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -28,6 +31,7 @@ public class Desk {
 		Desk.mSight = ImgManager.getBitmap("sight");
 		Desk.mDigits = ImgManager.getAnimation("digits");
 		Desk.mDigitsTime = ImgManager.getAnimation("digits_time");
+		Desk.mAwards = ImgManager.getAnimation("awards");
 	}
 	
 	public static Bitmap mDesk;
@@ -39,6 +43,7 @@ public class Desk {
 	public static Bitmap mSight; 
 	public static Bitmap[] mDigitsTime;
 	public static Bitmap[] mDigits;
+	public static Bitmap[] mAwards;
 	
 	private int power = 0;
 	private int x = 0;
@@ -59,6 +64,8 @@ public class Desk {
 		matrix.setTranslate(x, y);
 		c.drawBitmap(mDesk, matrix, p);
 		
+		drawAwards(c, p);
+		
 //		//draw indent
 //		matrix.postTranslate(mDesk.getWidth() - mIndent.getWidth() - 20, (mDesk.getHeight() - mIndent.getHeight())/2);
 //		c.drawBitmap(mIndent, matrix, p);
@@ -77,11 +84,11 @@ public class Desk {
 //		} 
 		
 		
-		if (this.power != 0) {
-			c.drawBitmap(mPointer, 0, DuckShotModel.getInstance().getYFromMsec(this.power), p);
-			c.drawBitmap(Stone.mStone, this.x, ScreenProps.screenHeight - Stone.mStone.getHeight()/2, p);
-			//this.is.sparta
-		}
+//		if (this.power != 0) {
+//			c.drawBitmap(mPointer, 0, DuckShotModel.getInstance().getYFromMsec(this.power), p);
+//			c.drawBitmap(Stone.mStone, this.x, ScreenProps.screenHeight - Stone.mStone.getHeight()/2, p);
+//			//this.is.sparta
+//		}
 		
 //		p.setColor(color)
 //		c.drawText(String.valueOf(DuckShotModel.getInstance().getScore()), ScreenProps.screenWidth/2, 30, p);
@@ -98,11 +105,19 @@ public class Desk {
 		
 		//draw time
 		addit_m.reset();
-		addit_m.setTranslate(ScreenProps.screenWidth*3/4, ScreenProps.screenHeight - 100);
-		Bitmap[] timeBms = getDigits(DuckGame.s_instance.mMatch.secondsRemain(), DigitType.WHITE);
-		for (int i=0; i<timeBms.length; ++i) {
+		addit_m.setTranslate(ScreenProps.screenWidth*2/3, ScreenProps.screenHeight - 100);
+		int sec = DuckGame.s_instance.mMatch.secondsRemain();
+		Bitmap[] minBms = getDigits(sec/60, DigitType.WHITE);
+		for (int i=0; i<minBms.length; ++i) {
 			addit_m.postTranslate(20, 0);
-			c.drawBitmap(timeBms[i], addit_m, p);	
+			c.drawBitmap(minBms[i], addit_m, p);	
+		}
+		addit_m.postTranslate(20, 0);
+		c.drawBitmap(Desk.mDigitsTime[Desk.mDigitsTime.length-1], addit_m, p);	
+		Bitmap[] secBms = getDigits(sec%60, DigitType.WHITE);
+		for (int i=0; i<secBms.length; ++i) {
+			addit_m.postTranslate(15, 0);
+			c.drawBitmap(secBms[i], addit_m, p);	
 		}
 		
 		//draw sight
@@ -117,7 +132,7 @@ public class Desk {
 		
 		Bitmap[] digits = null;
 		switch (type) {
-		case YELLOW:
+		case YELLOW:  
 			digits = Desk.mDigits;
 			break;
 		case RED:
@@ -137,6 +152,33 @@ public class Desk {
 		return bd;
 	}
 	 
+	private void drawAwards(Canvas c, Paint p) {
+		Vector<Bonus> bons = DuckGame.getCurrentMatch().getAwards();
+		matrix.postTranslate(10, 10);
+		
+		int length = Bonus.values().length;
+		int[] xses = new int[length-1]; //except for the template
+		for (int i=0; i<xses.length; ++i) {
+			if (i<xses.length/2) {
+				xses[i]=40*i;
+			} else {
+				xses[i]=ScreenProps.screenWidth - 40*(xses.length-i+1);
+			}
+		}
+		
+		Matrix awMat = new Matrix(matrix);
+		for (int i=0; i<xses.length; ++i) {
+			awMat.set(matrix);
+			awMat.postTranslate(xses[i], 0);
+			Bonus b = Bonus.values()[i+1];
+			if (bons.contains(b)) {
+				c.drawBitmap(mAwards[b.ordinal()], awMat, p);
+			} else {
+				c.drawBitmap(mAwards[0], awMat, p);
+			}
+		}
+	} 
+	
 	@Deprecated
 	public void setPowerIndicator(long msec, int x) {
 		this.power = (int) msec;

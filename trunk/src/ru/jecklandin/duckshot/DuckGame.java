@@ -70,7 +70,7 @@ public class DuckGame extends Activity {
 			}
 		});
         
-        mMatch = new Match(2, han);
+        mMatch = new Match(90, han);
                 
         mSling = new SlingView(this);
         getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
