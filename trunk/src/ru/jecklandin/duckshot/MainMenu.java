@@ -16,7 +16,7 @@ import android.widget.ViewAnimator;
 
 public class MainMenu extends Activity {
 	
-	public static final String SHOW_SETTINGS = "ru.jecklandin.duckshot.SHOW_SETTINGS"; 
+	public static final String SHOW_RESUME = "ru.jecklandin.duckshot.SHOW_RESUME"; 
 	private ViewAnimator mAnimator;
 
 	@Override
@@ -24,6 +24,7 @@ public class MainMenu extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		ImgManager.loadImages(this);
+		ScreenProps.initialize(this);
 		
 		View ml = getLayoutInflater().inflate(R.layout.main, null);
 		View sl = getLayoutInflater().inflate(R.layout.settings, null);
@@ -51,7 +52,7 @@ public class MainMenu extends Activity {
 			public void onClick(View v) {
 				Intent i = new Intent();
 				i.setClass(MainMenu.this, DuckGame.class);
-				MainMenu.this.startActivity(i);
+				MainMenu.this.startActivityForResult(i, 0);
 			}
 		});
 		
@@ -73,4 +74,28 @@ public class MainMenu extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d("!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!W");
+		if (resultCode == Activity.RESULT_CANCELED) {
+			View res = getLayoutInflater().inflate(R.layout.resume, null);
+			View sl = getLayoutInflater().inflate(R.layout.settings, null);
+			LayoutParams pars = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+			mAnimator.removeAllViews();
+			mAnimator.addView(res, 0, pars);
+			mAnimator.addView(sl, 1, pars);
+			
+			ImageButton sett = (ImageButton) findViewById(R.id.settings);
+			sett.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					mAnimator.showNext();
+				}
+			});
+		}
+	}
+
+	
 }
