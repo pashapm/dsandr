@@ -48,15 +48,13 @@ public class DuckGame extends Activity {
     
     private boolean mShownDialog = false;
     private Handler mDialogHandler;
-    
-   public static DuckGame s_instance;	
+     
+    public static DuckGame s_instance;	
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        ScreenProps.initialize(this);
-        ImgManager.loadImages(this);
         DuckGame.s_instance = this;
         
         mVibro = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -207,14 +205,12 @@ class DuckTimer extends Thread {
  
 			if (mRunning) {
 				ObjectDrawer.sLastTick = System.currentTimeMillis();
-//				if (!ObjectDrawer.lock) 
 				m_view.postInvalidate();
 			}
 			try {
 				sleep(30);
 			} catch (InterruptedException e) {
 				Log.d("DuckTimer", "Stopping");
-				// e.printStackTrace();
 				return;
 			}
 
