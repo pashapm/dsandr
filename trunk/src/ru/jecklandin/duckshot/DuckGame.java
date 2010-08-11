@@ -53,6 +53,7 @@ public class DuckGame extends Activity {
     
     private boolean mShownDialog = false;
     private Handler mDialogHandler;
+    private Handler mMatchHandler;
      
     public static DuckGame s_instance;	
     
@@ -71,7 +72,7 @@ public class DuckGame extends Activity {
         setContentView(mGf);
         
         //handles a match's finish
-        Handler matchHandler = new Handler(new Callback() {
+        mMatchHandler = new Handler(new Callback() {
 			
 			@Override
 			public boolean handleMessage(Message msg) {
@@ -83,9 +84,9 @@ public class DuckGame extends Activity {
 		});  
         
         if (getIntent().getAction().equals(NEW_MATCH)) {
-        	mApplication.newMatch(10, matchHandler);
+        	mApplication.newMatch(10, mMatchHandler);
         } else {
-        	mApplication.setHandler(matchHandler);
+        	mApplication.setHandler(mMatchHandler);
         	//TODO crappy code
         }
         mMatch = mApplication.getCurrentMatch();
@@ -197,11 +198,25 @@ public class DuckGame extends Activity {
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == LVL_DIALOG) {
-			return new LevelCompletedDialog(this, mMatch);
+			return new LevelCompletedDialog(this);
 		} else if (id == PAUSE_DIALOG) {
 			return new PauseDialog(this, mDialogHandler);
 		}
 		return super.onCreateDialog(id);
+	}
+
+	/**
+	 * Called from LevelCompletedDialog
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		if (intent.getAction().equals(NEW_MATCH)) {
+			mApplication.newMatch(10, mMatchHandler); //TODO time -> match
+			mMatch = mApplication.getCurrentMatch();
+			mMatch.start();
+			mTimer.setRunning(true);
+			mFpsPr.setRunning(true);
+		}
 	}
 } 
 

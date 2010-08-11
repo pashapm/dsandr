@@ -26,9 +26,9 @@ public class Match extends Thread {
 		}
 	}
 	
+	public int mInitialTime;
 	
 	private Handler mHandler;
-	
 	private long mMatchMs; 
 	private boolean mPaused = false;
 	private int mScore = 0;
@@ -44,6 +44,7 @@ public class Match extends Thread {
 	
 	public Match(int seconds, Handler han) {
 		mMatchMs = seconds * 1000;
+		mInitialTime = seconds;
 		mHandler = han;
 	}
 	
