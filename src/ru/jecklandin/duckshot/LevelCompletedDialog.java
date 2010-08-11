@@ -47,10 +47,19 @@ public class LevelCompletedDialog extends Dialog {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				Intent i = new Intent(getOwnerActivity(), MainMenu.class);
+				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				i.setAction(MainMenu.SHOW_MAIN_MENU);
 				getOwnerActivity().startActivity(i);
 			}
 		});
 		
+		bretry.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
 		
 	}
 

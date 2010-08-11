@@ -31,6 +31,9 @@ public class DuckGame extends Activity {
     
 	private static final String TAG = "DuckGame";
 	
+	public static final String NEW_MATCH = "ru.jecklandin.duckshot.NEW_MATCH";
+	public static final String RESUME_MATCH = "ru.jecklandin.duckshot.RESUME_MATCH";
+	
 	private static final int LVL_DIALOG = 1;
 	private static final int PAUSE_DIALOG = 2;
 	
@@ -39,6 +42,8 @@ public class DuckGame extends Activity {
     Typeface mTypeface;
     Typeface mHelsTypeface;
     Match mMatch;
+    DuckApplication mApplication;
+    
 //  SFGameField sf;
     
     private DuckTimer mTimer;
@@ -57,11 +62,12 @@ public class DuckGame extends Activity {
         
         DuckGame.s_instance = this;
         
+        mApplication = (DuckApplication)getApplication();
         mVibro = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mGf = new GameField(this);
         mTimer = new DuckTimer(mGf);
         mFpsPr = new FPSPrinter();
-        
+         
         setContentView(mGf);
         
         //handles a match's finish
@@ -74,8 +80,15 @@ public class DuckGame extends Activity {
 				}
 				return false;
 			}
-		});
-        mMatch = new Match(90, matchHandler);
+		});  
+        
+        if (getIntent().getAction().equals(NEW_MATCH)) {
+        	mApplication.newMatch(10, matchHandler);
+        } else {
+        	mApplication.setHandler(matchHandler);
+        	//TODO crappy code
+        }
+        mMatch = mApplication.getCurrentMatch();
         
         mSling = new SlingView(this);    
         getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
@@ -105,7 +118,9 @@ public class DuckGame extends Activity {
         
         mTimer.start();
         mFpsPr.start();
-        mMatch.start();
+        if (getIntent().getAction().equals(NEW_MATCH)) {
+        	mMatch.start();
+        }
         
         mTypeface = Typeface.createFromAsset(getAssets(), "Whypo.ttf");
         mHelsTypeface = Typeface.createFromAsset(getAssets(), "helsinki.ttf");

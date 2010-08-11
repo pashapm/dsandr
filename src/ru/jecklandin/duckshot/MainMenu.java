@@ -17,8 +17,13 @@ import android.widget.ViewAnimator;
 public class MainMenu extends Activity {
 	
 	public static final String SHOW_RESUME = "ru.jecklandin.duckshot.SHOW_RESUME"; 
+	public static final String SHOW_MAIN_MENU = "ru.jecklandin.duckshot.SHOW_MAIN_MENU"; 
+	 
 	private ViewAnimator mAnimator;
-
+	private View mMl;
+	private View mSl;
+	private View mRl;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,44 +31,20 @@ public class MainMenu extends Activity {
 		ImgManager.loadImages(this);
 		ScreenProps.initialize(this);
 		
-		View ml = getLayoutInflater().inflate(R.layout.main, null);
-		View sl = getLayoutInflater().inflate(R.layout.settings, null);
-		 
+		mMl = getLayoutInflater().inflate(R.layout.main, null);
+		mSl = getLayoutInflater().inflate(R.layout.settings, null);
+		mRl = getLayoutInflater().inflate(R.layout.resume, null);
+		
 		final ViewAnimator anim = new ViewAnimator(this);
 		anim.setBackgroundResource(R.drawable.menubackt);
 		mAnimator = anim;
-		
-		LayoutParams pars = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-		
 		Animation ina = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
 		Animation outa = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
 		anim.setInAnimation(ina);
 		anim.setOutAnimation(outa);
 		
-		anim.addView(ml, 0, pars);
-		anim.addView(sl, 1, pars);
-		
 		setContentView(anim);
-		
-		ImageButton start = (ImageButton) findViewById(R.id.start);
-		start.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent();
-				i.setClass(MainMenu.this, DuckGame.class);
-				MainMenu.this.startActivityForResult(i, 0);
-			}
-		});
-		
-		ImageButton sett = (ImageButton) findViewById(R.id.settings);
-		sett.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				anim.showNext();
-			}
-		});
+		setStartMode();
 	}
 	
 	@Override
@@ -77,25 +58,77 @@ public class MainMenu extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d("!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!W");
-		if (resultCode == Activity.RESULT_CANCELED) {
-			View res = getLayoutInflater().inflate(R.layout.resume, null);
-			View sl = getLayoutInflater().inflate(R.layout.settings, null);
-			LayoutParams pars = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-			mAnimator.removeAllViews();
-			mAnimator.addView(res, 0, pars);
-			mAnimator.addView(sl, 1, pars);
-			
-			ImageButton sett = (ImageButton) findViewById(R.id.settings);
-			sett.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					mAnimator.showNext();
-				}
-			});
+		if (resultCode == Activity.RESULT_CANCELED) { // BACK was pressed in game
+			setResumeMode();
 		}
 	}
+	
+	private void setStartMode() {
+		mAnimator.removeAllViews();
+		LayoutParams pars = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		mAnimator.addView(mMl, 0, pars);
+		mAnimator.addView(mSl, 1, pars);
+		
+		ImageButton start = (ImageButton) findViewById(R.id.start);
+		start.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent();
+				i.setClass(MainMenu.this, DuckGame.class);
+				i.setAction(DuckGame.NEW_MATCH);
+				MainMenu.this.startActivityForResult(i, 0);
+			}
+		});
+		
+		ImageButton sett = (ImageButton) findViewById(R.id.settings);
+		sett.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mAnimator.showNext();
+			}
+		});
+	}
 
+	private void setResumeMode() {
+		LayoutParams pars = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		mAnimator.removeAllViews();
+		mAnimator.addView(mRl, 0, pars);
+		mAnimator.addView(mSl, 1, pars);
+		
+		ImageButton resume = (ImageButton) findViewById(R.id.mresume);
+		resume.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent();
+				i.setClass(MainMenu.this, DuckGame.class);
+				i.setAction(DuckGame.RESUME_MATCH);
+				MainMenu.this.startActivityForResult(i, 0);
+			}
+		});
+		
+		ImageButton sett = (ImageButton) findViewById(R.id.msettings);
+		sett.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mAnimator.showNext();
+			}
+		});
+	}
+
+	/**
+	 * Called from LevelCompletedDialog
+	 */
+	@Override
+	protected void onNewIntent(Intent intent) {
+		if (intent.getAction().equals(SHOW_MAIN_MENU)) {
+			setStartMode();
+		} else {
+			setResumeMode();
+		}
+	}
 	
 }
