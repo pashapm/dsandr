@@ -47,6 +47,10 @@ public class Match extends Thread {
 		mHandler = han;
 	}
 	
+	public void setHandler(Handler han) {
+		mHandler = han;
+	}
+	
 	public void startMatch() {
 		this.start();
 	}

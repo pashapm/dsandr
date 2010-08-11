@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" android:background="#00000000">
 
-<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#00000000" android:id="@+id/start" android:layout_marginTop="5dip" android:src="@drawable/menu_resume" android:layout_gravity="left"></ImageButton>
-<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#00000000" android:id="@+id/settings" android:layout_margin="5dip" android:src="@drawable/menu_settings" android:layout_gravity="right"></ImageButton>
-<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#00000000" android:id="@+id/more" android:layout_marginRight="20dip" android:src="@drawable/menu_newgame" android:layout_gravity="left" android:layout_marginLeft="10dip"></ImageButton>
+<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#00000000" android:layout_marginTop="5dip" android:src="@drawable/menu_resume" android:layout_gravity="left" android:id="@+id/mresume"></ImageButton>
+<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#00000000" android:layout_margin="5dip" android:src="@drawable/menu_settings" android:layout_gravity="right" android:id="@+id/msettings"></ImageButton>
+<ImageButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="#00000000" android:layout_marginRight="20dip" android:src="@drawable/menu_newgame" android:layout_gravity="left" android:layout_marginLeft="10dip" android:id="@+id/mnewgame"></ImageButton>
 </LinearLayout>
