@@ -67,6 +67,10 @@ public class Match extends Thread {
 	public int secondsRemain() {
 		return (int) (mMatchMs/1000);
 	}
+	
+	public boolean isPaused() {
+		return mPaused;
+	}
 
 	@Override
 	public void run() {

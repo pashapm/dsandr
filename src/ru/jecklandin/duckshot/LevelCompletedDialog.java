@@ -44,9 +44,7 @@ public class LevelCompletedDialog extends Dialog {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().getDecorView().setBackgroundResource(R.drawable.dialog);
 		setContentView(R.layout.levelcompleted);
-		
-		
-		
+		 
 		//filling
 		TextView views[] = new TextView[7];
 		views[0] = (TextView) findViewById(R.id.lvlc);

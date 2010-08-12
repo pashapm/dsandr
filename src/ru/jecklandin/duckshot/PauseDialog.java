@@ -21,7 +21,14 @@ public class PauseDialog extends Dialog {
 		getWindow().getDecorView().setBackgroundResource(R.drawable.dialog);
 		
 		setContentView(R.layout.pausedialog);
-		setCancelMessage(Message.obtain(h));
+		
+		Message dismMess = Message.obtain(h);
+		dismMess.what = 0;
+		setDismissMessage(dismMess);
+		
+		Message cancMess = Message.obtain(h);
+		cancMess.what = 1;
+		setCancelMessage(cancMess);
 		
 		Button resume = (Button) findViewById(R.id.presume);
 		resume.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +47,7 @@ public class PauseDialog extends Dialog {
 			public void onClick(View v) {
 				Intent i = new Intent(getOwnerActivity(), SettingsActivity.class);
 				getOwnerActivity().startActivity(i);
-				cancel();
+				dismiss();
 			}
 			
 		});

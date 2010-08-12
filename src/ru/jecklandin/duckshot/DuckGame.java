@@ -84,7 +84,7 @@ public class DuckGame extends Activity {
 		});  
         
         if (getIntent().getAction().equals(NEW_MATCH)) {
-        	mApplication.newMatch(10, mMatchHandler);
+        	mApplication.newMatch(20, mMatchHandler);
         } else {
         	mApplication.setHandler(mMatchHandler);
         	//TODO crappy code
@@ -110,9 +110,11 @@ public class DuckGame extends Activity {
         mDialogHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				mTimer.setRunning(true);
-				mFpsPr.setRunning(true);
-				mMatch.resumeMatch();
+				if (msg.what == 1) { //pause dialog was cancelled
+					mTimer.setRunning(true);
+					mFpsPr.setRunning(true);
+					mMatch.resumeMatch();
+				}
 				mShownDialog = false;
 			}
 		};
@@ -147,9 +149,9 @@ public class DuckGame extends Activity {
 
 	@Override
 	protected void onResume() {
+		mMatch.resumeMatch();
 		mTimer.setRunning(!mShownDialog);
 		mFpsPr.setRunning(!mShownDialog);
-		mMatch.resumeMatch();
 		super.onResume();
 	}
 
@@ -211,7 +213,7 @@ public class DuckGame extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		if (intent.getAction().equals(NEW_MATCH)) {
-			mApplication.newMatch(10, mMatchHandler); //TODO time -> match
+			mApplication.newMatch(20, mMatchHandler); //TODO time -> match
 			mMatch = mApplication.getCurrentMatch();
 			mMatch.start();
 			mTimer.setRunning(true);
