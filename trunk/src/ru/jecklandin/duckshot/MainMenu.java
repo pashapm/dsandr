@@ -29,7 +29,7 @@ public class MainMenu extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		ImgManager.loadImages(this);
-		ScreenProps.initialize(this);
+		ScrProps.initialize(this);
 		
 		mMl = getLayoutInflater().inflate(R.layout.main, null);
 		mSl = getLayoutInflater().inflate(R.layout.settings, null);

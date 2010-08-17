@@ -12,9 +12,9 @@ import android.util.Log;
    
 public class Duck extends GameObject {
 
-	private int MAX_OFFSET = 300;
+	private int MAX_OFFSET = ScrProps.scale(300);
 	private int MIN_OFFSET = 0;
- 
+  
 	private static int DUCK_ID = 0;
 	static {
 		Duck.duckBm = ImgManager.getBitmap("duck");
@@ -76,10 +76,10 @@ public class Duck extends GameObject {
 			offset -= speed;
 		}
 		
-		if (offset == 150)
+		if (offset == ScrProps.scale(150))
 			dive();
 		
-		if (offset == 100)
+		if (offset == ScrProps.scale(100))
 			emerge();
  
 		if (offset < MIN_OFFSET) {
@@ -147,7 +147,7 @@ public class Duck extends GameObject {
 	}
 
 	private void drawDiving(Canvas c, Paint p) {
-		matrix.postTranslate(0, -10);
+		matrix.postTranslate(0, ScrProps.scale(-10));
 		if (diving_frame < 16) {
 			c.drawBitmap(mAniDiving[diving_frame], matrix, p); 
 			diving_frame++;
@@ -168,18 +168,18 @@ public class Duck extends GameObject {
 		if (dead_sink == 0) {
 			dead_degree += 15;
 			matrix.postRotate(dead_degree, offset + deadDuckBm.getWidth() / 2,
-					y + deadDuckBm.getHeight() / 2 - 10);
+					y + deadDuckBm.getHeight() / 2 - ScrProps.scale(10));
 			if (dead_degree > 160) {
 				dead_sink++;
 			}
 		} else {
 			matrix.postRotate(180, offset + deadDuckBm.getWidth() / 2, y
-					+ deadDuckBm.getHeight() / 2 - 10);
+					+ deadDuckBm.getHeight() / 2 - ScrProps.scale(10));
 			dead_sink += 1;
 			matrix.postTranslate(0, dead_sink);
 		}
  
-		if (dead_sink > 10) { //have sink
+		if (dead_sink > ScrProps.scale(10)) { //have sink
 			has_sink = true;
 		} 
 		
@@ -187,16 +187,16 @@ public class Duck extends GameObject {
 	}
 
 	private void drawScore(Canvas c, Paint p) {
-		int alpha = 100+dead_sink;
-		if (alpha < 40) {
+		int alpha = ScrProps.scale(100)+dead_sink;
+		if (alpha < ScrProps.scale(40)) {
 			end_animation = true;
 		}
 		//p.setAlpha(alpha);
-		dead_sink-=4;
+		dead_sink-=ScrProps.scale(4);
 		
 		addit_m.reset();
 		addit_m.setScale(0.6f, 0.6f);
-		addit_m.postTranslate(this.offset, ownedWave.y + dead_sink);
+		addit_m.postTranslate(this.offset, ownedWave.y + ScrProps.scale(dead_sink));
 		drawScoreDigits(c, p, addit_m, mScoreValue);
 		//p.setAlpha(255);
 	}
@@ -206,7 +206,7 @@ public class Duck extends GameObject {
 	private void drawScoreDigits(Canvas c, Paint p, Matrix mat, int score) {
 		Bitmap[] bms = Desk.getDigits(score, DigitType.YELLOW);
 		for (int i=0; i<bms.length; ++i) {
-			mat.postTranslate(15, 0);
+			mat.postTranslate(ScrProps.scale(15), 0);
 			c.drawBitmap(bms[i], mat, p);	
 		}
 	}

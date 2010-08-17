@@ -33,13 +33,13 @@ public class SlingView extends View {
 		sling = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling2 );
 		socket = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling_socket );
 		
-		SLING_X = 80;
-		SLING_Y = ScreenProps.screenHeight - sling.getHeight() + 20;
+		SLING_X = ScrProps.scale(80);
+		SLING_Y = ScrProps.screenHeight - sling.getHeight() + ScrProps.scale(20);
 		
-		SOCKET_DEFAULT_X = SLING_X + 84;
-		SOCKET_DEFAULT_Y = SLING_Y + 40;
+		SOCKET_DEFAULT_X = SLING_X + ScrProps.scale(84);
+		SOCKET_DEFAULT_Y = SLING_Y + ScrProps.scale(40);
 		
-		SLING_AREA_HEIGHT = ScreenProps.screenHeight - SOCKET_DEFAULT_Y;
+		SLING_AREA_HEIGHT = ScrProps.screenHeight - SOCKET_DEFAULT_Y;
 		
 		slx = SOCKET_DEFAULT_X;
 		sly = SOCKET_DEFAULT_Y;
@@ -55,10 +55,13 @@ public class SlingView extends View {
 
 		// p.setPathEffect(new CornerPathEffect(15));
 
-		Path p2 = getRectangle(SLING_X + 28, SLING_Y + 24, slx - socket.getWidth() / 2 + 10, sly, 8);
+		Path p2 = getRectangle(SLING_X + ScrProps.scale(28),
+				SLING_Y + ScrProps.scale(24),
+				slx - socket.getWidth() / 2 + ScrProps.scale(10),
+				sly, ScrProps.scale(8));
 		canvas.drawPath(p2, p);
 		
-		Path p3 = getRectangle(slx + socket.getWidth() / 2 - 10, sly, SLING_X + 142, SLING_Y + 28, 8);
+		Path p3 = getRectangle(slx + socket.getWidth() / 2 - ScrProps.scale(10), sly, SLING_X + ScrProps.scale(142), SLING_Y + ScrProps.scale(28), ScrProps.scale(8));
 		canvas.drawPath(p3, p);
 
 //		invalidate(0, ScreenProps.screenHeight - sling.getHeight(), 
@@ -118,7 +121,7 @@ public class SlingView extends View {
 				return;
 			}
 			
-	    	if ( y > 350) {
+	    	if ( y > ScrProps.scale(350)) {
 	    		sly = (int) y;
 	    	}
 	    	slx = (int) x;
@@ -149,8 +152,8 @@ public class SlingView extends View {
 		}
 
 		public void grab(int x, int y) {
-			if (Math.abs(x-SOCKET_DEFAULT_X) < 50  
-					&&  Math.abs(y-SOCKET_DEFAULT_Y) < 40) {
+			if (Math.abs(x-SOCKET_DEFAULT_X) < ScrProps.scale(50)
+					&&  Math.abs(y-SOCKET_DEFAULT_Y) < ScrProps.scale(40)) {
 				mIsGrabbed = true;
 				Desk.getInstance().setSightVisibility(true);
 			} 
