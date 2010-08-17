@@ -78,14 +78,14 @@ public class ImgManager {
 		}
 		mAniMap.put("fountain", anim);
 		
-		
+		   
 		bm = getBitmap(R.drawable.duckdive);
 		anim = new Bitmap[16];
 		for (int i=0; i<anim.length; ++i) {
 			anim[i] = Bitmap.createBitmap(bm, i*120, 0, 120, 120);
 		}
 		mAniMap.put("duckdive", anim);
-		
+		 
 		
 		bm = getBitmap(R.drawable.duckemerge);
 		anim = new Bitmap[8];

@@ -33,10 +33,10 @@ public class DuckShotModel {
 	public static int WAVES_HEIGHT = 0;
 	public static final int MAX_MSEC = 1999;
 	public static int WAVES_OFFSET;
-	private static final int WAVES_GAP = 28;
+	private static final int WAVES_GAP = ScrProps.scale(28);
 	
 	public DuckShotModel() {
-		WAVES_OFFSET = ScreenProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight() - 80; 
+		WAVES_OFFSET = ScrProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight() - ScrProps.scale(80); 
 		WAVES_HEIGHT = WAVES_NUM * WAVES_GAP;
 		
 		// loading Y-coord
@@ -121,7 +121,7 @@ public class DuckShotModel {
 		int randx;
 		int tries = 3; 
 		do {
-			randx = (int) (Math.random() * ScreenProps.screenWidth);
+			randx = (int) (Math.random() * ScrProps.screenWidth);
 			if (--tries < 0) {
 				return false;
 			}

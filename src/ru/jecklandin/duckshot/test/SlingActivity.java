@@ -2,7 +2,7 @@ package ru.jecklandin.duckshot.test;
 
 
 
-import ru.jecklandin.duckshot.ScreenProps;
+import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SlingView;
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +30,7 @@ public class SlingActivity extends Activity {
         super.onCreate(savedInstanceState);
         v  = new SlingView(this);
         setContentView(v);
-        ScreenProps.initialize(this);
+        ScrProps.initialize(this);
     }
 	
 	

@@ -58,7 +58,7 @@ public class Desk {
 	public enum DigitType {YELLOW, RED, WHITE};
 	
 	public void draw(Canvas c, Paint p) {
-		int y = ScreenProps.screenHeight - mDesk.getHeight();
+		int y = ScrProps.screenHeight - mDesk.getHeight();
 		int x = 5;
 		matrix.reset();
 		matrix.setTranslate(x, y);
@@ -96,27 +96,27 @@ public class Desk {
 		
 		// draw score
 		addit_m.reset();
-		addit_m.postTranslate(0, ScreenProps.screenHeight - 100);
+		addit_m.postTranslate(0, ScrProps.screenHeight - ScrProps.scale(100));
 		Bitmap[] scoreBms = getDigits(DuckGame.getCurrentMatch().getScore(), DigitType.YELLOW);
 		for (int i=0; i<scoreBms.length; ++i) {
-			addit_m.postTranslate(20, 0);
+			addit_m.postTranslate(ScrProps.scale(20), 0);
 			c.drawBitmap(scoreBms[i], addit_m, p);	
 		}
 		
 		//draw time
 		addit_m.reset();
-		addit_m.setTranslate(ScreenProps.screenWidth*2/3, ScreenProps.screenHeight - 100);
+		addit_m.setTranslate(ScrProps.screenWidth*2/3, ScrProps.screenHeight - ScrProps.scale(100));
 		int sec = DuckGame.s_instance.mMatch.secondsRemain();
 		Bitmap[] minBms = getDigits(sec/60, DigitType.WHITE);
 		for (int i=0; i<minBms.length; ++i) {
-			addit_m.postTranslate(20, 0);
+			addit_m.postTranslate(ScrProps.scale(20), 0);
 			c.drawBitmap(minBms[i], addit_m, p);	
 		}
-		addit_m.postTranslate(20, 0);
+		addit_m.postTranslate(ScrProps.scale(20), 0);
 		c.drawBitmap(Desk.mDigitsTime[Desk.mDigitsTime.length-1], addit_m, p);	
 		Bitmap[] secBms = getDigits(sec%60, DigitType.WHITE);
 		for (int i=0; i<secBms.length; ++i) {
-			addit_m.postTranslate(15, 0);
+			addit_m.postTranslate(ScrProps.scale(15), 0);
 			c.drawBitmap(secBms[i], addit_m, p);	
 		}
 		
@@ -154,15 +154,15 @@ public class Desk {
 	 
 	private void drawAwards(Canvas c, Paint p) {
 		Vector<Bonus> bons = DuckGame.getCurrentMatch().getAwards();
-		matrix.postTranslate(10, 10);
+		matrix.postTranslate(ScrProps.scale(10), ScrProps.scale(10));
 		
 		int length = Bonus.values().length;
 		int[] xses = new int[length-1]; //except for the template
 		for (int i=0; i<xses.length; ++i) {
 			if (i<xses.length/2) {
-				xses[i]=40*i;
+				xses[i]=ScrProps.scale(40)*i;
 			} else {
-				xses[i]=ScreenProps.screenWidth - 40*(xses.length-i+1);
+				xses[i]=ScrProps.screenWidth - ScrProps.scale(40)*(xses.length-i+1);
 			}
 		}
 		

@@ -75,7 +75,7 @@ public class Wave extends GameObject {
 		matrix.postTranslate(getNextOffset(x), y);
 		c.drawBitmap(waveBm, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
-		c.drawRect(0, y+waveBm.getHeight()-1, ScreenProps.screenWidth, y+waveBm.getHeight()+50, p);
+		c.drawRect(0, y+waveBm.getHeight()-1, ScrProps.screenWidth, y+waveBm.getHeight()+50, p);
 	}     
   
 	public boolean isPlaceFree(int randx) {
