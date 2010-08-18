@@ -15,7 +15,6 @@ public class Duck extends GameObject {
 	private int MAX_OFFSET = ScrProps.scale(300);
 	private int MIN_OFFSET = 0;
   
-	private static int DUCK_ID = 0;
 	static {
 		Duck.duckBm = ImgManager.getBitmap("duck");
 		Duck.deadDuckBm = ImgManager.getBitmap("deadduck");
@@ -38,9 +37,9 @@ public class Duck extends GameObject {
 	private boolean has_sink = false;
 	private boolean end_animation = false;
 	
+	private int timeout = 0;
+	
 	private Stone mStone;
-
-	private int id = DUCK_ID++;
 
 	private static Bitmap duckBm;
 	private static Bitmap deadDuckBm;
@@ -53,6 +52,11 @@ public class Duck extends GameObject {
 
 	private Matrix emptyMatrix;
 	private Matrix addit_m;
+	
+	/**
+	 * set to true to move duck to another wave
+	 */
+	public boolean mMoveFlag = false;
 	
 
 	public Duck(int x) {
@@ -69,7 +73,7 @@ public class Duck extends GameObject {
 		if (isDead) {
 			return offset;
 		}
-
+		
 		if (mMovingRight) {
 			offset += speed;
 		} else {
@@ -98,6 +102,11 @@ public class Duck extends GameObject {
 	@Override 
 	public void draw(Canvas c, Paint p) {
 		if (end_animation) {
+			return;
+		}
+		
+		if (timeout > 0) {
+			timeout--;
 			return;
 		}
 		
@@ -151,9 +160,23 @@ public class Duck extends GameObject {
 		if (diving_frame < 16) {
 			c.drawBitmap(mAniDiving[diving_frame], matrix, p); 
 			diving_frame++;
-		} 
+		}  else {
+			emerge();
+			mMoveFlag  = true;
+		}
 	}
  
+	public void move() {
+		int distance = moveToANotherWave();
+		timeout = DuckShotModel.getInstance().getTimeoutByDistance(distance);
+		Log.d("!!!!", "timeout is "+timeout);
+		mMoveFlag = false;
+	}
+	
+	private int moveToANotherWave() {
+		return DuckShotModel.getInstance().moveDuckToRandomWave(this);
+	}
+	
 	private void drawNormal(Canvas c, Paint p) {
 		c.drawBitmap(duckBm, matrix, p);
 	}

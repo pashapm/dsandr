@@ -15,14 +15,14 @@ import android.util.Log;
 
 public class Wave extends GameObject {
 	private int MAX_OFFSET = 0;
-	private int MIN_OFFSET = -100;
-	private static int MIN_DISTANCE_APPEARANCE = 80;
+	private int MIN_OFFSET = ScrProps.scale(-100);
+	private static int MIN_DISTANCE_APPEARANCE = ScrProps.scale(80);
 	
 	
 	static {
 		Wave.waveBm = ImgManager.getBitmap("wave");
 	}
-	static int[] bbb;
+	
 	private boolean mMovingRight = (Math.random()-0.5d) > 0;
 	private static Bitmap waveBm;  
 	public Vector<Duck> ducks = new Vector<Duck>();
@@ -58,11 +58,22 @@ public class Wave extends GameObject {
 	@Override
 	public OBJ_TYPE getRtti() {
 		return OBJ_TYPE.WAVE;
-	}
+	}  
 	
 	public void addDuck(Duck d) {
-		d.y = this.y;
+		Log.d("Wave", "adding duck#"+d.hashCode()+" to wave#"+id);
+		d.y = this.y; 
+		if (ducks.contains(d)) {
+			assert(false);
+		}
 		ducks.add(d);
+	}
+	
+	public void removeDuck(Duck d) {
+		int fs = ducks.size();
+		ducks.remove(d);
+		Log.d("Wave", "removing duck#"+d.hashCode()+" from wave#"+id);
+		assert(ducks.size() == fs-1);
 	}
 	
 	public Duck getDuck(int loc) {
@@ -75,16 +86,27 @@ public class Wave extends GameObject {
 		matrix.postTranslate(getNextOffset(x), y);
 		c.drawBitmap(waveBm, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
-		c.drawRect(0, y+waveBm.getHeight()-1, ScrProps.screenWidth, y+waveBm.getHeight()+50, p);
+		c.drawRect(0, y+waveBm.getHeight()-1, ScrProps.screenWidth, y+waveBm.getHeight()+ScrProps.scale(50), p);
 	}     
   
-	public boolean isPlaceFree(int randx) {
+	public boolean isPlaceFree(int x) {
 		boolean free = true;
 		for (Duck d : ducks) {
-			if (Math.abs(d.offset - randx) < Wave.MIN_DISTANCE_APPEARANCE) {
+			if (Math.abs(d.offset - x) < Wave.MIN_DISTANCE_APPEARANCE) {
 				free = false;
 			}
 		}  
 		return free;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return this.id == ((Wave)o).id;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+	
 }

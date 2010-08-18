@@ -15,7 +15,7 @@ import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
 public class DuckShotModel {
 
 	private static String TAG = "DuckShotModel";
-	
+	  
 	// Game objects 
 	public Vector<Wave> mWaves = new Vector<Wave>();
 	public Vector<Stone> mStones = new Vector<Stone>();
@@ -44,6 +44,11 @@ public class DuckShotModel {
 			mYes.add(WAVES_OFFSET + i * WAVES_GAP);
 		}
 		
+		reinitialize();
+	}
+	
+	public void reinitialize() {
+		mWaves.removeAllElements();
 		for (int i=0; i<mYes.size(); ++i) {
 			// -50 .. +50
 			int mx = (int) (Math.random()*50 - 50);
@@ -52,7 +57,7 @@ public class DuckShotModel {
 			mWaves.add(new Wave(mx, mYes.get(i), ms));
 		}
 		
-		for (int i=0; i<3; ++i) {
+		for (int i=0; i<1; ++i) {
 			addRandomDuck();
 		}
 	}
@@ -67,6 +72,7 @@ public class DuckShotModel {
 		checkForCollide(stone, mYes.size() - 1 - getYNumFromMsec(msec));
 	}
 	
+	@Deprecated
 	public void launchStone(int wave_number, int x) {
 		Log.d(TAG, "!!!"+x);
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
@@ -82,10 +88,12 @@ public class DuckShotModel {
 	 * @param msec
 	 * @return
 	 */
+	@Deprecated
 	public int getYFromMsec( long msec ) {
 		return mYes.get(mYes.size() - 1 - getYNumFromMsec(msec));
 	}
 	
+	@Deprecated
 	public int getYNumFromMsec( long msec ) {
 		//msec is 1999 max
 		//1999 / 10yes = 200  
@@ -111,28 +119,82 @@ public class DuckShotModel {
 	}
 	
 	/**
-	 * 
+	 * Adds new duck to the given wave
 	 * @param wave_num
-	 * @return is it able to place one more duck
+	 * @return x is it able to place one more duck, -1 otherwise
 	 */
-	public boolean addDuck(int wave_num) {
-		Wave ownedWave = mWaves.get(wave_num);
-
+	public int addDuck(int wave_num) {
+		Duck d = new Duck( 0 );
+		return addDuck(d, wave_num);
+	}
+	
+	/**
+	 * Adds existing duck to the given wave
+	 * @param d
+	 * @param wave_num
+	 * @return -1 if can't, x otherwise
+	 */
+	public int addDuck(Duck d, int wave_num) {
 		int randx;
 		int tries = 3; 
 		do {
 			randx = (int) (Math.random() * ScrProps.screenWidth);
 			if (--tries < 0) {
-				return false;
+				return -1;
 			}
-		} while (!ownedWave.isPlaceFree(randx));
+		} while (!addDuck(d, wave_num, randx));
 		
-		Duck d = new Duck( 0 );
+		return randx;
+	}
+	
+	/**
+	 * Try to add the duck to the specified place
+	 * @param d
+	 * @param wave_num
+	 * @param x
+	 * @return
+	 */
+	public boolean addDuck(Duck d, int wave_num, int x) {
+		Wave ownedWave = mWaves.get(wave_num);
+		if (!ownedWave.isPlaceFree(x)) {
+			return false;
+		}
+		
 		d.mScoreValue = 50 + 10*(mWaves.size() - 1 - wave_num);
 		d.ownedWave =  ownedWave;
-		d.offset = randx;
+		d.offset = x;
 		d.ownedWave.addDuck(d);
 		return true;
+	}
+	
+	/**
+	 * 
+	 * @param duck
+	 * @return distance
+	 */
+	public int moveDuckToRandomWave(Duck duck) {
+		Duck d = duck;
+		Wave wave = duck.ownedWave;
+		int wasy = d.ownedWave.y;
+		int wasx = (int) d.ownedWave.offset;
+		duck.ownedWave.removeDuck(duck);
+		int randy = 0;
+		int randx = 0; 
+		// look for free wave
+		do {
+			randy = (int) (Math.random() * mWaves.size());
+			if (randy == mWaves.indexOf(wave)) {  //we want another wave
+				randy -= (randy==0 ? -1 : 1);
+			}
+			randx = (int) (Math.random() * ScrProps.screenWidth);;
+		} while ( ! addDuck(d, randy, randx));
+		
+		
+		int ydistance = Math.abs(wasy - mWaves.get(randy).y);
+		int xdistance = Math.abs(wasx - randx);
+		Log.d(TAG, "Moved duck "+ydistance+" | "+xdistance);
+		Log.d(TAG, "Dist "+Math.hypot(xdistance, ydistance));
+		return (int) Math.hypot(xdistance, ydistance);
 	}
 
 	public void addRandomDuck() {
@@ -140,7 +202,7 @@ public class DuckShotModel {
 		// look for free wave
 		do {
 			randy = (int) (Math.random() * mWaves.size());
-		} while (!addDuck(randy));
+		} while (addDuck(randy) < 0);
 	}
 
 	public void cleanup() {
@@ -159,8 +221,15 @@ public class DuckShotModel {
 			//System.gc();
 		}
 	}
-	
-	public void reinitialize() {
-		
+
+	public int getTimeoutByDistance(int distance) {
+		int maxtm = 80; //80 drawings is max timeout
+		int maxy = mWaves.get(mWaves.size()-1).y - mWaves.get(0).y;
+		int maxx = ScrProps.screenWidth;
+		int maxdist = (int) Math.hypot(maxx, maxy);
+		int timeout = distance * maxtm / maxdist;
+		return timeout;
 	}
+	
+
 }

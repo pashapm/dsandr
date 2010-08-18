@@ -187,6 +187,7 @@ public class DuckGame extends Activity {
 	void stopMatch() {
 		mTimer.setRunning(false);
 		showDialog(LVL_DIALOG);
+		mShownDialog = true;
 	}
 	
 	public static Match getCurrentMatch() {
@@ -213,12 +214,14 @@ public class DuckGame extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		if (intent.getAction().equals(NEW_MATCH)) {
+			DuckShotModel.getInstance().reinitialize();
 			mApplication.newMatch(20, mMatchHandler); //TODO time -> match
 			mMatch = mApplication.getCurrentMatch();
 			mMatch.start();
-			mTimer.setRunning(true);
-			mFpsPr.setRunning(true);
+			mShownDialog = false;
 		}
+		
+		//this code is followed by onResume()
 	}
 } 
 
