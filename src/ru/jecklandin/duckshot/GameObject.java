@@ -6,6 +6,9 @@ import android.graphics.Paint;
 
 public abstract class GameObject {
 	
+	protected static int OBJECT_ID = 0;
+	protected int id = ++OBJECT_ID;
+	
 	public GameObject() {
 		matrix = new Matrix();
 	}

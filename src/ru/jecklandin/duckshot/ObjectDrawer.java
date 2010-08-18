@@ -1,5 +1,7 @@
 package ru.jecklandin.duckshot;
 
+import java.util.Vector;
+
 import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.content.Context;
@@ -20,6 +22,8 @@ public class ObjectDrawer {
 	private Paint mPaint;
 	private DuckShotModel model = DuckShotModel.getInstance();
 	private Environment mEnvir = new Environment();
+	
+	private Vector<Duck> mMovingDucks  = new Vector<Duck>();
 
 	private ObjectDrawer(Context ctx) {
 		mCtx = ctx;
@@ -44,17 +48,30 @@ public class ObjectDrawer {
 	public void drawWave(Canvas c, Wave w) {
 		for (Duck d : w.ducks) {
 			d.draw(c, mPaint);
+			if (d.mMoveFlag) {
+				mMovingDucks.add(d);
+			}
 		}
+		
 		w.draw(c, mPaint);
 	}
 
 	public boolean drawObjects(Canvas c) {
 		drawEnvironment(c);
+		
+		
 		//draw waves and ducks
+		mMovingDucks.removeAllElements();
 		for (int i = 0; i < model.mWaves.size(); ++i) {
 			Wave w = model.mWaves.get(i);
 			drawWave(c, w);
 		} 
+		//we need this to avoid concurrentexception (modifying waves while iterating)
+		for (Duck d : mMovingDucks) {
+			d.move();
+		}
+		
+		
 		drawDeck(c);
 		drawStones(c);
 		
@@ -117,6 +134,10 @@ class Environment {
 //		c.drawBitmap(mSun, m, p);
 //		rot_degree+=0.1;
 		
+		//drawing falling ducks 
+		//m.setTranslate(x_offset2+mCloud2.getWidth()/2, mCloud2.getHeight());
+		
+		
 		m.setTranslate(x_offset2, 0 );
 		c.drawBitmap(mCloud2, m, p);
 		if (x_offset2 > ScrProps.screenWidth * 1.2) {
@@ -135,6 +156,11 @@ class Environment {
 		
 		p.setColor(Color.parseColor("#5984c8")); 
 		c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
+		
+		
+	}
+	
+	public void dropDucks(int num) {
 		
 	}
 }
