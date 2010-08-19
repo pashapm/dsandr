@@ -37,6 +37,7 @@ public class DuckGame extends Activity {
 	private static final int LVL_DIALOG = 1;
 	private static final int PAUSE_DIALOG = 2;
 	
+	
 	GameField mGf;
     Vibrator mVibro;
     Typeface mTypeface;
@@ -84,7 +85,7 @@ public class DuckGame extends Activity {
 		});  
         
         if (getIntent().getAction().equals(NEW_MATCH)) {
-        	mApplication.newMatch(20, mMatchHandler);
+        	mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler);
         } else {
         	mApplication.setHandler(mMatchHandler);
         	//TODO crappy code
@@ -215,7 +216,7 @@ public class DuckGame extends Activity {
 	protected void onNewIntent(Intent intent) {
 		if (intent.getAction().equals(NEW_MATCH)) {
 			DuckShotModel.getInstance().reinitialize();
-			mApplication.newMatch(20, mMatchHandler); //TODO time -> match
+			mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler); //TODO time -> match
 			mMatch = mApplication.getCurrentMatch();
 			mMatch.start();
 			mShownDialog = false;
