@@ -12,6 +12,7 @@ import android.util.Log;
    
 public class Duck extends GameObject {
 
+	private static final String TAG = "ru.jecklandin.duckshot.Duck";
 	private int MAX_OFFSET = ScrProps.scale(300);
 	private int MIN_OFFSET = 0;
   
@@ -22,7 +23,23 @@ public class Duck extends GameObject {
 		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
 	}
 
-	// state
+
+	
+	private Stone mStone;
+
+	private static Bitmap duckBm;
+	private static Bitmap deadDuckBm;
+	private static Bitmap[] mAniDiving;
+	private static Bitmap[] mAniEmerging;
+	
+
+	public Wave ownedWave;
+	public int mScoreValue = 100;
+
+	private Matrix emptyMatrix;
+	private Matrix addit_m;
+	
+	// ===============   state
 	private boolean mMovingRight = true;
 
 	private boolean isDiving = false;
@@ -39,19 +56,10 @@ public class Duck extends GameObject {
 	
 	private int timeout = 0;
 	
-	private Stone mStone;
-
-	private static Bitmap duckBm;
-	private static Bitmap deadDuckBm;
-	private static Bitmap[] mAniDiving;
-	private static Bitmap[] mAniEmerging;
+	private int ticksBeforeNextDive = generateNextDive();
+	private int ticksBeforeNextRotate = generateNextRotate();
 	
-
-	public Wave ownedWave;
-	public int mScoreValue = 100;
-
-	private Matrix emptyMatrix;
-	private Matrix addit_m;
+	// ===============   \state
 	
 	/**
 	 * set to true to move duck to another wave
@@ -80,11 +88,19 @@ public class Duck extends GameObject {
 			offset -= speed;
 		}
 		
-		if (offset == ScrProps.scale(150))
+		if (--ticksBeforeNextDive < 0) {
 			dive();
+		} else if (--ticksBeforeNextRotate < 0) {
+			rotate();
+		}
 		
-		if (offset == ScrProps.scale(100))
-			emerge();
+		
+		
+//		if (offset == ScrProps.scale(150))
+//			dive();
+//		
+//		if (offset == ScrProps.scale(100))
+//			emerge();
  
 		if (offset < MIN_OFFSET) {
 			mMovingRight = true;
@@ -169,8 +185,34 @@ public class Duck extends GameObject {
 	public void move() {
 		int distance = moveToANotherWave();
 		timeout = DuckShotModel.getInstance().getTimeoutByDistance(distance);
-		Log.d("!!!!", "timeout is "+timeout);
 		mMoveFlag = false;
+		 
+		ticksBeforeNextDive = generateNextDive();
+		double rnd = Math.random();
+		mMovingRight = rnd < 0.5;   
+		
+		Log.d(TAG, "timeout: "+timeout+", ticksBeforeNextDive: "+ticksBeforeNextDive+" ,movingRight: "+mMovingRight);
+	}
+	
+	private void rotate() {
+		mMovingRight = !mMovingRight;
+		ticksBeforeNextRotate = generateNextRotate();
+	}
+	
+	/**
+	 * from 20 to 300 ticks 
+	 * @return
+	 */
+	private int generateNextDive() {
+		return (int) (Math.random()*280+20);
+	}
+	
+	/**
+	 * from 20 to 200 ticks 
+	 * @return
+	 */
+	private int generateNextRotate() {
+		return (int) (Math.random()*180+20);
 	}
 	
 	private int moveToANotherWave() {
