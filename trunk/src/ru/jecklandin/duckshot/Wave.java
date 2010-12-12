@@ -61,7 +61,7 @@ public class Wave extends GameObject {
 	}  
 	
 	public void addDuck(Duck d) {
-		Log.d("Wave", "adding duck#"+d.hashCode()+" to wave#"+id);
+//		Log.d("Wave", "adding duck#"+d.hashCode()+" to wave#"+id);
 		d.y = this.y; 
 		if (ducks.contains(d)) {
 			assert(false);
@@ -72,7 +72,7 @@ public class Wave extends GameObject {
 	public void removeDuck(Duck d) {
 		int fs = ducks.size();
 		ducks.remove(d);
-		Log.d("Wave", "removing duck#"+d.hashCode()+" from wave#"+id);
+//		Log.d("Wave", "removing duck#"+d.hashCode()+" from wave#"+id);
 		assert(ducks.size() == fs-1);
 	}
 	

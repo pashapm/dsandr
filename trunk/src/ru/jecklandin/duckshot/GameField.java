@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.os.Debug;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,10 +21,12 @@ public class GameField extends View {
 	public GameField(Context context) {
 		super(context);
 		setBackgroundColor(Color.parseColor("#6b98df"));
-	}
-
+	}  
+ 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		
+//		Debug.startMethodTracing("ducks");
 		 
 		//antialiasing for bitmaps 
 		PaintFlagsDrawFilter setfil = new PaintFlagsDrawFilter(0, Paint.FILTER_BITMAP_FLAG);
@@ -31,5 +34,7 @@ public class GameField extends View {
    	
      	mDrawer.drawObjects(canvas);
  		FpsCounter.notifyDrawing();
+ 		
+// 		Debug.stopMethodTracing();
   	}    
 }
