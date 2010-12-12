@@ -42,8 +42,6 @@ public class DuckGame extends Activity {
 	private static final int LVL_DIALOG = 1;
 	private static final int PAUSE_DIALOG = 2;
 	
-	MediaPlayer mPlayer = new MediaPlayer();
-	
 	GameField mGf;
     Vibrator mVibro;
     
@@ -129,14 +127,6 @@ public class DuckGame extends Activity {
         	mMatch.start();
         }
         
-        try {
-			mPlayer.setDataSource(this, Uri.parse("android.resource://ru.jecklandin.duckshot/"+R.raw.music));
-			mPlayer.setLooping(true);
-			mPlayer.prepare();
-        } catch (Exception e) {
-			e.printStackTrace();
-		} 
-       
 //        FlurryAgent.onStartSession(this, "Y965UZQRQDF3DQ122CN5");
     }
 
@@ -148,7 +138,7 @@ public class DuckGame extends Activity {
 		
 //		Debug.stopMethodTracing();
 		
-		mPlayer.pause();
+		SoundManager.getInstance().turnMusic(false);
 		
 		super.onPause();
 	}
@@ -169,7 +159,7 @@ public class DuckGame extends Activity {
 		
 //		Debug.startMethodTracing("ducks2");
 		
-		mPlayer.start();
+		SoundManager.getInstance().turnMusic(true);
 		
 		super.onResume();
 	}   
@@ -205,6 +195,7 @@ public class DuckGame extends Activity {
 
 	void stopMatch() {
 		mTimer.setRunning(false);
+		SoundManager.getInstance().turnMusic(false);
 		showDialog(LVL_DIALOG);
 		mShownDialog = true;
 	}

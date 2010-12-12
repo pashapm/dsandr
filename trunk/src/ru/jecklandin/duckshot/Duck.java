@@ -128,7 +128,7 @@ public class Duck extends GameObject {
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {
 				isDead = true;
-				SoundManager.getInstance().play();
+				SoundManager.getInstance().playQuack();
 				mStone.makeFountain = false;
 				DuckGame.getCurrentMatch().addScore(mScoreValue);
 				DuckGame.getVibrator().vibrate(30);

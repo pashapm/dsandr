@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PauseDialog extends Dialog {
 
@@ -30,6 +31,8 @@ public class PauseDialog extends Dialog {
 		cancMess.what = 1;
 		setCancelMessage(cancMess);
 		
+		((TextView)findViewById(R.id.pauselab)).setTypeface(DuckApplication.getCommonTypeface());
+		
 		Button resume = (Button) findViewById(R.id.presume);
 		resume.setOnClickListener(new View.OnClickListener() {
 
@@ -45,12 +48,25 @@ public class PauseDialog extends Dialog {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getOwnerActivity(), SettingsActivity.class);
+				Intent i = new Intent(getOwnerActivity(), MainMenu.class);
+				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				i.setAction(MainMenu.SHOW_SETTINGS);
 				getOwnerActivity().startActivity(i);
 				dismiss();
 			}
 			
 		});
-		
+	}
+	
+	@Override
+	protected void onStart() {
+		SoundManager.getInstance().turnMusic(false);
+		super.onStart();
+	}
+	
+	@Override
+	protected void onStop() {
+		SoundManager.getInstance().turnMusic(true);
+		super.onStop();
 	}
 }
