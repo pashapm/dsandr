@@ -1,6 +1,8 @@
 package ru.jecklandin.duckshot;
 
 
+import java.io.IOException;
+
 import com.flurry.android.FlurryAgent;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
@@ -9,6 +11,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
@@ -38,6 +42,7 @@ public class DuckGame extends Activity {
 	private static final int LVL_DIALOG = 1;
 	private static final int PAUSE_DIALOG = 2;
 	
+	MediaPlayer mPlayer = new MediaPlayer();
 	
 	GameField mGf;
     Vibrator mVibro;
@@ -124,6 +129,14 @@ public class DuckGame extends Activity {
         	mMatch.start();
         }
         
+        try {
+			mPlayer.setDataSource(this, Uri.parse("android.resource://ru.jecklandin.duckshot/"+R.raw.music));
+			mPlayer.setLooping(true);
+			mPlayer.prepare();
+        } catch (Exception e) {
+			e.printStackTrace();
+		} 
+       
 //        FlurryAgent.onStartSession(this, "Y965UZQRQDF3DQ122CN5");
     }
 
@@ -134,7 +147,9 @@ public class DuckGame extends Activity {
 		mMatch.pauseMatch();
 		
 //		Debug.stopMethodTracing();
-		  
+		
+		mPlayer.pause();
+		
 		super.onPause();
 	}
 
@@ -145,7 +160,7 @@ public class DuckGame extends Activity {
 //		mFpsPr.setRunning(false);
 		super.onStop();
 	} 
-
+  
 	@Override
 	protected void onResume() {
 		mMatch.resumeMatch();
@@ -153,6 +168,8 @@ public class DuckGame extends Activity {
 		mFpsPr.setRunning(!mShownDialog);
 		
 //		Debug.startMethodTracing("ducks2");
+		
+		mPlayer.start();
 		
 		super.onResume();
 	}   
