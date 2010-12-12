@@ -49,9 +49,6 @@ public class Desk {
 	public static Bitmap[] mDigits;
 	public static Bitmap[] mAwards;
 	
-	private int power = 0;
-	private int x = 0;
-	
 	private Matrix matrix = new Matrix();;
 	private Matrix addit_m = new Matrix();
 	
@@ -77,34 +74,6 @@ public class Desk {
 		
 		drawAwards(c, p);
 		
-//		//draw indent
-//		matrix.postTranslate(mDesk.getWidth() - mIndent.getWidth() - 20, (mDesk.getHeight() - mIndent.getHeight())/2);
-//		c.drawBitmap(mIndent, matrix, p);
-//		
-//		//draw power
-//		matrix.postTranslate(5,5); 
-//		if (this.power != 0) {
-//			addit_m.reset();
-//			c.drawBitmap(mPower, matrix, p);	
-//			float part = 1 - ((float)this.power / DuckShotModel.MAX_MSEC);
-//			part = part < 0 ? 0 : part;
-//			addit_m.setScale(part, 1); 
-//			addit_m.postConcat(matrix); 
-//			c.drawBitmap(mStub, addit_m, p);	
-//			
-//		} 
-		
-		
-//		if (this.power != 0) {
-//			c.drawBitmap(mPointer, 0, DuckShotModel.getInstance().getYFromMsec(this.power), p);
-//			c.drawBitmap(Stone.mStone, this.x, ScreenProps.screenHeight - Stone.mStone.getHeight()/2, p);
-//			//this.is.sparta
-//		}
-		
-//		p.setColor(color)
-//		c.drawText(String.valueOf(DuckShotModel.getInstance().getScore()), ScreenProps.screenWidth/2, 30, p);
-		
-		
 		// draw score
 		addit_m.reset();
 //		addit_m.postTranslate(0, ScrProps.screenHeight - ScrProps.scale(100));
@@ -118,19 +87,24 @@ public class Desk {
 		//draw time
 		addit_m.reset();
 		addit_m.setTranslate(ScrProps.screenWidth*2/3, ScrProps.screenHeight - ScrProps.scale(100));
-		int sec = DuckGame.s_instance.mMatch.secondsRemain();
-		Bitmap[] minBms = getDigits(sec/60, DigitType.WHITE);
-		for (int i=0; i<minBms.length; ++i) {
-			addit_m.postTranslate(ScrProps.scale(20), 0);
-			c.drawBitmap(minBms[i], addit_m, p);	
-		}
-		addit_m.postTranslate(ScrProps.scale(20), 0);
-		c.drawBitmap(Desk.mDigitsTime[Desk.mDigitsTime.length-1], addit_m, p);	
-		Bitmap[] secBms = getDigits(sec%60, DigitType.WHITE);
-		for (int i=0; i<secBms.length; ++i) {
-			addit_m.postTranslate(ScrProps.scale(15), 0);
-			c.drawBitmap(secBms[i], addit_m, p);	
-		}
+		int total = DuckGame.s_instance.mMatch.secondsRemain();
+		int mins = total / 60;
+		int secs = total % 60;
+		String time_str = mins + " : " + secs;
+		c.drawText(time_str, ScrProps.screenWidth*2/3, ScrProps.screenHeight - ScrProps.scale(100), p);
+		
+//		Bitmap[] minBms = getDigits(sec/60, DigitType.WHITE);
+//		for (int i=0; i<minBms.length; ++i) {
+//			addit_m.postTranslate(ScrProps.scale(20), 0);
+//			c.drawBitmap(minBms[i], addit_m, p);	
+//		}
+//		addit_m.postTranslate(ScrProps.scale(20), 0);
+//		c.drawBitmap(Desk.mDigitsTime[Desk.mDigitsTime.length-1], addit_m, p);	
+//		Bitmap[] secBms = getDigits(sec%60, DigitType.WHITE);
+//		for (int i=0; i<secBms.length; ++i) {
+//			addit_m.postTranslate(ScrProps.scale(15), 0);
+//			c.drawBitmap(secBms[i], addit_m, p);	
+//		}
 		
 		//draw sight
 		if (mShowSight) {
@@ -192,12 +166,6 @@ public class Desk {
 			}
 		}
 	} 
-	
-	@Deprecated
-	public void setPowerIndicator(long msec, int x) {
-		this.power = (int) msec;
-		this.x = x;
-	}
 	
 	public void setSight(int x, int y) {
 		mSightX = x;

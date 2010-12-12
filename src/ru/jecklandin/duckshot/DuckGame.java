@@ -10,6 +10,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
@@ -40,12 +41,9 @@ public class DuckGame extends Activity {
 	
 	GameField mGf;
     Vibrator mVibro;
-    Typeface mTypeface;
-    Typeface mHelsTypeface;
+    
     Match mMatch;
     DuckApplication mApplication;
-    
-//  SFGameField sf;
     
     private DuckTimer mTimer;
     private FPSPrinter mFpsPr;
@@ -126,9 +124,6 @@ public class DuckGame extends Activity {
         	mMatch.start();
         }
         
-        mTypeface = Typeface.createFromAsset(getAssets(), "Whypo.ttf");
-        mHelsTypeface = Typeface.createFromAsset(getAssets(), "helsinki.ttf");
-
 //        FlurryAgent.onStartSession(this, "Y965UZQRQDF3DQ122CN5");
     }
 
@@ -137,6 +132,9 @@ public class DuckGame extends Activity {
 		mTimer.setRunning(false);
 		mFpsPr.setRunning(false);
 		mMatch.pauseMatch();
+		
+//		Debug.stopMethodTracing();
+		  
 		super.onPause();
 	}
 
@@ -153,8 +151,11 @@ public class DuckGame extends Activity {
 		mMatch.resumeMatch();
 		mTimer.setRunning(!mShownDialog);
 		mFpsPr.setRunning(!mShownDialog);
+		
+//		Debug.startMethodTracing("ducks2");
+		
 		super.onResume();
-	}
+	}   
 
     @Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -216,13 +217,11 @@ public class DuckGame extends Activity {
 	protected void onNewIntent(Intent intent) {
 		if (intent.getAction().equals(NEW_MATCH)) {
 			DuckShotModel.getInstance().reinitialize();
-			mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler); //TODO time -> match
+			mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler); 
 			mMatch = mApplication.getCurrentMatch();
 			mMatch.start();
 			mShownDialog = false;
 		}
-		
-		//this code is followed by onResume()
 	}
 } 
 
@@ -244,7 +243,7 @@ class DuckTimer extends Thread {
 				m_view.postInvalidate();
 			}
 			try {
-				sleep(30);
+				sleep(40);
 			} catch (InterruptedException e) {
 				Log.d("DuckTimer", "Stopping");
 				return;

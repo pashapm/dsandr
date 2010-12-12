@@ -79,13 +79,10 @@ public class Stone extends GameObject {
 			c.drawBitmap(mAniFountain[anim_frame], matrix, p); 
 			anim_frame++;
 		} else if (anim_frame > 8) { 
-			Log.d(TAG, "sank");
 			sank = true;
 		} else {
 			anim_frame++;
 		}
-				
-		
 	}
 
 	@Override
