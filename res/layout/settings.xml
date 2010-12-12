@@ -37,16 +37,16 @@
 		<ImageButton android:layout_height="wrap_content"
 			android:src="@drawable/settings_soundoff" android:background="#00000000"
 			android:scaleType="center" android:layout_width="wrap_content"
-			android:layout_weight="0" android:id="@+id/soundoff"></ImageButton>
+			android:layout_weight="0" android:id="@+id/effectsoff"></ImageButton>
 		<ru.jecklandin.duckshot.DucksSeekBar
 			android:layout_height="wrap_content" android:layout_width="fill_parent"
 			android:max="8" android:progress="4" android:minHeight="40dip"
-			android:layout_weight="1" android:id="@+id/soundbar">
+			android:layout_weight="1" android:id="@+id/effectsbar">
 		</ru.jecklandin.duckshot.DucksSeekBar>
 		<ImageButton android:layout_height="wrap_content"
 			android:background="#00000000" android:src="@drawable/settings_soundon"
 			android:scaleType="center" android:layout_width="wrap_content"
-			android:id="@+id/soundon"></ImageButton>
+			android:id="@+id/effectson"></ImageButton>
 	</LinearLayout>
 
 
