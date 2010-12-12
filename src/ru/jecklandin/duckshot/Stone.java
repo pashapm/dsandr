@@ -108,5 +108,8 @@ public class Stone extends GameObject {
 		return OBJ_TYPE.STONE;
 	}
 
-
+	public boolean isFallen() {
+		return fallen;
+	}
+	
 }

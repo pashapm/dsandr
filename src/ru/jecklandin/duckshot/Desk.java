@@ -56,7 +56,17 @@ public class Desk {
 	private int mSightX;
 	private int mSightY;
 	
+	private Paint mTextPaint = new Paint();
+	
 	public enum DigitType {YELLOW, RED, WHITE};
+	
+	public Desk() {
+		super();
+		mTextPaint.setAntiAlias(true);
+		mTextPaint.setTypeface(DuckApplication.getCommonTypeface());
+		mTextPaint.setTextSize(ScrProps.mMetrics.scaledDensity * 25);
+		mTextPaint.setColor(Color.WHITE);
+	}
 	
 	public void draw(Canvas c, Paint p) {
 		int y = ScrProps.screenHeight - mDesk.getHeight();
@@ -76,7 +86,6 @@ public class Desk {
 		
 		// draw score
 		addit_m.reset();
-//		addit_m.postTranslate(0, ScrProps.screenHeight - ScrProps.scale(100));
 		addit_m.postTranslate(ScrProps.screenWidth/2, ScrProps.scale(5));
 		Bitmap[] scoreBms = getDigits(DuckGame.getCurrentMatch().getScore(), DigitType.YELLOW);
 		for (int i=0; i<scoreBms.length; ++i) {
@@ -91,20 +100,9 @@ public class Desk {
 		int mins = total / 60;
 		int secs = total % 60;
 		String time_str = mins + " : " + secs;
-		c.drawText(time_str, ScrProps.screenWidth*2/3, ScrProps.screenHeight - ScrProps.scale(100), p);
 		
-//		Bitmap[] minBms = getDigits(sec/60, DigitType.WHITE);
-//		for (int i=0; i<minBms.length; ++i) {
-//			addit_m.postTranslate(ScrProps.scale(20), 0);
-//			c.drawBitmap(minBms[i], addit_m, p);	
-//		}
-//		addit_m.postTranslate(ScrProps.scale(20), 0);
-//		c.drawBitmap(Desk.mDigitsTime[Desk.mDigitsTime.length-1], addit_m, p);	
-//		Bitmap[] secBms = getDigits(sec%60, DigitType.WHITE);
-//		for (int i=0; i<secBms.length; ++i) {
-//			addit_m.postTranslate(ScrProps.scale(15), 0);
-//			c.drawBitmap(secBms[i], addit_m, p);	
-//		}
+		c.drawText(time_str, ScrProps.scale(20), 
+				ScrProps.screenHeight - ScrProps.scale(80), mTextPaint);
 		
 		//draw sight
 		if (mShowSight) {
@@ -153,7 +151,6 @@ public class Desk {
 			}
 		}
 		
-//		Matrix awMat = new Matrix(matrix);
 		addit_m.set(matrix);
 		for (int i=0; i<xses.length; ++i) {
 			addit_m.set(matrix);

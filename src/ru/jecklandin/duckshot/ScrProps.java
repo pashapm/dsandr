@@ -12,7 +12,7 @@ public class ScrProps {
 	public static int screenHeight;
 	public static int screenWidth;
 
-	private static DisplayMetrics mMetrics = new DisplayMetrics();
+	public static DisplayMetrics mMetrics = new DisplayMetrics();
 	
 	public static void initialize(Activity ctx) {
 		Display disp = ((WindowManager) ctx.getSystemService(

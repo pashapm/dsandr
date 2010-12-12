@@ -18,7 +18,6 @@ public class ObjectDrawer {
 
 	public static boolean lock = false;
 	
-	private Context mCtx;
 	private Paint mPaint;
 	private DuckShotModel model = DuckShotModel.getInstance();
 	private Environment mEnvir = new Environment();
@@ -26,7 +25,6 @@ public class ObjectDrawer {
 	private Vector<Duck> mMovingDucks  = new Vector<Duck>();
 
 	private ObjectDrawer(Context ctx) {
-		mCtx = ctx;
 		mPaint = new Paint();
 		mPaint.setTypeface(DuckApplication.getCommonTypeface());
 		mPaint.setTextSize(15);
@@ -59,7 +57,6 @@ public class ObjectDrawer {
 	public boolean drawObjects(Canvas c) {
 		drawEnvironment(c);
 		
-		
 		//draw waves and ducks
 		mMovingDucks.removeAllElements();
 		for (int i = 0; i < model.mWaves.size(); ++i) {
@@ -75,10 +72,6 @@ public class ObjectDrawer {
 		drawDeck(c);
 		drawStones(c);
 		
-		//draw ad
-		//c.drawRect(0, 0, 320, 50, mPaint);
-		//drawLines(c);
-		
 //		DuckShotModel.getInstance().cleanup();
 		return false;
 	}
@@ -93,8 +86,6 @@ public class ObjectDrawer {
 				stone.draw(c, mPaint);
 			}
 		}
-		
-		
 	}
 
 	public void drawDeck(Canvas c) {

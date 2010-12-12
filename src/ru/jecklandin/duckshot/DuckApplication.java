@@ -1,18 +1,30 @@
 package ru.jecklandin.duckshot;
 
+import java.io.IOException;
+
 import android.app.Application;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Handler;
 
 public class DuckApplication extends Application {
 
 	private Match mCurrentMatch;
     private static Typeface mCommonTypeface;
+    private static SoundPool mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+    private static DuckApplication sInstance;
+    private static int MUSIC_ID;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		mCommonTypeface = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
+		DuckApplication.sInstance = this;
+	}
+	
+	public static DuckApplication getInstance() {
+		return sInstance;
 	}
 	
 	public static Typeface getCommonTypeface() {
@@ -32,5 +44,5 @@ public class DuckApplication extends Application {
 			mCurrentMatch.setHandler(han);
 		}
 	}
-
+	
 }
