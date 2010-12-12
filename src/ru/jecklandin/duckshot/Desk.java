@@ -29,6 +29,8 @@ public class Desk {
 		Desk.mPointer = ImgManager.getBitmap("pointer");
 		Desk.mPointerh = ImgManager.getBitmap("pointerh");
 		Desk.mSight = ImgManager.getBitmap("sight");
+		Desk.mLeftPanel = ImgManager.getBitmap("pl_yell");
+		Desk.mRightPanel = ImgManager.getBitmap("pl_green");
 		Desk.mDigits = ImgManager.getAnimation("digits");
 		Desk.mDigitsTime = ImgManager.getAnimation("digits_time");
 		Desk.mAwards = ImgManager.getAnimation("awards");
@@ -41,6 +43,8 @@ public class Desk {
 	public static Bitmap mPointer;
 	public static Bitmap mPointerh;
 	public static Bitmap mSight; 
+	public static Bitmap mLeftPanel;
+	public static Bitmap mRightPanel; 
 	public static Bitmap[] mDigitsTime;
 	public static Bitmap[] mDigits;
 	public static Bitmap[] mAwards;
@@ -61,6 +65,13 @@ public class Desk {
 		int y = ScrProps.screenHeight - mDesk.getHeight();
 		int x = 5;
 		matrix.reset();
+		
+//		matrix.postTranslate(5, 5);
+//		c.drawBitmap(mLeftPanel, matrix, p);
+//		
+//		matrix.setTranslate(ScrProps.screenWidth-mRightPanel.getWidth()-5, 5);
+//		c.drawBitmap(mRightPanel, matrix, p);
+		
 		matrix.setTranslate(x, y);
 		c.drawBitmap(mDesk, matrix, p);
 		
@@ -96,7 +107,8 @@ public class Desk {
 		
 		// draw score
 		addit_m.reset();
-		addit_m.postTranslate(0, ScrProps.screenHeight - ScrProps.scale(100));
+//		addit_m.postTranslate(0, ScrProps.screenHeight - ScrProps.scale(100));
+		addit_m.postTranslate(ScrProps.screenWidth/2, ScrProps.scale(5));
 		Bitmap[] scoreBms = getDigits(DuckGame.getCurrentMatch().getScore(), DigitType.YELLOW);
 		for (int i=0; i<scoreBms.length; ++i) {
 			addit_m.postTranslate(ScrProps.scale(20), 0);
@@ -126,6 +138,7 @@ public class Desk {
 			addit_m.setTranslate(mSightX-mSight.getWidth()/2, mSightY-mSight.getHeight()/2);
 			c.drawBitmap(mSight, addit_m, p);
 		}
+		
 	}  
 	
 	public static Bitmap[] getDigits(int score, DigitType type) {
@@ -166,15 +179,16 @@ public class Desk {
 			}
 		}
 		
-		Matrix awMat = new Matrix(matrix);
+//		Matrix awMat = new Matrix(matrix);
+		addit_m.set(matrix);
 		for (int i=0; i<xses.length; ++i) {
-			awMat.set(matrix);
-			awMat.postTranslate(xses[i], 0);
+			addit_m.set(matrix);
+			addit_m.postTranslate(xses[i], 0);
 			Bonus b = Bonus.values()[i+1];
 			if (bons.contains(b)) {
-				c.drawBitmap(mAwards[b.ordinal()], awMat, p);
+				c.drawBitmap(mAwards[b.ordinal()], addit_m, p);
 			} else {
-				c.drawBitmap(mAwards[0], awMat, p);
+				c.drawBitmap(mAwards[0], addit_m, p);
 			}
 		}
 	} 

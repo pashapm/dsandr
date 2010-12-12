@@ -67,6 +67,10 @@ public class ImgManager {
 		mImgMap.put("quant", bm);
 		bm = getBitmap(R.drawable.settings_quant_e);
 		mImgMap.put("quant_e", bm);
+		bm = getBitmap(R.drawable.pl_green);
+		mImgMap.put("pl_green", bm);
+		bm = getBitmap(R.drawable.pl_yell);
+		mImgMap.put("pl_yell", bm);
 
 		
 		

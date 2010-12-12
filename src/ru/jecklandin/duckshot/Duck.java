@@ -132,7 +132,7 @@ public class Duck extends GameObject {
 			matrix.postTranslate(duckBm.getWidth(), 0);
 		}
 
-		matrix.postTranslate(getNextOffset(offset), y - duckBm.getHeight() / 3);
+		matrix.postTranslate(getNextOffset(offset), y - duckBm.getHeight() / 2);
 
 		
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
@@ -234,13 +234,13 @@ public class Duck extends GameObject {
 		if (dead_sink == 0) {
 			dead_degree += 15;
 			matrix.postRotate(dead_degree, offset + deadDuckBm.getWidth() / 2,
-					y + deadDuckBm.getHeight() / 2 - ScrProps.scale(10));
+					y + deadDuckBm.getHeight() / 3 - ScrProps.scale(10));
 			if (dead_degree > 160) {
 				dead_sink++;
 			}
 		} else {
 			matrix.postRotate(180, offset + deadDuckBm.getWidth() / 2, y
-					+ deadDuckBm.getHeight() / 2 - ScrProps.scale(10));
+					+ deadDuckBm.getHeight() / 3 - ScrProps.scale(10));
 			dead_sink += 1;
 			matrix.postTranslate(0, dead_sink);
 		}

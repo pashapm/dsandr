@@ -79,7 +79,7 @@ public class ObjectDrawer {
 		//c.drawRect(0, 0, 320, 50, mPaint);
 		//drawLines(c);
 		
-		DuckShotModel.getInstance().cleanup();
+//		DuckShotModel.getInstance().cleanup();
 		return false;
 	}
 	

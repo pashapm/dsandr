@@ -28,6 +28,9 @@ public class SlingView extends View {
    
    private boolean mIsGrabbed = false;
 	
+   Paint mPaint = new Paint();
+   Path mPath = new Path();
+   
 	public SlingView(Context context) {
 		super(context);
 		sling = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling2 );
@@ -43,14 +46,16 @@ public class SlingView extends View {
 		
 		slx = SOCKET_DEFAULT_X;
 		sly = SOCKET_DEFAULT_Y;
+		
+		mPaint.setAntiAlias(true);
 	}
+	
+	
 	
 	@Override 
 	public void draw(Canvas canvas) {
-		Paint p = new Paint();
-		p.setAntiAlias(true);
-		p.setColor(Color.parseColor("#a76e21"));
-		canvas.drawBitmap(sling, SLING_X, SLING_Y, p);
+		mPaint.setColor(Color.parseColor("#a76e21"));
+		canvas.drawBitmap(sling, SLING_X, SLING_Y, mPaint);
 
 
 		// p.setPathEffect(new CornerPathEffect(15));
@@ -59,25 +64,26 @@ public class SlingView extends View {
 				SLING_Y + ScrProps.scale(24),
 				slx - socket.getWidth() / 2 + ScrProps.scale(10),
 				sly, ScrProps.scale(8));
-		canvas.drawPath(p2, p);
+		canvas.drawPath(p2, mPaint);
 		
 		Path p3 = getRectangle(slx + socket.getWidth() / 2 - ScrProps.scale(10), sly, SLING_X + ScrProps.scale(142), SLING_Y + ScrProps.scale(28), ScrProps.scale(8));
-		canvas.drawPath(p3, p);
+		canvas.drawPath(p3, mPaint);
 
 //		invalidate(0, ScreenProps.screenHeight - sling.getHeight(), 
 //				ScreenProps.screenWidth, 
 //				ScreenProps.screenWidth);
 		
 		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
-				- socket.getHeight() / 2, p);
+				- socket.getHeight() / 2, mPaint);
 		
 //		invalidate();
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
-			Path path = new Path();
-			path.setLastPoint(x1, y1);
-			path.lineTo(x2, y2);
+			
+			mPath.reset();
+			mPath.setLastPoint(x1, y1);
+			mPath.lineTo(x2, y2);
 			
 			int b = x2 - x1;
 			int a = y2 - y1;
@@ -88,14 +94,14 @@ public class SlingView extends View {
 			double y = Math.sin(beta)*l;
 			double x = Math.sqrt(l*l - y*y);
 			
-			path.lineTo((int)(x2+x), (int)(y2-y));
+			mPath.lineTo((int)(x2+x), (int)(y2-y));
 			
 			//ok, one more point
-			path.lineTo((int)(x1+x), (int)(y1-y));
-			path.lineTo((int)(x1), (int)(y1));
-			path.close();
+			mPath.lineTo((int)(x1+x), (int)(y1-y));
+			mPath.lineTo((int)(x1), (int)(y1));
+			mPath.close();
 			
-			return path;
+			return mPath;
 		}
 
 		private double getAngle(int dx, int dy) {
