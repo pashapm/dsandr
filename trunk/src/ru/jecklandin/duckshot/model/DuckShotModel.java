@@ -62,19 +62,8 @@ public class DuckShotModel {
 		}
 	}
 	
-	@Deprecated
-	public void launchStone(int x, long msec) {
-		Stone stone = new Stone(x, getYFromMsec(msec));
-		synchronized (mStones) { 
-			mStones.add(stone); 
-		}
-		
-		checkForCollide(stone, mYes.size() - 1 - getYNumFromMsec(msec));
-	}
 	
-	@Deprecated
 	public void launchStone(int wave_number, int x) {
-		Log.d(TAG, "!!!"+x);
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
 		mStones.add(stone);
 		checkForCollide(stone, wave_number);
@@ -82,26 +71,6 @@ public class DuckShotModel {
 		map.put("wave_number", ""+wave_number);
 		map.put("x", ""+x);
 		FlurryAgent.onEvent("shot", map);
-	}
-	/**
-	 * Final point of stone's flight
-	 * @param msec
-	 * @return
-	 */
-	@Deprecated
-	public int getYFromMsec( long msec ) {
-		return mYes.get(mYes.size() - 1 - getYNumFromMsec(msec));
-	}
-	
-	@Deprecated
-	public int getYNumFromMsec( long msec ) {
-		//msec is 1999 max
-		//1999 / 10yes = 200  
-		final int MULT = 200;
-		
-		//matching Y-es with mseconds
-		int y = (int) (msec / 200);
-		return y;
 	}
 	
 	public int getTopY() {
@@ -205,20 +174,14 @@ public class DuckShotModel {
 		} while (addDuck(randy) < 0);
 	}
 
-	public void cleanup() {
-		boolean need_gc = false;
+	public void cleanupStones() {
 		synchronized (mStones) {
 			Iterator<Stone> it = mStones.iterator();
 			while (it.hasNext()) {
 				if  (it.next().sank) {
-					need_gc = true;
 					it.remove();
 				}
 			}
-		}
-		
-		if (need_gc) {
-			//System.gc();
 		}
 	}
 
@@ -230,6 +193,4 @@ public class DuckShotModel {
 		int timeout = distance * maxtm / maxdist;
 		return timeout;
 	}
-	
-
 }

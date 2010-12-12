@@ -23,15 +23,7 @@ public class LevelCompletedDialog extends Dialog {
 		mMatch = DuckGame.getCurrentMatch();
 		TextView timeV = (TextView) findViewById(R.id.lvltime);
 		
-		//TODO font crap
-		if (mMatch.mInitialTime%60/10 == 1) {
-			String time = mMatch.mInitialTime/60+":";
-			time+="1 ";
-			time+=mMatch.mInitialTime%60%10;
-			timeV.setText(time);
-		} else {
-			timeV.setText(+mMatch.mInitialTime/60+":"+mMatch.mInitialTime%60);
-		}
+		timeV.setText(+mMatch.mInitialTime/60+":"+mMatch.mInitialTime%60);
 		
 		TextView scoreV = (TextView) findViewById(R.id.lvlsc);
 		scoreV.setText(mMatch.getScore()+"");
@@ -56,13 +48,13 @@ public class LevelCompletedDialog extends Dialog {
 		views[6] = (TextView) findViewById(R.id.lvlsc);
 		
 		for (TextView v:views) {
-			v.setTypeface(DuckGame.s_instance.mHelsTypeface);
+			v.setTypeface(DuckApplication.getCommonTypeface());
 		}
 		
 		Button bretry = (Button) findViewById(R.id.retry);
-		bretry.setTypeface(DuckGame.s_instance.mHelsTypeface);
+		bretry.setTypeface(DuckApplication.getCommonTypeface());
 		Button bnext = (Button) findViewById(R.id.nextlev);
-		bnext.setTypeface(DuckGame.s_instance.mHelsTypeface);
+		bnext.setTypeface(DuckApplication.getCommonTypeface());
 		 
 		setOnCancelListener(new OnCancelListener() {
 			

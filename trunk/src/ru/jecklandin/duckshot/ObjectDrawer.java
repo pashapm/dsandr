@@ -28,7 +28,7 @@ public class ObjectDrawer {
 	private ObjectDrawer(Context ctx) {
 		mCtx = ctx;
 		mPaint = new Paint();
-		mPaint.setTypeface(DuckGame.s_instance.mTypeface);
+		mPaint.setTypeface(DuckApplication.getCommonTypeface());
 		mPaint.setTextSize(15);
 		mPaint.setColor(Color.YELLOW);
 	}

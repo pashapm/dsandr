@@ -26,7 +26,7 @@ public class GameField extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		
-//		Debug.startMethodTracing("ducks");
+		
 		 
 		//antialiasing for bitmaps 
 		PaintFlagsDrawFilter setfil = new PaintFlagsDrawFilter(0, Paint.FILTER_BITMAP_FLAG);
@@ -35,6 +35,5 @@ public class GameField extends View {
      	mDrawer.drawObjects(canvas);
  		FpsCounter.notifyDrawing();
  		
-// 		Debug.stopMethodTracing();
   	}    
 }

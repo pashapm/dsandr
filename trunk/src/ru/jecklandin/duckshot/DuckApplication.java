@@ -1,15 +1,22 @@
 package ru.jecklandin.duckshot;
 
 import android.app.Application;
+import android.graphics.Typeface;
 import android.os.Handler;
 
 public class DuckApplication extends Application {
 
 	private Match mCurrentMatch;
+    private static Typeface mCommonTypeface;
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		mCommonTypeface = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
+	}
+	
+	public static Typeface getCommonTypeface() {
+		return mCommonTypeface;
 	}
 	
 	public Match getCurrentMatch() {

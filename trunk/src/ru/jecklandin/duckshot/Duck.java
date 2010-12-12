@@ -23,8 +23,6 @@ public class Duck extends GameObject {
 		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
 	}
 
-
-	
 	private Stone mStone;
 
 	private static Bitmap duckBm;
@@ -94,14 +92,6 @@ public class Duck extends GameObject {
 			rotate();
 		}
 		
-		
-		
-//		if (offset == ScrProps.scale(150))
-//			dive();
-//		
-//		if (offset == ScrProps.scale(100))
-//			emerge();
- 
 		if (offset < MIN_OFFSET) {
 			mMovingRight = true;
 		} else if (offset > MAX_OFFSET) {
