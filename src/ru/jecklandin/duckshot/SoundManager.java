@@ -71,4 +71,8 @@ public class SoundManager {
 			mPlayer.pause();
 		}
 	}
+	
+	public void seekAtZero() {
+		mPlayer.seekTo(0);
+	}
 }
