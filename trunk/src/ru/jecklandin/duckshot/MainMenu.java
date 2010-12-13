@@ -108,6 +108,9 @@ public class MainMenu extends Activity implements OnClickListener {
 		
 		ImageButton sett = (ImageButton) findViewById(R.id.msettings);
 		sett.setOnClickListener(this);
+		
+		ImageButton newg = (ImageButton) findViewById(R.id.mnewgame);
+		newg.setOnClickListener(this);
 	}
 
 	/**
@@ -144,6 +147,7 @@ public class MainMenu extends Activity implements OnClickListener {
 			MainMenu.this.startActivityForResult(i, 0);
 			break;
 		case R.id.start:
+		case R.id.mnewgame:
 			Intent i1 = new Intent();
 			i1.setClass(MainMenu.this, DuckGame.class);
 			i1.setAction(DuckGame.NEW_MATCH);
