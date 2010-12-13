@@ -87,9 +87,9 @@ public class DuckGame extends Activity {
         
         if (getIntent().getAction().equals(NEW_MATCH)) {
         	mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler);
+        	DuckShotModel.getInstance().reinitialize();
         } else {
         	mApplication.setHandler(mMatchHandler);
-        	//TODO crappy code
         }
         mMatch = mApplication.getCurrentMatch();
         
