@@ -72,31 +72,29 @@ public class ImgManager {
 		bm = getBitmap(R.drawable.pl_yell);
 		mImgMap.put("pl_yell", bm);
 
-		
-		
-		
 		bm = getBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];
 		for (int i=0; i<anim.length; ++i) {
 			anim[i] = Bitmap.createBitmap(bm, i*84, 0, 84, 84);
 		}
 		mAniMap.put("fountain", anim);
-		
+		bm.recycle();
 		   
 		bm = getBitmap(R.drawable.duckdive);
-		anim = new Bitmap[16];
+		anim = new Bitmap[16]; 
 		for (int i=0; i<anim.length; ++i) {
 			anim[i] = Bitmap.createBitmap(bm, i*120, 0, 120, 120);
 		}
 		mAniMap.put("duckdive", anim);
-		 
+		bm.recycle();
 		
 		bm = getBitmap(R.drawable.duckemerge);
 		anim = new Bitmap[8];
 		for (int i=0; i<anim.length; ++i) {
 			anim[i] = Bitmap.createBitmap(bm, i*120, 0, 120, 120);
-		}
+		} 
 		mAniMap.put("duckemerge", anim);
+		bm.recycle();
 		
 		bm = getBitmap(R.drawable.digits);
 		anim = new Bitmap[11];
@@ -104,6 +102,7 @@ public class ImgManager {
 			anim[i] = Bitmap.createBitmap(bm, i*30, 0, 30, 30);
 		}
 		mAniMap.put("digits", anim);
+		bm.recycle();
 		
 		bm = getBitmap(R.drawable.digits_red);
 		anim = new Bitmap[11]; 
@@ -111,6 +110,7 @@ public class ImgManager {
 			anim[i] = Bitmap.createBitmap(bm, i*30, 0, 30, 30);
 		}
 		mAniMap.put("digits_red", anim);
+		bm.recycle();
 		
 		bm = getBitmap(R.drawable.digits_time);
 		anim = new Bitmap[11]; 
@@ -118,6 +118,7 @@ public class ImgManager {
 			anim[i] = Bitmap.createBitmap(bm, i*25, 0, 25, 20);
 		}
 		mAniMap.put("digits_time", anim);
+		bm.recycle();
 		
 		bm = getBitmap(R.drawable.awards);
 		anim = new Bitmap[5]; 
@@ -125,6 +126,7 @@ public class ImgManager {
 			anim[i] = Bitmap.createBitmap(bm, i*35, 0, 35, 35);
 		}
 		mAniMap.put("awards", anim);
+		bm.recycle();
 	}
 
 	private static Bitmap getBitmap(int id) {

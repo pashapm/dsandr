@@ -34,7 +34,6 @@ public class Duck extends GameObject {
 	public Wave ownedWave;
 	public int mScoreValue = 100;
 
-	private Matrix emptyMatrix;
 	private Matrix addit_m;
 	
 	// ===============   state
@@ -66,12 +65,12 @@ public class Duck extends GameObject {
 	
 
 	public Duck(int x) {
-		super();
+		super(); 
 		this.offset = x; 
-		speed = 1;
+		speed = 2;
 		matrix = new Matrix();
-		emptyMatrix = new Matrix();
 		addit_m = new Matrix();
+		
 	}
 
 	@Override
@@ -179,6 +178,7 @@ public class Duck extends GameObject {
 		mMoveFlag = false;
 		 
 		ticksBeforeNextDive = generateNextDive();
+		speed = generateNextSpeed();
 		double rnd = Math.random();
 		mMovingRight = rnd < 0.5;   
 		
@@ -188,6 +188,7 @@ public class Duck extends GameObject {
 	private void rotate() {
 		mMovingRight = !mMovingRight;
 		ticksBeforeNextRotate = generateNextRotate();
+		speed = generateNextSpeed();
 	}
 	
 	/**
@@ -204,6 +205,10 @@ public class Duck extends GameObject {
 	 */
 	private int generateNextRotate() {
 		return (int) (Math.random()*180+20);
+	}
+	
+	private float generateNextSpeed() {
+		return (float) (Math.random()*1.5+1);
 	}
 	
 	private int moveToANotherWave() {
