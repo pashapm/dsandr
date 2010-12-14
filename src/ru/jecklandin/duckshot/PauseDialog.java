@@ -34,6 +34,7 @@ public class PauseDialog extends Dialog {
 		((TextView)findViewById(R.id.pauselab)).setTypeface(DuckApplication.getCommonTypeface());
 		
 		Button resume = (Button) findViewById(R.id.presume);
+		resume.setTypeface(DuckApplication.getCommonTypeface());
 		resume.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -44,6 +45,7 @@ public class PauseDialog extends Dialog {
 		});
 		
 		Button settings = (Button) findViewById(R.id.psettings);
+		settings.setTypeface(DuckApplication.getCommonTypeface());
 		settings.setOnClickListener(new View.OnClickListener() {
 
 			@Override
