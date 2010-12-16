@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.43905622"
-     inkscape:cx="2837.2904"
-     inkscape:cy="-18647.344"
+     inkscape:zoom="0.15522982"
+     inkscape:cx="5700.9899"
+     inkscape:cy="-8500.0151"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -9164,7 +9164,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -16892,60 +16892,54 @@
        width="110.16192"
        id="rect6758-3-6"
        style="fill:#ff0f00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
-    <g
-       inkscape:export-ydpi="11.44134"
-       inkscape:export-xdpi="11.44134"
+    <path
+       inkscape:export-ydpi="32"
+       inkscape:export-xdpi="32"
        inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-       id="g6987">
-      <path
-         style="fill:#21b60c;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1"
-         d="m 5405.9083,19233.423 629.2967,0 c 0,20.543 0,18.498 0,39.73 l -629.2967,0 c 0,-30.21 0,-14.042 0,-39.73 z"
-         id="rect6758-3-0"
-         sodipodi:nodetypes="ccccc"
-         inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-         inkscape:export-xdpi="32"
-         inkscape:export-ydpi="32" />
-      <path
-         style="fill:#83ff00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1"
-         d="m 5405.9083,19272.997 521.2021,0 c 0,22.624 0,21.333 0,39.732 l -521.2021,0 c 0,-24.091 0,-24.225 0,-39.732 z"
-         id="rect6758-3-3-3"
-         sodipodi:nodetypes="ccccc"
-         inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-         inkscape:export-xdpi="32"
-         inkscape:export-ydpi="32" />
-      <path
-         style="fill:#ffd900;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1"
-         d="m 5405.9083,19312.571 381.0793,0 c 0,19.771 0,17.994 0,39.732 l -381.0793,0 c 0,-25.75 0,-19.513 0,-39.732 z"
-         id="rect6758-3-9-8"
-         sodipodi:nodetypes="ccccc"
-         inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-         inkscape:export-xdpi="32"
-         inkscape:export-ydpi="32" />
-      <path
-         style="fill:#ff9200;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1"
-         d="m 5405.9083,19352.145 276.9881,0 c 0,18.349 0,16.796 0,39.732 l -276.9881,0 c 0,-24.251 0,-16.791 0,-39.732 z"
-         id="rect6758-3-8-0"
-         sodipodi:nodetypes="ccccc"
-         inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-         inkscape:export-xdpi="32"
-         inkscape:export-ydpi="32" />
-      <path
-         style="fill:#ff5a00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1"
-         d="m 5405.9083,19391.719 184.6018,0 c 0,22.656 0,18.564 0,39.731 l -184.6018,0 c 0,-25.489 0,-20.49 0,-39.731 z"
-         id="rect6758-3-82-1"
-         sodipodi:nodetypes="ccccc"
-         inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-         inkscape:export-xdpi="32"
-         inkscape:export-ydpi="32" />
-      <path
-         style="fill:#ff0f00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1"
-         d="m 5405.9083,19431.295 87.6005,0 c 0,20.53 0,12.232 0,39.729 0,0 -52.6547,0 -87.6005,0 0,-22.811 0,-21.147 0,-39.729 z"
-         id="rect6758-3-6-2"
-         sodipodi:nodetypes="ccccc"
-         inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
-         inkscape:export-xdpi="32"
-         inkscape:export-ydpi="32" />
-    </g>
+       sodipodi:nodetypes="ccccc"
+       id="rect6758-3-0"
+       d="m 5405.9083,19233.423 629.2967,0 c 0,20.543 0,18.498 0,39.73 l -629.2967,0 c 0,-30.21 0,-14.042 0,-39.73 z"
+       style="fill:#21b60c;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="32"
+       inkscape:export-xdpi="32"
+       inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
+       sodipodi:nodetypes="ccccc"
+       id="rect6758-3-3-3"
+       d="m 5405.9083,19272.997 521.2021,0 c 0,22.624 0,21.333 0,39.732 l -521.2021,0 c 0,-24.091 0,-24.225 0,-39.732 z"
+       style="fill:#83ff00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="32"
+       inkscape:export-xdpi="32"
+       inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
+       sodipodi:nodetypes="ccccc"
+       id="rect6758-3-9-8"
+       d="m 5405.9083,19312.571 381.0793,0 c 0,19.771 0,17.994 0,39.732 l -381.0793,0 c 0,-25.75 0,-19.513 0,-39.732 z"
+       style="fill:#ffd900;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="32"
+       inkscape:export-xdpi="32"
+       inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
+       sodipodi:nodetypes="ccccc"
+       id="rect6758-3-8-0"
+       d="m 5405.9083,19352.145 276.9881,0 c 0,18.349 0,16.796 0,39.732 l -276.9881,0 c 0,-24.251 0,-16.791 0,-39.732 z"
+       style="fill:#ff9200;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="32"
+       inkscape:export-xdpi="32"
+       inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
+       sodipodi:nodetypes="ccccc"
+       id="rect6758-3-82-1"
+       d="m 5405.9083,19391.719 184.6018,0 c 0,22.656 0,18.564 0,39.731 l -184.6018,0 c 0,-25.489 0,-20.49 0,-39.731 z"
+       style="fill:#ff5a00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1" />
+    <path
+       inkscape:export-ydpi="32"
+       inkscape:export-xdpi="32"
+       inkscape:export-filename="C:\ws\workspace3\Ducks3\res\drawable\health.png"
+       sodipodi:nodetypes="ccccc"
+       id="rect6758-3-6-2"
+       d="m 5405.9083,19431.295 87.6005,0 c 0,20.53 0,12.232 0,39.729 0,0 -52.6547,0 -87.6005,0 0,-22.811 0,-21.147 0,-39.729 z"
+       style="fill:#ff0f00;fill-opacity:1;fill-rule:nonzero;stroke:#43ac00;stroke-width:0;stroke-miterlimit:4;stroke-opacity:1" />
     <text
        id="text4992"
        y="20366.439"

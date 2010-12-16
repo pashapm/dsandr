@@ -16,7 +16,7 @@ public class SoundManager {
 	
 	private SoundPool mPool;
 	private Context mCtx;
-	private int[] mSounds = new int[3];
+	private int[] mSounds = new int[4];
 	
 	private int mSound = 4;
 	private int mEffects = 4;
@@ -33,6 +33,7 @@ public class SoundManager {
 		mSounds[0] = mPool.load(mCtx, R.raw.quack1, 1);
 		mSounds[1] = mPool.load(mCtx, R.raw.quack2, 1);
 		mSounds[2] = mPool.load(mCtx, R.raw.quack3, 1);
+		mSounds[3] = mPool.load(mCtx, R.raw.hit3, 1);
 		
 		try {
 			mPlayer.setDataSource(mCtx, Uri.parse("android.resource://ru.jecklandin.duckshot/"+R.raw.music));
@@ -55,6 +56,10 @@ public class SoundManager {
 	public void playQuack() {
 		int s = (int) (Math.random()*3);
 		mPool.play(mSounds[s], mEffects/8f, mEffects/8f, 1, 0, 1);
+	}
+	
+	public void playHit() {
+		mPool.play(mSounds[3], mEffects/8f, mEffects/8f, 1, 0, 1);
 	}
 	
 	public void readSettings() {
