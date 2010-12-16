@@ -252,7 +252,7 @@ class DuckTimer extends Thread {
 				m_view.postInvalidate();
 			}
 			try {
-				sleep(40);
+				sleep(1000 / DuckApplication.FPS);
 			} catch (InterruptedException e) {
 				Log.d("DuckTimer", "Stopping");
 				return;

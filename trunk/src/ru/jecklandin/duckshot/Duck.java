@@ -53,6 +53,8 @@ public class Duck extends GameObject {
 	
 	private int timeout = 0;
 	
+	private int overallTicks = 0;
+	
 	private int ticksBeforeNextDive = generateNextDive();
 	private int ticksBeforeNextRotate = generateNextRotate();
 	
@@ -79,6 +81,14 @@ public class Duck extends GameObject {
 			return offset;
 		}
 		
+		overallTicks++;
+		if (Desk.getInstance().getSightVisibility() 
+				&& overallTicks % (DuckApplication.FPS) == 0 && !isDiving) {
+			if (isDanger()) {  //the sight is nearby!
+				dive();
+			}
+		}
+		
 		if (mMovingRight) {
 			offset += speed;
 		} else {
@@ -98,6 +108,20 @@ public class Duck extends GameObject {
 		}
 		return offset;
 	}
+	
+	private boolean isDanger() {
+		int wave_num = DuckShotModel.getInstance().getTargetWave();
+		if (wave_num != ownedWave.wave_num) {
+			return false;
+		}
+		
+		int sight_x = Desk.getInstance().getSightX();
+		if (Math.abs(this.offset - sight_x) < ScrProps.scale(60)) {
+			Log.d(TAG, "DANGER");
+			return true;
+		}
+		return false;
+	}
  
 	@Override
 	public OBJ_TYPE getRtti() {
@@ -116,12 +140,15 @@ public class Duck extends GameObject {
 		}
 		
 		matrix.reset();
+		
+		
 		if (mMovingRight) {
 			matrix.setScale(-1, 1);
 			matrix.postTranslate(duckBm.getWidth(), 0);
 		}
+		matrix.postScale(0.7f, 0.7f);
 
-		matrix.postTranslate(getNextOffset(offset), y - duckBm.getHeight() / 2);
+		matrix.postTranslate(getNextOffset(offset), y - duckBm.getHeight() / 4);
 
 		
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
@@ -252,14 +279,12 @@ public class Duck extends GameObject {
 		if (alpha < ScrProps.scale(40)) {
 			end_animation = true;
 		}
-		//p.setAlpha(alpha);
 		dead_sink-=ScrProps.scale(4);
 		
 		addit_m.reset();
 		addit_m.setScale(0.6f, 0.6f);
 		addit_m.postTranslate(this.offset, ownedWave.y + ScrProps.scale(dead_sink));
 		drawScoreDigits(c, p, addit_m, mScoreValue);
-		//p.setAlpha(255);
 	}
 
 	
@@ -274,11 +299,11 @@ public class Duck extends GameObject {
 	
 	private boolean isIntersects(int ix) {
 		return (!isDiving 
-				&& ix > (this.offset - duckBm.getWidth()/3) 
-				&& ix < (this.offset + 4*duckBm.getWidth()/3));
+				&& ix > (this.offset - duckBm.getWidth()/4) 
+				&& ix < (this.offset + 2*duckBm.getWidth()/3));
 	}
 
-	public void throwStone(Stone stone) {
+	public void notifyStoneWasThrown(Stone stone) {
 		mStone = stone;
 	}
 	

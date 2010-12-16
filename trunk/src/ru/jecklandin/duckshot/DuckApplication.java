@@ -15,6 +15,8 @@ public class DuckApplication extends Application {
     private static SoundPool mSoundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
     private static DuckApplication sInstance;
     private static int MUSIC_ID;
+    
+    public static final int FPS = 25;
 	
 	@Override
 	public void onCreate() {
