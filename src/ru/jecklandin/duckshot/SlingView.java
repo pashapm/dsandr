@@ -56,10 +56,6 @@ public class SlingView extends View {
 	public void draw(Canvas canvas) {
 		mPaint.setColor(Color.parseColor("#a76e21"));
 		canvas.drawBitmap(sling, SLING_X, SLING_Y, mPaint);
-
-
-		// p.setPathEffect(new CornerPathEffect(15));
-
 		Path p2 = getRectangle(SLING_X + ScrProps.scale(28),
 				SLING_Y + ScrProps.scale(24),
 				slx - socket.getWidth() / 2 + ScrProps.scale(10),
@@ -68,15 +64,8 @@ public class SlingView extends View {
 		
 		Path p3 = getRectangle(slx + socket.getWidth() / 2 - ScrProps.scale(10), sly, SLING_X + ScrProps.scale(142), SLING_Y + ScrProps.scale(28), ScrProps.scale(8));
 		canvas.drawPath(p3, mPaint);
-
-//		invalidate(0, ScreenProps.screenHeight - sling.getHeight(), 
-//				ScreenProps.screenWidth, 
-//				ScreenProps.screenWidth);
-		
 		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
 				- socket.getHeight() / 2, mPaint);
-		
-//		invalidate();
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
@@ -140,6 +129,9 @@ public class SlingView extends View {
  
 			int sighty = SOCKET_DEFAULT_Y - b1 * DuckShotModel.WAVES_HEIGHT / SLING_AREA_HEIGHT;
 			Desk.getInstance().setSight(sightx, sighty); 
+			
+			int wave_num = DuckShotModel.WAVES_NUM - 1 - b1 * DuckShotModel.WAVES_NUM / SLING_AREA_HEIGHT;
+			DuckShotModel.getInstance().setTargetWave(wave_num);
 		} 
 
 		public void shot(int x, int y) {

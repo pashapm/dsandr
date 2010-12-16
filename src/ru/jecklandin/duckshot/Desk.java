@@ -169,7 +169,19 @@ public class Desk {
 		mSightY = y;
 	}
 	
+	protected int getSightX() {
+		return mSightX;
+	}
+	
+	protected int getSightY() {
+		return mSightY;
+	}
+	
 	public void setSightVisibility(boolean vis) {
 		mShowSight = vis;
+	}
+	
+	public boolean getSightVisibility() {
+		return mShowSight;
 	}
 }

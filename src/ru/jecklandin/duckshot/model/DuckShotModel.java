@@ -21,6 +21,8 @@ public class DuckShotModel {
 	public Vector<Stone> mStones = new Vector<Stone>();
 	public Vector<Integer> mYes = new Vector<Integer>();
 	
+	private int mTargetWave;
+	
 	private static DuckShotModel s_instance;
 	public static synchronized DuckShotModel getInstance() {
 		if (DuckShotModel.s_instance == null) {
@@ -54,7 +56,7 @@ public class DuckShotModel {
 			int mx = (int) (Math.random()*50 - 50);
 			// 1 .. 5
 			int ms = i / 2;
-			mWaves.add(new Wave(mx, mYes.get(i), ms));
+			mWaves.add(new Wave(mx, mYes.get(i), ms, i));
 		}
 		
 		for (int i=0; i<1; ++i) {
@@ -66,7 +68,7 @@ public class DuckShotModel {
 	public void launchStone(int wave_number, int x) {
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
 		mStones.add(stone);
-		checkForCollide(stone, wave_number);
+		notifyDucks(stone, wave_number);
 		Map<String, String> map = new HashMap<String, String>() ;
 		map.put("wave_number", ""+wave_number);
 		map.put("x", ""+x);
@@ -81,9 +83,9 @@ public class DuckShotModel {
 		return mYes.get(mYes.size()-1) + WAVES_GAP;
 	}
 	
-	private void checkForCollide(Stone stone, int ny) {
+	private void notifyDucks(Stone stone, int ny) {
 		for (Duck duck : mWaves.get(ny).ducks) {  
-			duck.throwStone(stone); 
+			duck.notifyStoneWasThrown(stone); 
 		} 
 	}
 	
@@ -192,5 +194,13 @@ public class DuckShotModel {
 		int maxdist = (int) Math.hypot(maxx, maxy);
 		int timeout = distance * maxtm / maxdist;
 		return timeout;
+	}
+
+	public void setTargetWave(int waveNum) {
+		mTargetWave = waveNum;
+	}
+	
+	public int getTargetWave() {
+		return mTargetWave;
 	}
 }

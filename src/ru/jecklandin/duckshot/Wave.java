@@ -27,11 +27,14 @@ public class Wave extends GameObject {
 	private static Bitmap waveBm;  
 	public Vector<Duck> ducks = new Vector<Duck>();
 	
-	public Wave(int x, int y, float speed) {
+	protected int wave_num;
+	
+	public Wave(int x, int y, float speed, int wave_num) {
 		super();
 		this.x = x;
 		this.y = y; 
 		
+		this.wave_num = wave_num;
 		this.offset = x;
 		this.speed = speed;
 		matrix = new Matrix();
