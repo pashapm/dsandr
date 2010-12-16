@@ -97,6 +97,7 @@ public class Desk {
 		addit_m.reset();
 		addit_m.setTranslate(ScrProps.screenWidth*2/3, ScrProps.screenHeight - ScrProps.scale(100));
 		int total = DuckGame.s_instance.mMatch.secondsRemain();
+		mTextPaint.setColor(total <= 5 ? Color.RED : Color.WHITE);   
 		int mins = total / 60;
 		int secs = total % 60;
 		String time_str = mins + " : " + secs;

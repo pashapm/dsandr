@@ -2,6 +2,8 @@ package ru.jecklandin.duckshot;
 
 import java.util.Vector;
 
+import ru.jecklandin.duckshot.model.DuckShotModel;
+
 import android.os.Handler;
 import android.os.Message;
 

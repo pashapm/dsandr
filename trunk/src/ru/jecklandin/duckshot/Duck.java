@@ -32,7 +32,10 @@ public class Duck extends GameObject {
 	
 
 	public Wave ownedWave;
-	public int mScoreValue = 100;
+	
+	public int mScoreValue = 0;
+	public int mSumValues = 0;
+	public int mHealth = 100;
 
 	private Matrix addit_m;
 	
@@ -57,6 +60,8 @@ public class Duck extends GameObject {
 	
 	private int ticksBeforeNextDive = generateNextDive();
 	private int ticksBeforeNextRotate = generateNextRotate();
+	
+	private static final float DUCK_SCALE = 0.7f;
 	
 	// ===============   \state
 	
@@ -141,23 +146,33 @@ public class Duck extends GameObject {
 		
 		matrix.reset();
 		
-		
+		float next_offset = getNextOffset(offset);
 		if (mMovingRight) {
 			matrix.setScale(-1, 1);
 			matrix.postTranslate(duckBm.getWidth(), 0);
 		}
-		matrix.postScale(0.7f, 0.7f);
+		matrix.postScale(DUCK_SCALE, DUCK_SCALE);
 
-		matrix.postTranslate(getNextOffset(offset), y - duckBm.getHeight() / 4);
+		matrix.postTranslate(next_offset, y - duckBm.getHeight() / 4);
 
 		
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {
-				isDead = true;
-				SoundManager.getInstance().playQuack();
-				mStone.makeFountain = false;
-				DuckGame.getCurrentMatch().addScore(mScoreValue);
+				
 				DuckGame.getVibrator().vibrate(30);
+				mStone.makeFountain = false;
+				mHealth -= 50;
+				
+				addValue(mScoreValue);
+				if (mHealth <=0) {
+					isDead = true;
+					SoundManager.getInstance().playHit();
+					DuckGame.getCurrentMatch().addScore(mSumValues);
+				} else {
+					SoundManager.getInstance().playQuack();
+					dive();
+				}
+				
 			}
 			mStone = null;
 		}
@@ -177,6 +192,10 @@ public class Duck extends GameObject {
 		}
 	}
 
+	private void addValue(int val) {
+		mSumValues += val;
+	}
+	
 	private void drawEmerging(Canvas c, Paint p) {
 		if (emerging_frame < 8) {
 			c.drawBitmap(mAniEmerging[emerging_frame], matrix, p); 
@@ -240,10 +259,31 @@ public class Duck extends GameObject {
 	
 	private int moveToANotherWave() {
 		return DuckShotModel.getInstance().moveDuckToRandomWave(this);
-	}
+	} 
 	
 	private void drawNormal(Canvas c, Paint p) {
 		c.drawBitmap(duckBm, matrix, p);
+		float[] point = new float[] {0, 0};   
+		matrix.mapPoints(point);
+		drawHealth(point, c, p);
+	}
+	
+	private void drawHealth(float[] point, Canvas c, Paint p) {
+		point[1]-=ScrProps.scale(10);
+		int w = (int) (duckBm.getWidth()*DUCK_SCALE);
+		
+		int color = Color.parseColor("#21b60c");
+		int length = w;
+		if (mHealth < 100 && mHealth > 0) {
+			color = Color.parseColor("#ff5a00");
+			length = w / 2;
+		} 
+		p.setColor(color);  
+		
+		if (mMovingRight) {
+			point[0]-=w;
+		}
+		c.drawRect(point[0], point[1], point[0]+length, point[1]+ScrProps.scale(6), p);
 	}
 
 	private void drawDeadAnimation(Canvas c, Paint p) {
@@ -326,6 +366,13 @@ public class Duck extends GameObject {
 	@Override
 	public int hashCode() {
 		return id;
+	}
+	
+	public void setOwnedWave(Wave wave) {
+		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mWaves.size() - 1 - wave.wave_num);
+		this.ownedWave = wave;
+		this.offset = x;
+		this.ownedWave.addDuck(this);
 	}
 	 
 }

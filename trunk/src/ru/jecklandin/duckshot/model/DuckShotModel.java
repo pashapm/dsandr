@@ -46,11 +46,6 @@ public class DuckShotModel {
 			mYes.add(WAVES_OFFSET + i * WAVES_GAP);
 		}
 		
-		reinitialize();
-	}
-	
-	public void reinitialize() {
-		mWaves.removeAllElements();
 		for (int i=0; i<mYes.size(); ++i) {
 			// -50 .. +50
 			int mx = (int) (Math.random()*50 - 50);
@@ -58,12 +53,22 @@ public class DuckShotModel {
 			int ms = i / 2;
 			mWaves.add(new Wave(mx, mYes.get(i), ms, i));
 		}
+	}
+	
+	public void reinitialize() {
+		populate();
+	}
+	
+	public void populate() {
+		
+		for (Wave w : mWaves) {
+			w.ducks.clear();
+		}
 		
 		for (int i=0; i<1; ++i) {
 			addRandomDuck();
 		}
 	}
-	
 	
 	public void launchStone(int wave_number, int x) {
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
@@ -131,10 +136,7 @@ public class DuckShotModel {
 			return false;
 		}
 		
-		d.mScoreValue = 50 + 10*(mWaves.size() - 1 - wave_num);
-		d.ownedWave =  ownedWave;
-		d.offset = x;
-		d.ownedWave.addDuck(d);
+		d.setOwnedWave(ownedWave);
 		return true;
 	}
 	
