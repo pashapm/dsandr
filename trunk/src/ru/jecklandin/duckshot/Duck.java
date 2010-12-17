@@ -168,6 +168,7 @@ public class Duck extends GameObject {
 					isDead = true;
 					SoundManager.getInstance().playHit();
 					DuckGame.getCurrentMatch().addScore(mSumValues);
+					DuckGame.getCurrentMatch().requestNextDuckIfNeed();
 				} else {
 					SoundManager.getInstance().playQuack();
 					dive();
@@ -324,7 +325,7 @@ public class Duck extends GameObject {
 		addit_m.reset();
 		addit_m.setScale(0.6f, 0.6f);
 		addit_m.postTranslate(this.offset, ownedWave.y + ScrProps.scale(dead_sink));
-		drawScoreDigits(c, p, addit_m, mScoreValue);
+		drawScoreDigits(c, p, addit_m, mSumValues);
 	}
 
 	
@@ -368,11 +369,14 @@ public class Duck extends GameObject {
 		return id;
 	}
 	
-	public void setOwnedWave(Wave wave) {
+	public void setOwnedWave(Wave wave, int xa) {
 		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mWaves.size() - 1 - wave.wave_num);
 		this.ownedWave = wave;
-		this.offset = x;
+		this.offset = xa;
 		this.ownedWave.addDuck(this);
+		
+		isDiving = true;
+		emerge();
 	}
 	 
 }

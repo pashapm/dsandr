@@ -56,18 +56,26 @@ public class DuckShotModel {
 	}
 	
 	public void reinitialize() {
-		populate();
+		populate(0);
 	}
 	
-	public void populate() {
+	public void populate(int num) {
 		
 		for (Wave w : mWaves) {
 			w.ducks.clear();
 		}
 		
-		for (int i=0; i<1; ++i) {
+		for (int i=0; i<num; ++i) {
 			addRandomDuck();
 		}
+	}
+	
+	public int getDucksNumber() {
+		int sum = 0;
+		for (Wave w : mWaves) {
+			sum += w.ducks.size();
+		}
+		return sum;
 	}
 	
 	public void launchStone(int wave_number, int x) {
@@ -136,7 +144,7 @@ public class DuckShotModel {
 			return false;
 		}
 		
-		d.setOwnedWave(ownedWave);
+		d.setOwnedWave(ownedWave, x);
 		return true;
 	}
 	
@@ -171,6 +179,7 @@ public class DuckShotModel {
 	}
 
 	public void addRandomDuck() {
+		Log.d(TAG, "ADDINg duck");
 		int randy;
 		// look for free wave
 		do {

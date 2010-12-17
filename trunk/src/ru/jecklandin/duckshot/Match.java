@@ -39,17 +39,19 @@ public class Match extends Thread {
 	private Vector<KillEvent> mKilledDucks = new Vector<KillEvent>();
 	private Vector<Bonus> mAwards = new Vector<Bonus>();
 	
-	{
-//		mAwards.add(Bonus.DOUBLE);
-		mAwards.add(Bonus.TRIPLE);
-//		mAwards.add(Bonus.QUAD);
-		mAwards.add(Bonus.MAXIKILL);
-	}
+	private long mNextDuckAppearance = Long.MAX_VALUE; 
 	
 	public Match(int seconds, Handler han) {
 		mMatchMs = seconds * 1000;
 		mInitialTime = seconds;
 		mHandler = han;
+		
+//		mAwards.add(Bonus.DOUBLE);
+		mAwards.add(Bonus.TRIPLE);
+//		mAwards.add(Bonus.QUAD);
+		mAwards.add(Bonus.MAXIKILL);
+		
+		DuckShotModel.getInstance().populate(3);
 	}
 	
 	public void setHandler(Handler han) {
@@ -87,6 +89,12 @@ public class Match extends Thread {
 			if (!mPaused) {
 				if (mMatchMs > 50) {
 					mMatchMs-=50;
+					
+					if (mNextDuckAppearance < System.currentTimeMillis()) {
+						DuckShotModel.getInstance().addRandomDuck();
+						mNextDuckAppearance = Long.MAX_VALUE;
+					}
+					
 				} else {
 					Message mess = new Message();
 					mess.arg1 = 42;
@@ -112,6 +120,12 @@ public class Match extends Thread {
 	// score 
 	public void addScore(int sc) {
 		mScore += sc;
+	}
+	
+	public void requestNextDuckIfNeed() {
+		if (DuckShotModel.getInstance().getDucksNumber() < 3) {
+			mNextDuckAppearance = (long) (System.currentTimeMillis() + 1000 + Math.random()*2000);
+		}
 	}
 	
 	public int getScore() {
