@@ -87,7 +87,6 @@ public class DuckGame extends Activity {
         
         if (getIntent().getAction().equals(NEW_MATCH)) {
         	mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler);
-        	DuckShotModel.getInstance().reinitialize();
         	SoundManager.getInstance().seekAtZero();
         } else {
         	mApplication.setHandler(mMatchHandler);
@@ -106,7 +105,6 @@ public class DuckGame extends Activity {
 			@Override
 			public void onClick(View v) {
 				DuckShotModel.getInstance().addRandomDuck();
-				
 			}
 		}); 
 
@@ -225,7 +223,6 @@ public class DuckGame extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		if (intent.getAction().equals(NEW_MATCH)) {
-			DuckShotModel.getInstance().reinitialize();
 			mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler); 
 			mMatch = mApplication.getCurrentMatch();
 			mMatch.start();
