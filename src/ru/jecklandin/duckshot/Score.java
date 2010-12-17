@@ -2,11 +2,15 @@ package ru.jecklandin.duckshot;
 
 class Score implements Comparable<Score>{
 
-
 	public String name;
 	public int score;
 	
+	Score() {
+		super();
+	}
+	
 	Score(String name, int score) {
+		super();
 		this.name = name;
 		this.score = score;
 	}
