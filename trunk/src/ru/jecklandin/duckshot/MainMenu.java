@@ -95,6 +95,9 @@ public class MainMenu extends Activity implements OnClickListener {
 		
 		ImageButton sett = (ImageButton) findViewById(R.id.settings);
 		sett.setOnClickListener(this);
+		
+		ImageButton more = (ImageButton) findViewById(R.id.more);
+		more.setOnClickListener(this);
 	}
 
 	private void setResumeMode() {
@@ -141,17 +144,19 @@ public class MainMenu extends Activity implements OnClickListener {
 			mAnimator.showNext();
 			break;
 		case R.id.mresume:
-			Intent i = new Intent();
-			i.setClass(MainMenu.this, DuckGame.class);
+			Intent i = new Intent(MainMenu.this, DuckGame.class);
 			i.setAction(DuckGame.RESUME_MATCH);
 			MainMenu.this.startActivityForResult(i, 0);
 			break;
 		case R.id.start:
 		case R.id.mnewgame:
-			Intent i1 = new Intent();
-			i1.setClass(MainMenu.this, DuckGame.class);
+			Intent i1 = new Intent(MainMenu.this, DuckGame.class);
 			i1.setAction(DuckGame.NEW_MATCH);
 			MainMenu.this.startActivityForResult(i1, 0);
+			break;
+		case R.id.more:
+			Intent i2 = new Intent(this, HiScores.class);
+			startActivity(i2);
 			break;
 		case R.id.soundon:
 			mSoundBar.setProgress(8);
