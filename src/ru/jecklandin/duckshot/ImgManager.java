@@ -58,6 +58,10 @@ public class ImgManager {
 		mImgMap.put("cloud3", bm);
 		bm = getBitmap(R.drawable.sight);
 		mImgMap.put("sight", bm);
+		bm = getBitmap(R.drawable.settings_quant);
+		mImgMap.put("quant", bm);
+		bm = getBitmap(R.drawable.settings_quant_e);
+		mImgMap.put("quant_e", bm);
 
 		bm = getBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];

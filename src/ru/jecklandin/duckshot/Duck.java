@@ -55,6 +55,7 @@ public class Duck extends GameObject {
 	private boolean end_animation = false;
 	
 	private int timeout = 0;
+	private int delay = 0;
 	
 	private int overallTicks = 0;
 	
@@ -73,7 +74,6 @@ public class Duck extends GameObject {
 		speed = 2;
 		matrix = new Matrix();
 		addit_m = new Matrix();
-		
 	}
 
 	@Override
@@ -132,6 +132,11 @@ public class Duck extends GameObject {
 	@Override 
 	public void draw(Canvas c, Paint p) {
 		if (end_animation) {
+			return;
+		}
+		
+		if (delay > 0) {
+			delay--;
 			return;
 		}
 		
@@ -372,6 +377,10 @@ public class Duck extends GameObject {
 		
 		isDiving = true;
 		emerge();
+	}
+
+	public void setRandomDelay() {
+		delay = (int) (Math.random() * 4 * DuckApplication.FPS);
 	}
 	 
 }

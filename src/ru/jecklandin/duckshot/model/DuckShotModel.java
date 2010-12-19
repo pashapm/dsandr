@@ -145,6 +145,7 @@ public class DuckShotModel {
 		}
 		
 		d.setOwnedWave(ownedWave, x);
+		d.setRandomDelay();
 		return true;
 	}
 	
