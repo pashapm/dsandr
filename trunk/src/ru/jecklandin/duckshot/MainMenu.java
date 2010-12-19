@@ -29,8 +29,11 @@ public class MainMenu extends Activity implements OnClickListener {
 	private View mSl;
 	private View mRl;
 	
-	DucksSeekBar mSoundBar;
-	DucksSeekBar mEffectsBar;
+	private DucksSeekBar mSoundBar;
+	private DucksSeekBar mEffectsBar;
+	
+	enum State {MAIN, RESUME};
+	State mState = State.MAIN;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,12 +71,17 @@ public class MainMenu extends Activity implements OnClickListener {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && mAnimator.getDisplayedChild() == 1) {
-			commitSettings();
-			SoundManager.getInstance().readSettings();
-			mAnimator.showPrevious();
-			return true;
-		}
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mAnimator.getDisplayedChild() == 1) {
+				commitSettings();
+				SoundManager.getInstance().readSettings();
+				mAnimator.showPrevious();
+				return true;
+			} else if (mState == State.RESUME) {
+				setStartMode();
+				return true;
+			}
+		} 
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -98,6 +106,8 @@ public class MainMenu extends Activity implements OnClickListener {
 		
 		ImageButton more = (ImageButton) findViewById(R.id.more);
 		more.setOnClickListener(this);
+		
+		mState = State.MAIN;
 	}
 
 	private void setResumeMode() {
@@ -114,6 +124,8 @@ public class MainMenu extends Activity implements OnClickListener {
 		
 		ImageButton newg = (ImageButton) findViewById(R.id.mnewgame);
 		newg.setOnClickListener(this);
+		
+		mState = State.RESUME;
 	}
 
 	/**
