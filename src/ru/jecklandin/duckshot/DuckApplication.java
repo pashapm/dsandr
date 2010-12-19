@@ -24,7 +24,7 @@ public class DuckApplication extends Application {
 		mCommonTypeface = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
 		DuckApplication.sInstance = this;
 	}
-	
+	 
 	public static DuckApplication getInstance() {
 		return sInstance;
 	}

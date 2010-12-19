@@ -21,7 +21,7 @@ public class ScrProps {
 		ScrProps.screenWidth = disp.getWidth();
 		ctx.getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
 	}
-	 
+	
 	public static int scale(int p) {
 		return (int) (p*mMetrics.density);
 	}

@@ -36,9 +36,9 @@ public class MainMenu extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		ImgManager.loadImages(this);
-		SoundManager.initialize(getApplicationContext());
 		ScrProps.initialize(this);
+		SoundManager.initialize(getApplicationContext());
+		ImgManager.loadImages(this);	
 		
 		mMl = getLayoutInflater().inflate(R.layout.main, null);
 		mSl = getLayoutInflater().inflate(R.layout.settings, null);

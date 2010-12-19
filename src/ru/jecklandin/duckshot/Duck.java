@@ -61,10 +61,6 @@ public class Duck extends GameObject {
 	private int ticksBeforeNextDive = generateNextDive();
 	private int ticksBeforeNextRotate = generateNextRotate();
 	
-	private static final float DUCK_SCALE = 0.7f;
-	
-	// ===============   \state
-	
 	/**
 	 * set to true to move duck to another wave
 	 */
@@ -151,8 +147,6 @@ public class Duck extends GameObject {
 			matrix.setScale(-1, 1);
 			matrix.postTranslate(duckBm.getWidth(), 0);
 		}
-		matrix.postScale(DUCK_SCALE, DUCK_SCALE);
-
 		matrix.postTranslate(next_offset, y - duckBm.getHeight() / 4);
 
 		
@@ -271,7 +265,7 @@ public class Duck extends GameObject {
 	
 	private void drawHealth(float[] point, Canvas c, Paint p) {
 		point[1]-=ScrProps.scale(10);
-		int w = (int) (duckBm.getWidth()*DUCK_SCALE);
+		int w = (int) (duckBm.getWidth());
 		
 		int color = Color.parseColor("#21b60c");
 		int length = w;
@@ -308,10 +302,11 @@ public class Duck extends GameObject {
 			matrix.postTranslate(0, dead_sink);
 		}
  
-		if (dead_sink > ScrProps.scale(10)) { //have sink
+		if (dead_sink > ScrProps.scale(15)) { //have sink
 			has_sink = true;
 		} 
 		
+		matrix.postTranslate(0, ScrProps.scale(10));
 		c.drawBitmap(deadDuckBm, matrix, p);
 	}
 
