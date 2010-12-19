@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -76,6 +77,10 @@ class HiscoresAdapter extends ArrayAdapter<Score> {
 		name.setTypeface(DuckApplication.getCommonTypeface());
 		score.setTypeface(DuckApplication.getCommonTypeface());
 		pos.setTypeface(DuckApplication.getCommonTypeface());
+		
+		if (position == 0) {
+			score.setTextColor(Color.parseColor("#ff5700"));
+		}
 		
 		return convertView;
 	}
