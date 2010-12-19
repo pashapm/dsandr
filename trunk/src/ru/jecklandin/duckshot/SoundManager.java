@@ -46,7 +46,9 @@ public class SoundManager {
 	} 
 	
 	public static void initialize(Context ctx) {
-		sInstance = new SoundManager(ctx);
+		if (sInstance == null) {
+			sInstance = new SoundManager(ctx);
+		}
 	}
 	 
 	public static SoundManager getInstance() {
