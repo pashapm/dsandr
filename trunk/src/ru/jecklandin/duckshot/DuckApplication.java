@@ -21,8 +21,6 @@ public class DuckApplication extends Application {
 		super.onCreate();
 		mCommonTypeface = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
 		DuckApplication.sInstance = this;
-		
-		HiScoresManager.addScore(new Score("suuki", 235822));
 	}
 	 
 	public static DuckApplication getInstance() {

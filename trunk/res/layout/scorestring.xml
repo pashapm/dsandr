@@ -3,12 +3,12 @@
 <LinearLayout android:id="@+id/RelativeLayout01"
 	android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_marginTop="5dip" android:layout_height="wrap_content" android:padding="5dip" android:layout_marginBottom="3dip">
-	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1." android:id="@+id/num" android:layout_gravity="center_vertical" android:textSize="18sp"></TextView><TextView android:layout_width="wrap_content"
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1." android:id="@+id/num" android:layout_gravity="center_vertical" android:textSize="18sp" android:textColor="#33baff"></TextView><TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:id="@+id/name"
-		android:text="Gogi" android:layout_marginLeft="10dip" android:textSize="18sp"></TextView>
+		android:text="Gogi" android:layout_marginLeft="10dip" android:textSize="18sp" android:textColor="#ffba00"></TextView>
 	<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1"></LinearLayout><TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:id="@+id/score"
-		android:layout_alignParentRight="true" android:text="380" android:layout_marginRight="5dip" android:textSize="18sp"></TextView>
+		android:layout_alignParentRight="true" android:text="380" android:layout_marginRight="5dip" android:textSize="18sp" android:textColor="#ffba00"></TextView>
 
 
 </LinearLayout>
