@@ -1,36 +1,24 @@
 package ru.jecklandin.duckshot;
 
 
-import java.io.IOException;
-
-import com.flurry.android.FlurryAgent;
-
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.utils.FpsCounter;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 public class DuckGame extends Activity {
     

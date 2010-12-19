@@ -5,11 +5,7 @@ class Score implements Comparable<Score>{
 	public String name;
 	public int score;
 	
-	Score() {
-		super();
-	}
-	
-	Score(String name, int score) {
+	Score(String name, int score) { 
 		super();
 		this.name = name;
 		this.score = score;
@@ -31,9 +27,9 @@ class Score implements Comparable<Score>{
 	@Override
 	public int compareTo(Score another) {
 		if (another == null || score < another.score) {
-			return -1;
-		} else if (score > another.score) {
 			return 1;
+		} else if (score > another.score) {
+			return -1;
 		} else {
 			return 0;
 		}
