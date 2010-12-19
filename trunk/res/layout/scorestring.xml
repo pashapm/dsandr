@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout android:id="@+id/RelativeLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android" android:layout_marginBottom="5dip" android:layout_marginTop="5dip"><TextView android:text="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/name" android:textSize="20sp"></TextView><TextView android:text="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/score" android:layout_alignParentRight="true" android:textSize="20sp"></TextView></RelativeLayout>
+<LinearLayout android:id="@+id/RelativeLayout01"
+	android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_marginTop="5dip" android:layout_height="wrap_content" android:padding="5dip" android:layout_marginBottom="3dip">
+	<TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1." android:id="@+id/num" android:layout_gravity="center_vertical" android:textSize="18sp"></TextView><TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:id="@+id/name"
+		android:text="Gogi" android:layout_marginLeft="10dip" android:textSize="18sp"></TextView>
+	<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="wrap_content" android:layout_width="fill_parent" android:layout_weight="1"></LinearLayout><TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:id="@+id/score"
+		android:layout_alignParentRight="true" android:text="380" android:layout_marginRight="5dip" android:textSize="18sp"></TextView>
+
+
+</LinearLayout>

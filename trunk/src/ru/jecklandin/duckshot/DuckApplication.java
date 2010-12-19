@@ -1,7 +1,5 @@
 package ru.jecklandin.duckshot;
 
-import java.io.IOException;
-
 import android.app.Application;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -23,6 +21,8 @@ public class DuckApplication extends Application {
 		super.onCreate();
 		mCommonTypeface = Typeface.createFromAsset(getAssets(), "KOMIKAX_.ttf");
 		DuckApplication.sInstance = this;
+		
+		HiScoresManager.addScore(new Score("suuki", 235822));
 	}
 	 
 	public static DuckApplication getInstance() {
