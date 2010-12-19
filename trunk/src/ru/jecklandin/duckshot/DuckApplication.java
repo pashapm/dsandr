@@ -16,7 +16,7 @@ public class DuckApplication extends Application {
     private static DuckApplication sInstance;
     private static int MUSIC_ID;
     
-    public static final int FPS = 25;
+    public static final int FPS = 24;
 	
 	@Override
 	public void onCreate() {

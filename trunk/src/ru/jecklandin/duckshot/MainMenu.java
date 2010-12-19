@@ -155,7 +155,7 @@ public class MainMenu extends Activity implements OnClickListener {
 			MainMenu.this.startActivityForResult(i1, 0);
 			break;
 		case R.id.more:
-			Intent i2 = new Intent(this, HiScores.class);
+			Intent i2 = new Intent(this, MoreScreen.class);
 			startActivity(i2);
 			break;
 		case R.id.soundon:
