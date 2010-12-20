@@ -63,6 +63,10 @@
 		<activity android:name=".MoreScreen" android:label="@string/app_name"
 			android:screenOrientation="portrait" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 		</activity>
+		
+		<activity android:name=".About" android:label="@string/app_name"
+			android:screenOrientation="portrait" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+		</activity>
  
 	</application>    
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>

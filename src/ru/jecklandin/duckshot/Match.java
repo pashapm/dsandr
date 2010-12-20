@@ -93,15 +93,6 @@ public class Match extends Thread {
 			if (!mPaused) {
 				if (mMatchMs > 50) {
 					mMatchMs-=50;
-					
-					synchronized (mAppearances) {
-						for (Long appear : mAppearances) {
-							if (appear < System.currentTimeMillis()) {
-								DuckShotModel.getInstance().addRandomDuck();
-								mAppearances.remove(appear);
-							}
-						}
-					}
 				} else {
 					Message mess = new Message();
 					mess.arg1 = 42;
@@ -133,7 +124,6 @@ public class Match extends Thread {
 		if (DuckShotModel.getInstance().getDucksNumber() < 4) {
 			synchronized (mAppearances) {
 				DuckShotModel.getInstance().addRandomDuck();
-//				mAppearances.add((long) (System.currentTimeMillis() + 1000 + Math.random()*2000));
 			}
 		} 
 	}
