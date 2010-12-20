@@ -1,6 +1,7 @@
 package ru.jecklandin.duckshot;
 
 import ru.jecklandin.duckshot.Desk.DigitType;
+import ru.jecklandin.duckshot.Match.Bonus;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -175,6 +176,11 @@ public class Duck extends GameObject {
 					SoundManager.getInstance().playHit();
 					DuckGame.getCurrentMatch().addScore(mSumValues);
 					DuckGame.getCurrentMatch().requestNextDuckIfNeed();
+					Bonus bonus = DuckGame.getCurrentMatch().addKilledDuck(this);
+					if (bonus != Bonus.NO) {
+						Desk.getInstance().playBonus(bonus);
+						Log.d("!!!BOMUS", bonus+"");
+					}
 				} else {
 					SoundManager.getInstance().playQuack();
 					dive();
