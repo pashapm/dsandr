@@ -46,10 +46,6 @@ public class ImgManager {
 		mImgMap.put("stone2", bm);
 		bm = getBitmap(R.drawable.stonec);
 		mImgMap.put("stone3", bm);      
-		bm = getBitmap(R.drawable.fountain);
-		mImgMap.put("fountain", bm);
-		bm = getBitmap(R.drawable.sun);
-		mImgMap.put("sun", bm);
 		bm = getBitmap(R.drawable.clouda);
 		mImgMap.put("cloud1", bm);
 		bm = getBitmap(R.drawable.cloudb);

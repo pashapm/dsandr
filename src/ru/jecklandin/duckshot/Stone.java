@@ -74,7 +74,7 @@ public class Stone extends GameObject {
 	}  
 
 	private void drawFountain(Canvas c, Paint p) {
-		matrix.postTranslate(- mFountain.getWidth()/2, - mFountain.getHeight()*6/10);
+		matrix.postTranslate(- mAniFountain[0].getWidth()/2, - mAniFountain[0].getHeight()*6/10);
 		if (anim_frame < 8) {
 			c.drawBitmap(mAniFountain[anim_frame], matrix, p); 
 			anim_frame++;
