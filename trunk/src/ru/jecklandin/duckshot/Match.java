@@ -1,11 +1,14 @@
 package ru.jecklandin.duckshot;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class Match extends Thread {
 
@@ -39,7 +42,8 @@ public class Match extends Thread {
 	private Vector<KillEvent> mKilledDucks = new Vector<KillEvent>();
 	private Vector<Bonus> mAwards = new Vector<Bonus>();
 	
-	private long mNextDuckAppearance = Long.MAX_VALUE; 
+	
+	private List<Long> mAppearances = new ArrayList<Long>(); 
 	
 	public Match(int seconds, Handler han) {
 		mMatchMs = seconds * 1000;
@@ -90,11 +94,14 @@ public class Match extends Thread {
 				if (mMatchMs > 50) {
 					mMatchMs-=50;
 					
-					if (mNextDuckAppearance < System.currentTimeMillis()) {
-						DuckShotModel.getInstance().addRandomDuck();
-						mNextDuckAppearance = Long.MAX_VALUE;
+					synchronized (mAppearances) {
+						for (Long appear : mAppearances) {
+							if (appear < System.currentTimeMillis()) {
+								DuckShotModel.getInstance().addRandomDuck();
+								mAppearances.remove(appear);
+							}
+						}
 					}
-					
 				} else {
 					Message mess = new Message();
 					mess.arg1 = 42;
@@ -123,9 +130,12 @@ public class Match extends Thread {
 	}
 	
 	public void requestNextDuckIfNeed() {
-		if (DuckShotModel.getInstance().getDucksNumber() < 3) {
-			mNextDuckAppearance = (long) (System.currentTimeMillis() + 1000 + Math.random()*2000);
-		}
+		if (DuckShotModel.getInstance().getDucksNumber() < 4) {
+			synchronized (mAppearances) {
+				DuckShotModel.getInstance().addRandomDuck();
+//				mAppearances.add((long) (System.currentTimeMillis() + 1000 + Math.random()*2000));
+			}
+		} 
 	}
 	
 	public int getScore() {

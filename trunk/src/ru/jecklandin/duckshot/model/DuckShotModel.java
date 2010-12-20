@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,9 +18,9 @@ public class DuckShotModel {
 	private static String TAG = "DuckShotModel";
 	  
 	// Game objects 
-	public Vector<Wave> mWaves = new Vector<Wave>();
-	public Vector<Stone> mStones = new Vector<Stone>();
-	public Vector<Integer> mYes = new Vector<Integer>();
+	public ArrayList<Wave> mWaves = new ArrayList<Wave>();
+	public ArrayList<Stone> mStones = new ArrayList<Stone>();
+	public ArrayList<Integer> mYes = new ArrayList<Integer>();
 	
 	private int mTargetWave;
 	
@@ -73,7 +74,11 @@ public class DuckShotModel {
 	public int getDucksNumber() {
 		int sum = 0;
 		for (Wave w : mWaves) {
-			sum += w.ducks.size();
+			for (Duck d : w.ducks) {
+				if (!d.toRecycle) {
+					sum += w.ducks.size();
+				}
+			}
 		}
 		return sum;
 	}
@@ -179,7 +184,7 @@ public class DuckShotModel {
 		return (int) Math.hypot(xdistance, ydistance);
 	}
 
-	public void addRandomDuck() {
+	public synchronized void addRandomDuck() {
 		Log.d(TAG, "ADDINg duck");
 		int randy;
 		// look for free wave
