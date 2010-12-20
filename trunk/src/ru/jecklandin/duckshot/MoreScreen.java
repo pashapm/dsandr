@@ -25,7 +25,8 @@ public class MoreScreen extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.about:
-
+			Intent i0 = new Intent(this, About.class);
+			startActivity(i0);
 			break;
 		case R.id.hiscores:
 			Intent i = new Intent(this, HiScores.class);
