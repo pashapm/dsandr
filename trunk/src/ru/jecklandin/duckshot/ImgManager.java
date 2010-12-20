@@ -58,7 +58,16 @@ public class ImgManager {
 		mImgMap.put("quant", bm);
 		bm = getBitmap(R.drawable.settings_quant_e);
 		mImgMap.put("quant_e", bm);
-
+		
+		bm = getBitmap(R.drawable.double_kill);
+		mImgMap.put("double_kill", bm);
+		bm = getBitmap(R.drawable.triple_kill);
+		mImgMap.put("triple_kill", bm);
+		bm = getBitmap(R.drawable.quad_kill);
+		mImgMap.put("quad_kill", bm);
+		bm = getBitmap(R.drawable.maxikill);
+		mImgMap.put("maxikill", bm);
+		
 		bm = getBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];
 		int diff_x = ScrProps.scale(84);

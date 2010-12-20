@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import ru.jecklandin.duckshot.Match.Bonus;
@@ -23,28 +24,23 @@ public class Desk {
 	   
 	static {
 		Desk.mDesk = ImgManager.getBitmap("desk");
-		Desk.mIndent = ImgManager.getBitmap("indent");
-		Desk.mPower = ImgManager.getBitmap("power");
-		Desk.mStub = ImgManager.getBitmap("stub");
-		Desk.mPointer = ImgManager.getBitmap("pointer");
-		Desk.mPointerh = ImgManager.getBitmap("pointerh");
 		Desk.mSight = ImgManager.getBitmap("sight");
-		Desk.mLeftPanel = ImgManager.getBitmap("pl_yell");
-		Desk.mRightPanel = ImgManager.getBitmap("pl_green");
 		Desk.mDigits = ImgManager.getAnimation("digits");
 		Desk.mDigitsTime = ImgManager.getAnimation("digits_time");
 		Desk.mAwards = ImgManager.getAnimation("awards");
+		Desk.mDoubleKill = ImgManager.getBitmap("double_kill");
+		Desk.mTripleKill = ImgManager.getBitmap("triple_kill");
+		Desk.mQuadKill = ImgManager.getBitmap("quad_kill");
+		Desk.mMaxiKill = ImgManager.getBitmap("maxikill");
 	}
 	
 	public static Bitmap mDesk;
-	public static Bitmap mIndent;
-	public static Bitmap mPower;
 	public static Bitmap mStub;
-	public static Bitmap mPointer;
-	public static Bitmap mPointerh;
 	public static Bitmap mSight; 
-	public static Bitmap mLeftPanel;
-	public static Bitmap mRightPanel; 
+	public static Bitmap mDoubleKill; 
+	public static Bitmap mTripleKill; 
+	public static Bitmap mQuadKill; 
+	public static Bitmap mMaxiKill; 
 	public static Bitmap[] mDigitsTime;
 	public static Bitmap[] mDigits;
 	public static Bitmap[] mAwards;
@@ -57,6 +53,9 @@ public class Desk {
 	private int mSightY;
 	
 	private Paint mTextPaint = new Paint();
+	
+	private Bonus mBonus;
+	private int mBonusDraw = 0;
 	
 	public enum DigitType {YELLOW, RED, WHITE};
 	
@@ -72,12 +71,6 @@ public class Desk {
 		int y = ScrProps.screenHeight - mDesk.getHeight();
 		int x = 5;
 		matrix.reset();
-		
-//		matrix.postTranslate(5, 5);
-//		c.drawBitmap(mLeftPanel, matrix, p);
-//		
-//		matrix.setTranslate(ScrProps.screenWidth-mRightPanel.getWidth()-5, 5);
-//		c.drawBitmap(mRightPanel, matrix, p);
 		
 		matrix.setTranslate(x, y);
 		c.drawBitmap(mDesk, matrix, p);
@@ -112,6 +105,8 @@ public class Desk {
 			c.drawBitmap(mSight, addit_m, p);
 		}
 		
+		//draw bonus
+		
 	}  
 	
 	public static Bitmap[] getDigits(int score, DigitType type) {
@@ -139,7 +134,7 @@ public class Desk {
 	}
 	 
 	private void drawAwards(Canvas c, Paint p) {
-		Vector<Bonus> bons = DuckGame.getCurrentMatch().getAwards();
+		ArrayList<Bonus> bons = DuckGame.getCurrentMatch().getAwards();
 		matrix.postTranslate(ScrProps.scale(10), ScrProps.scale(10));
 		
 		int length = Bonus.values().length;
@@ -184,5 +179,9 @@ public class Desk {
 	
 	public boolean getSightVisibility() {
 		return mShowSight;
+	}
+
+	public void playBonus(Bonus bonus) {
+		mBonus = bonus;
 	}
 }
