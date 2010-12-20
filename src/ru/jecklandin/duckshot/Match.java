@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -14,7 +15,71 @@ public class Match extends Thread {
 
 	public static int DEFAULT_TIME = 60;
 	
-	public enum Bonus {NO, DOUBLE, TRIPLE, QUAD, MAXIKILL;
+	public enum Bonus {
+		NO, DOUBLE {
+			@Override
+			public String toString() {
+				return "DOUBLE KILL";
+			}
+
+			@Override
+			public int getColor() {
+				return Color.parseColor("#ffeb88");
+			}
+			
+			@Override
+			public float getMultiplier() {
+				return 1.6f;
+			}
+		},
+		TRIPLE {
+			@Override
+			public String toString() {
+				return "TRIPLE KILL";
+			}
+
+			@Override
+			public int getColor() {
+				return Color.parseColor("#15ffa3");
+			}
+			
+			@Override
+			public float getMultiplier() {
+				return 2.2f;
+			}
+		},
+		QUAD {
+			@Override
+			public String toString() {
+				return "QUAD KILL";
+			}
+
+			@Override
+			public int getColor() {
+				return Color.parseColor("#ffa330");
+			}
+			
+			@Override
+			public float getMultiplier() {
+				return 2.8f;
+			}
+		},
+		MAXIKILL {
+			@Override
+			public String toString() {
+				return "MAXIKILL";
+			}
+
+			@Override
+			public int getColor() {
+				return Color.parseColor("#ff4c00");
+			}
+			
+			@Override
+			public float getMultiplier() {
+				return 3.2f;
+			}
+		};
 
 		Bonus next() {
 			switch (this) {
@@ -31,6 +96,14 @@ public class Match extends Thread {
 				return NO;
 			}
 		}
+
+		public int getColor() {
+			return 0;
+		}
+		
+		public float getMultiplier() {
+			return 1;
+		}
 	}
 	
 	public int mInitialTime;
@@ -46,11 +119,6 @@ public class Match extends Thread {
 		mMatchMs = seconds * 1000;
 		mInitialTime = seconds;
 		mHandler = han;
-		
-//		mAwards.add(Bonus.DOUBLE);
-//		mAwards.add(Bonus.TRIPLE);
-//		mAwards.add(Bonus.QUAD);
-//		mAwards.add(Bonus.MAXIKILL);
 		
 		DuckShotModel.getInstance().populate(3);
 	}
@@ -122,9 +190,11 @@ public class Match extends Thread {
 	}
 	
 	public void requestNextDuckIfNeed() {
-		if (DuckShotModel.getInstance().getDucksNumber() < 4) {
-			DuckShotModel.getInstance().addRandomDuck();
-		} 
+		synchronized (DuckShotModel.getInstance()) {
+			if (DuckShotModel.getInstance().getDucksNumber() < 4) {
+				DuckShotModel.getInstance().addRandomDuck();
+			}
+		}
 	}
 	
 	public int getScore() {

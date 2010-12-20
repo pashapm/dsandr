@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -25,7 +26,7 @@ public class Wave extends GameObject {
 	
 	private boolean mMovingRight = (Math.random()-0.5d) > 0;
 	private static Bitmap waveBm;  
-	public Vector<Duck> ducks = new Vector<Duck>();
+	public ArrayList<Duck> ducks = new ArrayList<Duck>();
 	
 	protected int wave_num;
 	
