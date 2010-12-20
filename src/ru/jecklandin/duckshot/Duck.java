@@ -62,11 +62,17 @@ public class Duck extends GameObject {
 	private int ticksBeforeNextDive = generateNextDive();
 	private int ticksBeforeNextRotate = generateNextRotate();
 	
+	
+	
 	/**
 	 * set to true to move duck to another wave
 	 */
 	public boolean mMoveFlag = false;
 	
+	/**
+	 * The duck is dead and need to be removed 
+	 */
+	public boolean toRecycle = false;
 
 	public Duck(int x) {
 		super(); 
@@ -132,6 +138,7 @@ public class Duck extends GameObject {
 	@Override 
 	public void draw(Canvas c, Paint p) {
 		if (end_animation) {
+			toRecycle = true;
 			return;
 		}
 		
@@ -219,7 +226,7 @@ public class Duck extends GameObject {
 	}
  
 	public void move() {
-		int distance = moveToANotherWave();
+		int distance = moveToAnotherWave();
 		timeout = DuckShotModel.getInstance().getTimeoutByDistance(distance);
 		mMoveFlag = false;
 		 
@@ -257,7 +264,7 @@ public class Duck extends GameObject {
 		return (float) (Math.random()*1.5+1);
 	}
 	
-	private int moveToANotherWave() {
+	private int moveToAnotherWave() {
 		return DuckShotModel.getInstance().moveDuckToRandomWave(this);
 	} 
 	
@@ -328,8 +335,6 @@ public class Duck extends GameObject {
 		drawScoreDigits(c, p, addit_m, mSumValues);
 	}
 
-	
-	
 	private void drawScoreDigits(Canvas c, Paint p, Matrix mat, int score) {
 		Bitmap[] bms = Desk.getDigits(score, DigitType.YELLOW);
 		for (int i=0; i<bms.length; ++i) {

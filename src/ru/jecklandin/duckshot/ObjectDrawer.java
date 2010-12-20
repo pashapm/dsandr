@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
@@ -22,7 +23,8 @@ public class ObjectDrawer {
 	private DuckShotModel model = DuckShotModel.getInstance();
 	private Environment mEnvir = new Environment();
 	
-	private Vector<Duck> mMovingDucks  = new Vector<Duck>();
+	private ArrayList<Duck> mMovingDucks  = new ArrayList<Duck>();
+	private ArrayList<Duck> mRecycleDucks  = new ArrayList<Duck>();
 
 	private ObjectDrawer(Context ctx) {
 		mPaint = new Paint();
@@ -58,16 +60,17 @@ public class ObjectDrawer {
 		drawEnvironment(c);
 		
 		//draw waves and ducks
-		mMovingDucks.removeAllElements();
+		mMovingDucks.clear();
+		
 		for (int i = 0; i < model.mWaves.size(); ++i) {
 			Wave w = model.mWaves.get(i);
 			drawWave(c, w);
 		} 
+		
 		//we need this to avoid concurrentexception (modifying waves while iterating)
 		for (Duck d : mMovingDucks) {
 			d.move();
 		}
-		
 		
 		drawDeck(c);
 		drawStones(c);
