@@ -46,13 +46,14 @@ public class ObjectDrawer {
 	}
 
 	public void drawWave(Canvas c, Wave w) {
-		for (Duck d : w.ducks) {
-			d.draw(c, mPaint);
-			if (d.mMoveFlag) {
-				mMovingDucks.add(d);
+		synchronized (DuckShotModel.getInstance()) {
+			for (Duck d : w.ducks) {
+				d.draw(c, mPaint);
+				if (d.mMoveFlag) {
+					mMovingDucks.add(d);
+				}
 			}
 		}
-		
 		w.draw(c, mPaint);
 	}
 

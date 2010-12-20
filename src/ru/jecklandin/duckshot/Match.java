@@ -42,9 +42,6 @@ public class Match extends Thread {
 	private Vector<KillEvent> mKilledDucks = new Vector<KillEvent>();
 	private Vector<Bonus> mAwards = new Vector<Bonus>();
 	
-	
-	private List<Long> mAppearances = new ArrayList<Long>(); 
-	
 	public Match(int seconds, Handler han) {
 		mMatchMs = seconds * 1000;
 		mInitialTime = seconds;
@@ -107,7 +104,7 @@ public class Match extends Thread {
 		KillEvent event = new KillEvent(duck, timestamp);
 		int length = mKilledDucks.size();
 		Bonus bonus = Bonus.NO;
-		if (!mKilledDucks.isEmpty() && (timestamp - mKilledDucks.get(length-1).mTimestamp) < 4000) {
+		if (!mKilledDucks.isEmpty() && (timestamp - mKilledDucks.get(length-1).mTimestamp) < 3000) {
 			bonus = mKilledDucks.get(length-1).mBonusAwarded.next();
 		}
 		event.mBonusAwarded = bonus;
@@ -122,9 +119,7 @@ public class Match extends Thread {
 	
 	public void requestNextDuckIfNeed() {
 		if (DuckShotModel.getInstance().getDucksNumber() < 4) {
-			synchronized (mAppearances) {
-				DuckShotModel.getInstance().addRandomDuck();
-			}
+			DuckShotModel.getInstance().addRandomDuck();
 		} 
 	}
 	

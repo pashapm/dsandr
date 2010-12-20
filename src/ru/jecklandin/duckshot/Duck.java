@@ -346,7 +346,7 @@ public class Duck extends GameObject {
 	private boolean isIntersects(int ix) {
 		return (!isDiving 
 				&& ix > (this.offset - duckBm.getWidth()/4) 
-				&& ix < (this.offset + 2*duckBm.getWidth()/3));
+				&& ix < (this.offset + duckBm.getWidth()));
 	}
 
 	public void notifyStoneWasThrown(Stone stone) {
