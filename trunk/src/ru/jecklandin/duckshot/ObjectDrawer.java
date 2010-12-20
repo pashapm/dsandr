@@ -24,7 +24,6 @@ public class ObjectDrawer {
 	private Environment mEnvir = new Environment();
 	
 	private ArrayList<Duck> mMovingDucks  = new ArrayList<Duck>();
-	private ArrayList<Duck> mRecycleDucks  = new ArrayList<Duck>();
 
 	private ObjectDrawer(Context ctx) {
 		mPaint = new Paint();

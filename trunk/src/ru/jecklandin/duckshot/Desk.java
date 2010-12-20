@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 
 public class Desk { 
@@ -28,10 +29,6 @@ public class Desk {
 		Desk.mDigits = ImgManager.getAnimation("digits");
 		Desk.mDigitsTime = ImgManager.getAnimation("digits_time");
 		Desk.mAwards = ImgManager.getAnimation("awards");
-		Desk.mDoubleKill = ImgManager.getBitmap("double_kill");
-		Desk.mTripleKill = ImgManager.getBitmap("triple_kill");
-		Desk.mQuadKill = ImgManager.getBitmap("quad_kill");
-		Desk.mMaxiKill = ImgManager.getBitmap("maxikill");
 	}
 	
 	public static Bitmap mDesk;
@@ -52,10 +49,13 @@ public class Desk {
 	private int mSightX;
 	private int mSightY;
 	
+	private static final int COMMON_FONT = 25;
+	
 	private Paint mTextPaint = new Paint();
+	private Paint mBonusPaint = new Paint();
 	
 	private Bonus mBonus;
-	private int mBonusDraw = 0;
+	private int mBonusFont = COMMON_FONT;
 	
 	public enum DigitType {YELLOW, RED, WHITE};
 	
@@ -63,8 +63,12 @@ public class Desk {
 		super();
 		mTextPaint.setAntiAlias(true);
 		mTextPaint.setTypeface(DuckApplication.getCommonTypeface());
-		mTextPaint.setTextSize(ScrProps.mMetrics.scaledDensity * 25);
+		mTextPaint.setTextSize(ScrProps.mMetrics.scaledDensity * COMMON_FONT);
 		mTextPaint.setColor(Color.WHITE);
+		
+		mBonusPaint.setAntiAlias(true);
+		mBonusPaint.setTypeface(DuckApplication.getCommonTypeface());
+		mBonusPaint.setTextSize(ScrProps.mMetrics.scaledDensity * COMMON_FONT);
 	}
 	
 	public void draw(Canvas c, Paint p) {
@@ -106,7 +110,20 @@ public class Desk {
 		}
 		
 		//draw bonus
-		
+		if (mBonus != null) {
+			mBonusPaint.setTextSize(ScrProps.mMetrics.scaledDensity * mBonusFont);
+			Rect rect = new Rect();
+			String bs = mBonus.toString();
+			mBonusPaint.getTextBounds(bs, 0, bs.length(), rect);
+			int bx = (ScrProps.screenWidth - rect.right)/2;
+			int by = ScrProps.screenHeight/2 - 20;
+			c.drawText(mBonus.toString(), bx, by, mBonusPaint);
+			mBonusFont+=1;
+			if (mBonusFont > 40) {
+				mBonusFont = COMMON_FONT;
+				mBonus = null;
+			}
+		} 
 	}  
 	
 	public static Bitmap[] getDigits(int score, DigitType type) {
@@ -183,5 +200,6 @@ public class Desk {
 
 	public void playBonus(Bonus bonus) {
 		mBonus = bonus;
+		mBonusPaint.setColor(bonus.getColor());
 	}
 }

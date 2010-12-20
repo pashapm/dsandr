@@ -60,7 +60,7 @@ public class DuckShotModel {
 		populate(0);
 	}
 	
-	public void populate(int num) {
+	public synchronized void populate(int num) {
 		
 		for (Wave w : mWaves) {
 			w.ducks.clear();
@@ -184,8 +184,9 @@ public class DuckShotModel {
 		return (int) Math.hypot(xdistance, ydistance);
 	}
 
-	public synchronized void addRandomDuck() {
+	public void addRandomDuck() {
 		Log.d(TAG, "ADDINg duck");
+
 		int randy;
 		// look for free wave
 		do {

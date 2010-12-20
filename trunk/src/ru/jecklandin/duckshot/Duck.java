@@ -174,13 +174,12 @@ public class Duck extends GameObject {
 				if (mHealth <=0) {
 					isDead = true;
 					SoundManager.getInstance().playHit();
-					DuckGame.getCurrentMatch().addScore(mSumValues);
 					DuckGame.getCurrentMatch().requestNextDuckIfNeed();
 					Bonus bonus = DuckGame.getCurrentMatch().addKilledDuck(this);
 					if (bonus != Bonus.NO) {
 						Desk.getInstance().playBonus(bonus);
-						Log.d("!!!BOMUS", bonus+"");
 					}
+					DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
 				} else {
 					SoundManager.getInstance().playQuack();
 					dive();
