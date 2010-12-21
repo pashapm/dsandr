@@ -33,7 +33,7 @@ public class SoundManager {
 		mSounds[0] = mPool.load(mCtx, R.raw.quack1, 1);
 		mSounds[1] = mPool.load(mCtx, R.raw.quack2, 1);
 		mSounds[2] = mPool.load(mCtx, R.raw.quack3, 1);
-		mSounds[3] = mPool.load(mCtx, R.raw.hit3, 1);
+		mSounds[3] = mPool.load(mCtx, R.raw.punch, 1);
 		
 		try {
 			mPlayer.setDataSource(mCtx, Uri.parse("android.resource://ru.jecklandin.duckshot/"+R.raw.music));
