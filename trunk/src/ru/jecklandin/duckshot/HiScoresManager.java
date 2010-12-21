@@ -23,6 +23,7 @@ public class HiScoresManager {
 	
 	static {
 		mScoresFile = new File(Environment.getExternalStorageDirectory(), "scores.xml");
+//		mScoresFile.delete();
 	}
 	
 	public static boolean addScore(Score score) {

@@ -1,5 +1,9 @@
 package ru.jecklandin.duckshot;
 
+import java.util.ArrayList;
+
+import ru.jecklandin.duckshot.Match.Bonus;
+
 import android.app.Activity;
 import android.app.Application;
 import android.app.Dialog;
@@ -7,16 +11,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnCancelListener;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.sax.StartElementListener;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class LevelCompletedDialog extends Dialog {
 
+	private Match mMatch;
+	
+	private AwardsView mAwardsView;
+	private boolean mSubmitted = false;
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -27,9 +43,19 @@ public class LevelCompletedDialog extends Dialog {
 		
 		TextView scoreV = (TextView) findViewById(R.id.lvlsc);
 		scoreV.setText(mMatch.getScore()+"");
+		
+		mAwardsView.mAwards = mMatch.getAwards();
 	}
 
-	private Match mMatch;
+	private void submitScore() {
+		EditText ed = (EditText) findViewById(R.id.pname);
+		String name = TextUtils.isEmpty(ed.getText().toString()) 
+			? "Unknown Player" : ed.getText().toString();
+		HiScoresManager.addScore(new Score(name, mMatch.getScore()));
+		findViewById(R.id.submit_lay).setVisibility(View.GONE);
+		mSubmitted = true;
+	}
+	
 	
 	protected LevelCompletedDialog(Context context) {
 		super(context);
@@ -38,7 +64,7 @@ public class LevelCompletedDialog extends Dialog {
 		setContentView(R.layout.levelcompleted);
 		 
 		//filling
-		TextView views[] = new TextView[7];
+		TextView views[] = new TextView[9];
 		views[0] = (TextView) findViewById(R.id.lvlc);
 		views[1] = (TextView) findViewById(R.id.lvltime_lab);
 		views[2] = (TextView) findViewById(R.id.lvlav_lab);
@@ -46,13 +72,27 @@ public class LevelCompletedDialog extends Dialog {
 		views[4] = (TextView) findViewById(R.id.lvlc);
 		views[5] = (TextView) findViewById(R.id.lvltime);
 		views[6] = (TextView) findViewById(R.id.lvlsc);
+		views[7] = (TextView) findViewById(R.id.pname);
+		views[8] = (TextView) findViewById(R.id.submit);
 		
 		for (TextView v:views) {
 			v.setTypeface(DuckApplication.getCommonTypeface());
 		}
 		
+		Button submit = (Button) findViewById(R.id.submit);
+		submit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				submitScore();
+			}
+		});
+		
+		mAwardsView = (AwardsView)findViewById(R.id.awards);
+		
 		Button bretry = (Button) findViewById(R.id.retry);
 		bretry.setTypeface(DuckApplication.getCommonTypeface());
+		
 		Button bnext = (Button) findViewById(R.id.nextlev);
 		bnext.setTypeface(DuckApplication.getCommonTypeface());
 		 
@@ -67,6 +107,16 @@ public class LevelCompletedDialog extends Dialog {
 			}
 		});
 		
+		setOnDismissListener(new OnDismissListener() {
+			
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				if (!mSubmitted) {
+					submitScore();
+				}
+			}
+		});
+		
 		bretry.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -78,7 +128,6 @@ public class LevelCompletedDialog extends Dialog {
 				dismiss();
 			}
 		});
-		
 	}
 
 }

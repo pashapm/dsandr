@@ -74,7 +74,7 @@ class HiscoresAdapter extends ArrayAdapter<Score> {
 		score.setText(getItem(position).score + "");
 		pos.setText((position+1)+".");
 		
-		name.setTypeface(DuckApplication.getCommonTypeface());
+//		name.setTypeface(DuckApplication.getCommonTypeface());
 		score.setTypeface(DuckApplication.getCommonTypeface());
 		pos.setTypeface(DuckApplication.getCommonTypeface());
 		
