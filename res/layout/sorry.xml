@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:background="#0000cd" android:layout_width="fill_parent" android:layout_height="fill_parent">
+<TextView android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sorry" android:background="#ffffff" android:textColor="#0000cd" android:textSize="22sp" android:paddingLeft="8dip" android:paddingRight="8dip" android:paddingTop="3dip" android:paddingBottom="3dip" android:layout_centerHorizontal="true" android:layout_marginTop="100dip"></TextView>
+
+<TextView android:id="@+id/TextView02" android:layout_below="@id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/sorry" android:typeface="monospace" android:textColor="#ffffff" android:padding="15dip"></TextView>
+<Button android:id="@+id/Button01" android:layout_below="@id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/yellow_btn" android:text="Rate!" android:minWidth="100dip" android:layout_centerHorizontal="true"></Button>
+</RelativeLayout>

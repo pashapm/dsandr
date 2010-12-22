@@ -1,6 +1,10 @@
 package ru.jecklandin.duckshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.flurry.android.FlurryAgent;
 
 import ru.jecklandin.duckshot.Match.Bonus;
 
@@ -10,7 +14,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -45,6 +51,13 @@ public class LevelCompletedDialog extends Dialog {
 		scoreV.setText(mMatch.getScore()+"");
 		
 		mAwardsView.mAwards = mMatch.getAwards();
+		FlurryAgent.onStartSession(getContext(), DuckApplication.FLURRY_KEY);
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(getContext());
 	}
 
 	private void submitScore() {
@@ -54,6 +67,16 @@ public class LevelCompletedDialog extends Dialog {
 		HiScoresManager.addScore(new Score(name, mMatch.getScore()));
 		findViewById(R.id.submit_lay).setVisibility(View.GONE);
 		mSubmitted = true;
+		
+		SharedPreferences prefs = getContext().getSharedPreferences("duckshot", Context.MODE_PRIVATE);
+		Editor editor = prefs.edit();
+		editor.putString("name", name);
+		editor.commit();
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("score", mMatch.getScore()+"");
+		params.put("awards", mMatch.getAwards().size()+"");
+		FlurryAgent.onEvent("scoreSubmit", params);
 	}
 	
 	
@@ -127,6 +150,10 @@ public class LevelCompletedDialog extends Dialog {
 				dismiss();
 			}
 		});
+		
+		SharedPreferences prefs = getContext().getSharedPreferences("duckshot", Context.MODE_PRIVATE);
+		String pname = prefs.getString("name", "Unknown Player");
+		((TextView) findViewById(R.id.pname)).setText(pname);
 	}
 
 }

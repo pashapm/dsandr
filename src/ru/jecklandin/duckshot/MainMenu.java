@@ -1,5 +1,7 @@
 package ru.jecklandin.duckshot;
 
+import com.flurry.android.FlurryAgent;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -162,6 +164,7 @@ public class MainMenu extends Activity implements OnClickListener {
 			break;
 		case R.id.start:
 		case R.id.mnewgame:
+			FlurryAgent.onEvent("newGame");
 			Intent i1 = new Intent(MainMenu.this, DuckGame.class);
 			i1.setAction(DuckGame.NEW_MATCH);
 			MainMenu.this.startActivityForResult(i1, 0);
@@ -202,6 +205,18 @@ public class MainMenu extends Activity implements OnClickListener {
 		SharedPreferences prefs = getSharedPreferences("ducks", Context.MODE_PRIVATE);
 		mSoundBar.setProgress(prefs.getInt("sound", 4));
 		mEffectsBar.setProgress(prefs.getInt("effects", 4));
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(this);
+	}
+	
+	@Override
+	protected void onStart() {
+		FlurryAgent.onStartSession(this, DuckApplication.FLURRY_KEY);
+		super.onStart();
 	}
 	
 }
