@@ -14,6 +14,7 @@ public class DuckApplication extends Application {
     private static DuckApplication sInstance;
     private static int MUSIC_ID;
     
+    public static final String FLURRY_KEY = "TG7D2CT31BQI2GFNSLEP";
     public static final int FPS = 24;
 	
 	@Override

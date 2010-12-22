@@ -1,10 +1,14 @@
 package ru.jecklandin.duckshot;
 
+import com.flurry.android.FlurryAgent;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;  
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class About extends Activity {
@@ -22,9 +26,27 @@ public class About extends Activity {
 		TextView links = (TextView) findViewById(R.id.links_text);
 		links.setText(Html.fromHtml(LINKS_TEXT));
 		links.setMovementMethod(LinkMovementMethod.getInstance());
+		links.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FlurryAgent.onEvent("onAboutLinkClicked");
+			}
+		});
 		
 		TextView creds = (TextView) findViewById(R.id.creds);
 		creds.setText(CREDITS_TEXT2);
 	}
 	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(this);
+	}
+	
+	@Override
+	protected void onStart() {
+		FlurryAgent.onStartSession(this, DuckApplication.FLURRY_KEY);
+		super.onStart();
+	}
 }
