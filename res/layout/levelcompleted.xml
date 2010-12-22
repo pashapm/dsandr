@@ -39,8 +39,7 @@
  
 
 <ru.jecklandin.duckshot.AwardsView android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:layout_marginLeft="15dip"
-	android:id="@+id/awards"></ru.jecklandin.duckshot.AwardsView>
+	android:layout_height="fill_parent" android:id="@+id/awards"></ru.jecklandin.duckshot.AwardsView>
 	</LinearLayout>
 	<LinearLayout android:layout_height="wrap_content"
 		android:layout_width="fill_parent" android:id="@+id/submit_lay">
@@ -50,12 +49,11 @@
 			android:inputType="textPersonName"></EditText>
 		<Button android:id="@+id/submit" android:text="OK"
 			android:layout_width="fill_parent" android:layout_weight="1"
-			android:layout_gravity="center_vertical" android:background="#f8b100"
-			android:layout_height="fill_parent" android:layout_margin="3dip"></Button>
+			android:layout_gravity="center_vertical" android:layout_height="fill_parent" android:layout_margin="3dip" android:background="@drawable/yellow_btn"></Button>
 	</LinearLayout>
 	<LinearLayout android:id="@+id/LinearLayout04"
 		android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
-		android:layout_width="fill_parent">
+		android:layout_width="fill_parent" android:layout_marginTop="40dip">
 		<Button android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_margin="10dip"
 			android:text="Retry" android:padding="10dip" android:textColor="#5e2402"

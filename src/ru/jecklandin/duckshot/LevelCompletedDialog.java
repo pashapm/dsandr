@@ -64,7 +64,7 @@ public class LevelCompletedDialog extends Dialog {
 		setContentView(R.layout.levelcompleted);
 		 
 		//filling
-		TextView views[] = new TextView[9];
+		TextView views[] = new TextView[8];
 		views[0] = (TextView) findViewById(R.id.lvlc);
 		views[1] = (TextView) findViewById(R.id.lvltime_lab);
 		views[2] = (TextView) findViewById(R.id.lvlav_lab);
@@ -72,8 +72,7 @@ public class LevelCompletedDialog extends Dialog {
 		views[4] = (TextView) findViewById(R.id.lvlc);
 		views[5] = (TextView) findViewById(R.id.lvltime);
 		views[6] = (TextView) findViewById(R.id.lvlsc);
-		views[7] = (TextView) findViewById(R.id.pname);
-		views[8] = (TextView) findViewById(R.id.submit);
+		views[7] = (TextView) findViewById(R.id.submit);
 		
 		for (TextView v:views) {
 			v.setTypeface(DuckApplication.getCommonTypeface());
