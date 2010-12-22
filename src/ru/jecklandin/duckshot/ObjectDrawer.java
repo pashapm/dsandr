@@ -45,37 +45,38 @@ public class ObjectDrawer {
 	}
 
 	public void drawWave(Canvas c, Wave w) {
-		synchronized (DuckShotModel.getInstance()) {
+		
 			for (Duck d : w.ducks) {
 				d.draw(c, mPaint);
 				if (d.mMoveFlag) {
 					mMovingDucks.add(d);
 				}
 			}
-		}
+		
 		w.draw(c, mPaint);
 	}
 
 	public boolean drawObjects(Canvas c) {
 		drawEnvironment(c);
 		
-		//draw waves and ducks
 		mMovingDucks.clear();
 		
-		for (int i = 0; i < model.mWaves.size(); ++i) {
-			Wave w = model.mWaves.get(i);
-			drawWave(c, w);
-		} 
-		
-		//we need this to avoid concurrentexception (modifying waves while iterating)
-		for (Duck d : mMovingDucks) {
-			d.move();
+		synchronized (DuckShotModel.getInstance()) {
+			for (int i = 0; i < model.mWaves.size(); ++i) {
+				Wave w = model.mWaves.get(i);
+				drawWave(c, w);
+			}
+
+			// we need this to avoid concurrentexception (modifying waves while
+			// iterating)
+			for (Duck d : mMovingDucks) {
+				d.move();
+			}
+			DuckShotModel.getInstance().notifyAll();
 		}
-		
 		drawDeck(c);
 		drawStones(c);
 		
-//		DuckShotModel.getInstance().cleanup();
 		return false;
 	}
 	
