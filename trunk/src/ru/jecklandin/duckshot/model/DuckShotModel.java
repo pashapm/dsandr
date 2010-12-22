@@ -184,11 +184,21 @@ public class DuckShotModel {
 	public void addRandomDuck() {
 		Log.d(TAG, "ADDINg duck");
 
-		int randy;
-		// look for free wave
-		do {
-			randy = (int) (Math.random() * mWaves.size());
-		} while (addDuck(randy) < 0);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				synchronized (DuckShotModel.getInstance()) {
+					int randy;
+					// look for free wave
+					do {
+						randy = (int) (Math.random() * mWaves.size());
+					} while (addDuck(randy) < 0);
+					DuckShotModel.getInstance().notifyAll();
+				}
+			}
+		}).start();
+		
 	}
 
 	public void cleanupStones() {

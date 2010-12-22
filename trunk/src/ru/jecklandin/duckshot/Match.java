@@ -120,7 +120,7 @@ public class Match extends Thread {
 		mInitialTime = seconds;
 		mHandler = han;
 		
-		DuckShotModel.getInstance().populate(3);
+		DuckShotModel.getInstance().populate(5);
 	}
 	
 	public void setHandler(Handler han) {
@@ -173,7 +173,7 @@ public class Match extends Thread {
 		KillEvent event = new KillEvent(duck, timestamp);
 		int length = mKilledDucks.size();
 		Bonus bonus = Bonus.NO;
-		if (!mKilledDucks.isEmpty() && (timestamp - mKilledDucks.get(length-1).mTimestamp) < 8000) {
+		if (!mKilledDucks.isEmpty() && (timestamp - mKilledDucks.get(length-1).mTimestamp) < 5000) {
 			bonus = mKilledDucks.get(length-1).mBonusAwarded.next();
 		}
 		event.mBonusAwarded = bonus;
@@ -191,7 +191,7 @@ public class Match extends Thread {
 	
 	public void requestNextDuckIfNeed() {
 		synchronized (DuckShotModel.getInstance()) {
-			if (DuckShotModel.getInstance().getDucksNumber() < 4) {
+			if (DuckShotModel.getInstance().getDucksNumber() < 5) {
 				DuckShotModel.getInstance().addRandomDuck();
 			}
 		}

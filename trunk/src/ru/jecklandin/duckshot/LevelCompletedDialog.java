@@ -51,6 +51,8 @@ public class LevelCompletedDialog extends Dialog {
 		scoreV.setText(mMatch.getScore()+"");
 		
 		mAwardsView.mAwards = mMatch.getAwards();
+		findViewById(R.id.submit_lay).setVisibility(View.VISIBLE);
+		
 		FlurryAgent.onStartSession(getContext(), DuckApplication.FLURRY_KEY);
 	}
 	

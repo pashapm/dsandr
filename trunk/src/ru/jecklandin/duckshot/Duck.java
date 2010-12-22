@@ -384,7 +384,6 @@ public class Duck extends GameObject {
 		this.ownedWave = wave;
 		this.offset = xa;
 		this.ownedWave.addDuck(this);
-		
 		isDiving = true;
 		emerge();
 	}

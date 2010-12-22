@@ -44,10 +44,8 @@ public class Wave extends GameObject {
 	@Override
 	public float getNextOffset(float curOffset) {
 		if (mMovingRight) {
-//			offset +=(1+speed/5);
 			offset +=1;
 		} else {
-//			offset -=(1+speed/5);
 			offset -=1;
 		}
 		
@@ -64,20 +62,17 @@ public class Wave extends GameObject {
 		return OBJ_TYPE.WAVE;
 	}  
 	
-	public void addDuck(Duck d) {
-//		Log.d("Wave", "adding duck#"+d.hashCode()+" to wave#"+id);
+	public synchronized void addDuck(Duck d) {
 		d.y = this.y; 
 		if (ducks.contains(d)) {
 			assert(false);
 		}
+		Log.d("!!!!", "WAVE");
 		ducks.add(d);
 	}
 	
-	public void removeDuck(Duck d) {
-		int fs = ducks.size();
+	public synchronized void removeDuck(Duck d) {
 		ducks.remove(d);
-//		Log.d("Wave", "removing duck#"+d.hashCode()+" from wave#"+id);
-		assert(ducks.size() == fs-1);
 	}
 	
 	public Duck getDuck(int loc) {
