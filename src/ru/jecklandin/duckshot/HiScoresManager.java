@@ -22,7 +22,7 @@ public class HiScoresManager {
 	private static final int SCORES_NUMBER = 10;
 	
 	static {
-		mScoresFile = new File(Environment.getExternalStorageDirectory(), "scores.xml");
+		mScoresFile = new File(Environment.getExternalStorageDirectory(), "level1.xml");
 //		mScoresFile.delete();
 	}
 	

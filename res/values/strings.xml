@@ -2,5 +2,5 @@
 <resources>
     <string name="hello">Hello World, DuckGame!</string>
     <string name="app_name">DuckShot</string>
-    <string name="sorry">This game is being developed, so only one level is available.\n\nIf you like it you can encourage the developers by rating the game on the Market.</string>
+    <string name="sorry">This game is being developed, so only one level is available.\n\nIf you like it you can encourage the developers with rating the game on the Market.</string>
 </resources>

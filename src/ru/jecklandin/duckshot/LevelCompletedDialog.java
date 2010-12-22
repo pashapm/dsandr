@@ -151,6 +151,15 @@ public class LevelCompletedDialog extends Dialog {
 			}
 		});
 		
+		bnext.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getContext(), Sorry.class);
+				getOwnerActivity().startActivity(i);
+			}
+		});
+		
 		SharedPreferences prefs = getContext().getSharedPreferences("duckshot", Context.MODE_PRIVATE);
 		String pname = prefs.getString("name", "Unknown Player");
 		((TextView) findViewById(R.id.pname)).setText(pname);
