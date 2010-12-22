@@ -88,9 +88,6 @@ public class DuckShotModel {
 		mStones.add(stone);
 		notifyDucks(stone, wave_number);
 		Map<String, String> map = new HashMap<String, String>() ;
-		map.put("wave_number", ""+wave_number);
-		map.put("x", ""+x);
-		FlurryAgent.onEvent("shot", map);
 	}
 	
 	public int getTopY() {
