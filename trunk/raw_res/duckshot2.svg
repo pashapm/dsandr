@@ -148,6 +148,13 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3718"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -482,25 +489,34 @@
        inkscape:export-xdpi="93.898621"
        inkscape:export-ydpi="93.898621" />
     <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.10000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       style="fill:#0000cd;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.10000002000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3660"
        width="187.14285"
        height="243.57143"
-       x="119.28571"
-       y="599.50507"
+       x="122.14285"
+       y="605.93365"
        rx="7.0319724"
        ry="6.2075419" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect3724"
+       width="70"
+       height="16.428572"
+       x="170.71428"
+       y="670.21936"
+       rx="10.624412"
+       ry="0" />
     <text
        xml:space="preserve"
-       style="font-size:18px;font-style:normal;font-weight:normal;fill:#ffb900;fill-opacity:1;stroke:none;font-family:Komika Axis;-inkscape-font-specification:Komika Axis"
-       x="166.42857"
-       y="668.07648"
+       style="font-size:18px;font-style:normal;font-weight:normal;fill:#0000cd;fill-opacity:1;stroke:none;font-family:Komika Axis;-inkscape-font-specification:Komika Axis"
+       x="185.71429"
+       y="683.07648"
        id="text3662"><tspan
          sodipodi:role="line"
          id="tspan3664"
-         x="166.42857"
-         y="668.07648"
-         style="font-size:28px;fill:#ffb900;fill-opacity:1">Sorry.</tspan></text>
+         x="185.71429"
+         y="683.07648"
+         style="font-size:14px;fill:#0000cd;fill-opacity:1;font-family:Droid Sans Mono;-inkscape-font-specification:Droid Sans Mono">Sorry</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;fill:#f9b500;fill-opacity:1;stroke:none;font-family:Komika Axis;-inkscape-font-specification:Komika Axis"
@@ -511,31 +527,31 @@
          id="tspan3668"
          x="132.14285"
          y="706.64789"
-         style="font-size:9px">This game is being developed,</tspan><tspan
+         style="font-size:9px;-inkscape-font-specification:Droid Sans Mono;font-family:Droid Sans Mono;fill:#ffffff;fill-opacity:1">This game is being developed,</tspan><tspan
          sodipodi:role="line"
          x="132.14285"
          y="717.89789"
-         style="font-size:9px"
+         style="font-size:9px;-inkscape-font-specification:Droid Sans Mono;font-family:Droid Sans Mono;fill:#ffffff;fill-opacity:1"
          id="tspan3670">so only one level is available. </tspan><tspan
          sodipodi:role="line"
          x="132.14285"
          y="729.14789"
-         style="font-size:9px"
+         style="font-size:9px;-inkscape-font-specification:Droid Sans Mono;font-family:Droid Sans Mono;fill:#ffffff;fill-opacity:1"
          id="tspan3672" /><tspan
          sodipodi:role="line"
          x="132.14285"
          y="740.39789"
-         style="font-size:9px"
+         style="font-size:9px;-inkscape-font-specification:Droid Sans Mono;font-family:Droid Sans Mono;fill:#ffffff;fill-opacity:1"
          id="tspan3674">if you like it you can encourage</tspan><tspan
          sodipodi:role="line"
          x="132.14285"
          y="751.64789"
-         style="font-size:9px"
-         id="tspan3676">the developers  by rating this </tspan><tspan
+         style="font-size:9px;-inkscape-font-specification:Droid Sans Mono;font-family:Droid Sans Mono;fill:#ffffff;fill-opacity:1"
+         id="tspan3676">the developers  by rating the </tspan><tspan
          sodipodi:role="line"
          x="132.14285"
          y="762.89789"
-         style="font-size:9px"
+         style="font-size:9px;-inkscape-font-specification:Droid Sans Mono;font-family:Droid Sans Mono;fill:#ffffff;fill-opacity:1"
          id="tspan3682">game on the Market.</tspan></text>
     <rect
        style="fill:#f9b500;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.10000002;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
@@ -543,7 +559,7 @@
        width="81.52494"
        height="23.438969"
        x="169.95181"
-       y="783.49982"
+       y="784.21411"
        rx="7.0319724"
        ry="6.2075419"
        inkscape:export-filename="C:\ws\workspace4\DuckShot\raw_res\yellow_btn.png"
@@ -560,5 +576,12 @@
          x="195"
          y="800.21936"
          style="font-size:11px">RATE</tspan></text>
+    <image
+       y="684.43359"
+       x="-346.42856"
+       id="image3720"
+       height="283"
+       width="440"
+       xlink:href="file:///C:/ws/workspace4/DuckShot/raw_res/inkscape_pasted_image_20101222_184157.png" />
   </g>
 </svg>

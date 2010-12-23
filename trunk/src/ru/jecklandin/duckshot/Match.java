@@ -190,10 +190,8 @@ public class Match extends Thread {
 	}
 	
 	public void requestNextDuckIfNeed() {
-		synchronized (DuckShotModel.getInstance()) {
-			if (DuckShotModel.getInstance().getDucksNumber() < 5) {
-				DuckShotModel.getInstance().addRandomDuck();
-			}
+		if (DuckShotModel.getInstance().getDucksNumber() < 5) {
+			DuckShotModel.getInstance().addRandomDuck();
 		}
 	}
 	
