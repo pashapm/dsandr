@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import com.flurry.android.FlurryAgent;
 
@@ -38,6 +40,8 @@ public class DuckShotModel {
 	public static int WAVES_OFFSET;
 	private static final int WAVES_GAP = ScrProps.scale(28);
 	
+	private ManipulatingThread mWorkingThread;
+	
 	public DuckShotModel() {
 		WAVES_OFFSET = ScrProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight() - ScrProps.scale(80); 
 		WAVES_HEIGHT = WAVES_NUM * WAVES_GAP;
@@ -54,10 +58,14 @@ public class DuckShotModel {
 			int ms = i / 2;
 			mWaves.add(new Wave(mx, mYes.get(i), ms, i));
 		}
+		
+		mWorkingThread = new ManipulatingThread();
+		mWorkingThread.start();
 	}
 	
 	public void reinitialize() {
 		populate(0);
+		mWorkingThread.mQueue.clear();
 	}
 	
 	public synchronized void populate(int num) {
@@ -183,22 +191,7 @@ public class DuckShotModel {
 
 	public void addRandomDuck() {
 		Log.d(TAG, "ADDINg duck");
-
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				synchronized (DuckShotModel.getInstance()) {
-					int randy;
-					// look for free wave
-					do {
-						randy = (int) (Math.random() * mWaves.size());
-					} while (addDuck(randy) < 0);
-					DuckShotModel.getInstance().notifyAll();
-				}
-			}
-		}).start();
-		
+		mWorkingThread.mQueue.add(42);
 	}
 
 	public void cleanupStones() {
@@ -227,5 +220,31 @@ public class DuckShotModel {
 	
 	public int getTargetWave() {
 		return mTargetWave;
+	}
+	
+	class ManipulatingThread extends Thread {
+		
+		BlockingQueue<Integer> mQueue = new LinkedBlockingQueue<Integer>();
+		
+		@Override
+		public void run() {
+			while (true) {
+				try {
+					int type = mQueue.take();
+					synchronized (DuckShotModel.getInstance()) {
+						int randy;
+						// look for free wave
+						do {
+							randy = (int) (Math.random() * mWaves.size());
+						} while (addDuck(randy) < 0);
+						DuckShotModel.getInstance().notifyAll();
+					} 
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					return;
+				}
+				
+			}
+		}
 	}
 }
