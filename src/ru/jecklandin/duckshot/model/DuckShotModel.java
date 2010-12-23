@@ -84,7 +84,7 @@ public class DuckShotModel {
 		for (Wave w : mWaves) {
 			for (Duck d : w.ducks) {
 				if (!d.toRecycle) {
-					sum += w.ducks.size();
+					sum ++;
 				}
 			}
 		}

@@ -1,24 +1,27 @@
 package ru.jecklandin.duckshot;
 
-import com.flurry.android.FlurryAgent;
-
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.ViewAnimator;
+
+import com.flurry.android.FlurryAgent;
+import com.nullwire.trace.ExceptionHandler;
 
 public class MainMenu extends Activity implements OnClickListener {
 	
@@ -69,6 +72,7 @@ public class MainMenu extends Activity implements OnClickListener {
 		((ImageButton) findViewById(R.id.effectsoff)).setOnClickListener(this);
 		
 		restoreSettings();
+		registerExceptions();
 	}
 	
 	@Override
@@ -219,4 +223,38 @@ public class MainMenu extends Activity implements OnClickListener {
 		super.onStart();
 	}
 	
+	private void registerExceptions() {
+		if (ExceptionHandler.register(this, new Handler())) {
+
+			AlertDialog.Builder b = new Builder(this);
+			b.setCancelable(false);
+			TextView message = new TextView(this);
+			message.setText(R.string.error_report);
+			message.setPadding(10, 10, 10, 10);
+			b.setView(message);
+
+			b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(final DialogInterface dialog, final int which) {
+					new Thread(new Runnable() {
+
+						@Override
+						public void run() {
+							ExceptionHandler.submitStackTraces();
+						}
+					}).start();
+				}
+			});
+			b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(final DialogInterface dialog, final int which) {
+					ExceptionHandler.deleteStackTrace();
+					dialog.cancel();
+				}
+			});
+			b.show();
+		}
+	}
 }
