@@ -241,6 +241,7 @@ public class MainMenu extends Activity implements OnClickListener {
 
 						@Override
 						public void run() {
+							FlurryAgent.onEvent("sendReport");
 							ExceptionHandler.submitStackTraces();
 						}
 					}).start();
@@ -250,6 +251,7 @@ public class MainMenu extends Activity implements OnClickListener {
 
 				@Override
 				public void onClick(final DialogInterface dialog, final int which) {
+					FlurryAgent.onEvent("dontSendReport");
 					ExceptionHandler.deleteStackTrace();
 					dialog.cancel();
 				}
