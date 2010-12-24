@@ -8,16 +8,14 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:name="ru.jecklandin.duckshot.DuckApplication"
-		android:debuggable="true"
-		>
+		android:name="ru.jecklandin.duckshot.DuckApplication" android:debuggable="false">
 		<activity android:name=".DuckGame" android:label="@string/app_name"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 			android:launchMode="singleTop"
 			>
 			<!--<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+				<action android:name="android.intenmn t.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>-->
 		</activity>

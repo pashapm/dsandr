@@ -42,7 +42,9 @@ public class HiScores extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hiscores);
-        
+         
+//        findViewById(R.id.hiscores_lay).setBackgroundDrawable(MoreScreen.mUnderwaterBg);
+        findViewById(R.id.hiscores_lay).setBackgroundResource(R.drawable.underwater_dith);
         ((TextView)findViewById(R.id.hiscores_label)).setTypeface(DuckApplication.getCommonTypeface());
         
 		try {

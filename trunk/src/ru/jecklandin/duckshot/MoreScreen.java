@@ -4,6 +4,11 @@ import com.flurry.android.FlurryAgent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,10 +16,21 @@ import android.widget.ImageButton;
 
 public class MoreScreen extends Activity implements OnClickListener {
 
+//	static BitmapDrawable mUnderwaterBg;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.more);
+		
+//		BitmapFactory.Options opts = new Options();
+//		opts.inPreferredConfig = Config.RGB_565;
+//		opts.inDither = false;
+//		mUnderwaterBg = new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.underwater, opts)) ;
+//		findViewById(R.id.more_lay).setBackgroundDrawable(mUnderwaterBg);
+		
+		findViewById(R.id.more_lay).setBackgroundResource(R.drawable.underwater_dith);
 		
 		ImageButton about = (ImageButton) findViewById(R.id.about);
 		about.setOnClickListener(this);
