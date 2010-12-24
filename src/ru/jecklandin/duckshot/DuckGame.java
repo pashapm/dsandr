@@ -85,16 +85,16 @@ public class DuckGame extends Activity {
         getWindow().addContentView(mSling, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
         
         //debug btn
-        LinearLayout lay = (LinearLayout)View.inflate(this, R.layout.btns, null);
-        ImageButton imb = (ImageButton) lay.findViewById(R.id.ImageButton01);
-        getWindow().addContentView(lay, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-        imb.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				DuckShotModel.getInstance().addRandomDuck();
-			}
-		}); 
+//        LinearLayout lay = (LinearLayout)View.inflate(this, R.layout.btns, null);
+//        ImageButton imb = (ImageButton) lay.findViewById(R.id.ImageButton01);
+//        getWindow().addContentView(lay, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+//        imb.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				DuckShotModel.getInstance().addRandomDuck();
+//			}
+//		}); 
 
         mDialogHandler = new Handler() {
 			@Override
@@ -257,18 +257,18 @@ class FPSPrinter extends Thread {
 
 	@Override
 	public void run() {
-		while (!isInterrupted()) {
-			if (mRunning) {
-				Log.d("Ducks ### FPS", FpsCounter.getFPS() + "");
-			}
-			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				Log.d("FPS", "Stopping");
-				return;
-			}
-
-		}
+//		while (!isInterrupted()) {
+//			if (mRunning) {
+//				Log.d("Ducks ### FPS", FpsCounter.getFPS() + "");
+//			}
+//			try {
+//				sleep(1000);
+//			} catch (InterruptedException e) {
+//				Log.d("FPS", "Stopping");
+//				return;
+//			}
+//
+//		}
 
 	}
 
