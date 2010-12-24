@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical" android:background="@drawable/underwater_dith" android:layout_height="fill_parent" android:layout_width="fill_parent">
+  android:orientation="vertical" android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/hiscores_lay">
 <TextView android:gravity="center" android:text="High Scores" android:id="@+id/hiscores_label" android:textSize="15sp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:padding="10dip"></TextView><ListView android:id="@android:id/list" android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_weight="1" android:focusableInTouchMode="false" android:listSelector="#00000000"></ListView>
 
 </LinearLayout>

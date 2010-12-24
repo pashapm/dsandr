@@ -13,6 +13,7 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Xml;
 
@@ -22,8 +23,7 @@ public class HiScoresManager {
 	private static final int SCORES_NUMBER = 10;
 	
 	static {
-		mScoresFile = new File(Environment.getExternalStorageDirectory(), "level1.xml");
-//		mScoresFile.delete();
+		mScoresFile = new File(DuckApplication.getInstance().getDir("hiscores", Context.MODE_PRIVATE), "level1.xml");
 	}
 	
 	public static boolean addScore(Score score) {

@@ -92,10 +92,10 @@ public class DuckShotModel {
 	}
 	
 	public void launchStone(int wave_number, int x) {
+		wave_number = mWaves.size() > wave_number ? wave_number : mWaves.size() - 1; //wtf
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
 		mStones.add(stone);
 		notifyDucks(stone, wave_number);
-		Map<String, String> map = new HashMap<String, String>() ;
 	}
 	
 	public int getTopY() {
