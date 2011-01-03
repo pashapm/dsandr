@@ -14,6 +14,7 @@ import android.content.Context;
 import android.util.Log;
 import ru.jecklandin.duckshot.*;
 import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
+import ru.jecklandin.duckshot.Obstacle.Type;
 
 public class DuckShotModel {
 
@@ -38,7 +39,7 @@ public class DuckShotModel {
 	public static int WAVES_HEIGHT = 0;
 	public static final int MAX_MSEC = 1999;
 	public static int WAVES_OFFSET;
-	private static final int WAVES_GAP = ScrProps.scale(28);
+	public static final int WAVES_GAP = ScrProps.scale(28);
 	
 	private ManipulatingThread mWorkingThread;
 	
@@ -59,23 +60,23 @@ public class DuckShotModel {
 			mWaves.add(new Wave(mx, mYes.get(i), ms, i));
 		}
 		
-		////
-		Obstacle o = new Obstacle(mWaves.get(5), 50);
-		mWaves.get(5).mObstacles.add(o);
-		o = new Obstacle(mWaves.get(0), 10);
-		mWaves.get(0).mObstacles.add(o);
-		o = new Obstacle(mWaves.get(9), 200);
-		mWaves.get(9).mObstacles.add(o);
-		
 		mWorkingThread = new ManipulatingThread();
 		mWorkingThread.start();
+	}
+	
+	public void addObstacles() {
+		
+		ObstacleManager.getInstance().addRock(Type.ROCK1, 10, 4);
+		
+		ObstacleManager.getInstance().addRock(Type.ROCK2, 30, 0);
+		ObstacleManager.getInstance().addRock(Type.ROCK2, 200, 3);
 	}
 	
 	public void reinitialize() {
 		populate(0);
 		mWorkingThread.mQueue.clear();
 	}
-	
+	 
 	public synchronized void populate(int num) {
 		
 		for (Wave w : mWaves) {
