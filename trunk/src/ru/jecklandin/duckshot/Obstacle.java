@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
 import android.util.Log;
 
 public class Obstacle extends GameObject {
@@ -18,17 +19,48 @@ public class Obstacle extends GameObject {
 	
 	static {
 		Obstacle.rock1 = ImgManager.getBitmap("rock1");
+		Obstacle.rock2 = ImgManager.getBitmap("rock2");
 	}
 	
+	public enum Type {ROCK1, ROCK2, STUB};
+	
 	private static Bitmap rock1;
+	private static Bitmap rock2;
 	
 	private Matrix mMatrix = new Matrix();
+	private Bitmap mCurrentBitmap;
 	
-	public Obstacle(Wave hostingWave, int x) {
+	private int h_offset;
+	
+	public Obstacle(Wave hostingWave, int x, Type type) {
 		this.x = x;
 		this.y = hostingWave.y;
 		this.mHostingWave = hostingWave;
 		this.mWidth = rock1.getWidth();  
+		
+		switch (type) {
+		case ROCK1:
+			mCurrentBitmap = rock1;
+			break;
+		case ROCK2:
+			mCurrentBitmap = rock2;
+			break;
+		default:
+			break;
+		}
+		
+		h_offset = mCurrentBitmap.getHeight() - Wave.waveBm.getHeight();
+	}
+	
+	/**
+	 * Stub (transparent) obstacle
+	 */
+	public Obstacle(Obstacle mainObs, Wave hostingWave) {
+		this.x = mainObs.x;
+		this.mHostingWave = hostingWave;
+		this.y = hostingWave.y;
+		this.mWidth = mainObs.mWidth;
+		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
 	}
 	
 	@Override
@@ -36,9 +68,8 @@ public class Obstacle extends GameObject {
 		p.setColor(Color.BLACK);
 		
 		mMatrix.reset();
-		mMatrix.setTranslate(x, mHostingWave.y - rock1.getHeight()*2/5); 
-		c.drawBitmap(rock1, mMatrix, p);
-//		c.drawRect(x, mHostingWave.y, x+mWidth, mHostingWave.y+40, p);
+		mMatrix.setTranslate(x, mHostingWave.y - h_offset); 
+		c.drawBitmap(mCurrentBitmap, mMatrix, p);
 		
 		if (mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {

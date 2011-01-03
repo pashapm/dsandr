@@ -24,7 +24,7 @@ public class Wave extends GameObject {
 	}
 	
 	private boolean mMovingRight = (Math.random()-0.5d) > 0;
-	private static Bitmap waveBm;  
+	public static Bitmap waveBm;  
 	
 	public ArrayList<Duck> mCreatures = new ArrayList<Duck>();
 	

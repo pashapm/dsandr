@@ -59,6 +59,8 @@ public class ImgManager {
 		
 		bm = getBitmap(R.drawable.rock_1);
 		mImgMap.put("rock1", bm);
+		bm = getBitmap(R.drawable.rock_2);
+		mImgMap.put("rock2", bm);
 		
 		bm = getBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];

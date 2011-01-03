@@ -120,6 +120,7 @@ public class Match extends Thread {
 		mInitialTime = seconds;
 		mHandler = han;
 		
+		DuckShotModel.getInstance().addObstacles();
 		DuckShotModel.getInstance().populate(5);
 	}
 	
