@@ -45,6 +45,9 @@ public class Obstacle extends GameObject {
 				mStone.makeFountain = false;
 				mStone.fallen = true; 
 				mStone.bounce();
+				mStone = null;
+				
+				SoundManager.getInstance().playRockHit(); 
 			}
 		}
 	}
