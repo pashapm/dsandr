@@ -53,7 +53,7 @@ public class Stone extends GameObject {
 	}
 	
 	@Override
-	public void draw(Canvas c, Paint p) {
+	public void draw(Canvas c, Paint p) { 
 		matrix.reset();
 		if (fallen) {
 			if (!vibrated) {
@@ -61,7 +61,7 @@ public class Stone extends GameObject {
 				vibrated = true;
 			}
 
-			if (makeFountain) {
+			if (makeFountain) { 
 				matrix.setTranslate(mVector.x, mVector.y);
 				drawFountain(c, p);
 			} else if (mBounce) {
@@ -85,7 +85,7 @@ public class Stone extends GameObject {
 		} else if (anim_frame > mAniFountain.length) { 
 			sank = true;
 		} else {
-			anim_frame++;
+			anim_frame++; 
 		} 
 	}
 	

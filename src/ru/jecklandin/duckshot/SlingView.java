@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.provider.Settings.System;
 import android.view.View;
 
 public class SlingView extends View {
@@ -30,6 +31,8 @@ public class SlingView extends View {
 	
    Paint mPaint = new Paint();
    Path mPath = new Path();
+   
+   private long mLastShotTime = 0;
    
 	public SlingView(Context context) {
 		super(context);
@@ -150,6 +153,12 @@ public class SlingView extends View {
 		}
 
 		public void grab(int x, int y) {
+			
+			if (java.lang.System.currentTimeMillis() - mLastShotTime < 500) {
+				return;
+			} 
+			mLastShotTime = java.lang.System.currentTimeMillis();
+			
 			if (Math.abs(x-SOCKET_DEFAULT_X) < ScrProps.scale(50)
 					&&  Math.abs(y-SOCKET_DEFAULT_Y) < ScrProps.scale(40)) {
 				mIsGrabbed = true;
