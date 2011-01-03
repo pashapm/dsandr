@@ -284,7 +284,7 @@ public class Duck extends GameObject {
 		point[1]-=ScrProps.scale(10);
 		int w = (int) (duckBm.getWidth());
 		
-		int color = Color.parseColor("#21b60c");
+		int color = Color.parseColor("#6bff00");
 		int length = w;
 		if (mHealth < 100 && mHealth > 0) {
 			color = Color.parseColor("#ff5a00");
@@ -295,7 +295,7 @@ public class Duck extends GameObject {
 		if (mMovingRight) {
 			point[0]-=w;
 		}
-		c.drawRect(point[0], point[1], point[0]+length, point[1]+ScrProps.scale(6), p);
+		c.drawRect(point[0], point[1], point[0]+length, point[1]+ScrProps.scale(4), p);
 	}
 
 	private void drawDeadAnimation(Canvas c, Paint p) {

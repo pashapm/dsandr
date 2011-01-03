@@ -57,6 +57,9 @@ public class ImgManager {
 		bm = getBitmap(R.drawable.settings_quant_e);
 		mImgMap.put("quant_e", bm);
 		
+		bm = getBitmap(R.drawable.rock_1);
+		mImgMap.put("rock1", bm);
+		
 		bm = getBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];
 		int diff_x = ScrProps.scale(84);
