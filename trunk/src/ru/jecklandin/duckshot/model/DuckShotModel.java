@@ -60,10 +60,12 @@ public class DuckShotModel {
 		}
 		
 		////
-		Obstacle o = new Obstacle(mWaves.get(5), 50, 300);
+		Obstacle o = new Obstacle(mWaves.get(5), 50);
 		mWaves.get(5).mObstacles.add(o);
-		o = new Obstacle(mWaves.get(6), 50, 300);
-		mWaves.get(6).mObstacles.add(o);
+		o = new Obstacle(mWaves.get(0), 10);
+		mWaves.get(0).mObstacles.add(o);
+		o = new Obstacle(mWaves.get(9), 200);
+		mWaves.get(9).mObstacles.add(o);
 		
 		mWorkingThread = new ManipulatingThread();
 		mWorkingThread.start();

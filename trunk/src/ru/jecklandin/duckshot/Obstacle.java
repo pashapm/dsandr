@@ -2,8 +2,10 @@ package ru.jecklandin.duckshot;
 
 import java.util.List;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.Log;
 
@@ -14,22 +16,34 @@ public class Obstacle extends GameObject {
 	
 	private Stone mStone; 
 	
-	public Obstacle(Wave hostingWave, int x, int width) {
+	static {
+		Obstacle.rock1 = ImgManager.getBitmap("rock1");
+	}
+	
+	private static Bitmap rock1;
+	
+	private Matrix mMatrix = new Matrix();
+	
+	public Obstacle(Wave hostingWave, int x) {
 		this.x = x;
 		this.y = hostingWave.y;
 		this.mHostingWave = hostingWave;
-		this.mWidth = width;
+		this.mWidth = rock1.getWidth();  
 	}
 	
 	@Override
 	public void draw(Canvas c, Paint p) {
 		p.setColor(Color.BLACK);
-		c.drawRect(x, mHostingWave.y, x+mWidth, mHostingWave.y+40, p);
+		
+		mMatrix.reset();
+		mMatrix.setTranslate(x, mHostingWave.y - rock1.getHeight()*2/5); 
+		c.drawBitmap(rock1, mMatrix, p);
+//		c.drawRect(x, mHostingWave.y, x+mWidth, mHostingWave.y+40, p);
 		
 		if (mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {
 				mStone.makeFountain = false;
-				mStone.fallen = true;
+				mStone.fallen = true; 
 				mStone.bounce();
 			}
 		}
