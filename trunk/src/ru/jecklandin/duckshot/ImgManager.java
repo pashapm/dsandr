@@ -31,8 +31,6 @@ public class ImgManager {
 		
 		bm = Bitmap.createBitmap(qq, 0, bm.getWidth(), bm.getWidth(), bm.getHeight(), Bitmap.Config.ARGB_8888);
 		
-		 
-		     
 		mImgMap.put("wave", bm);
 		bm = getBitmap(R.drawable.duck);
 		mImgMap.put("duck", bm);
@@ -129,6 +127,16 @@ public class ImgManager {
 			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
 		}
 		mAniMap.put("awards", anim);
+		bm.recycle();
+		
+		bm = getBitmap(R.drawable.shrapnel);
+		anim = new Bitmap[6]; 
+		diff_x = ScrProps.scale(100);
+		diff_y = ScrProps.scale(100);
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
+		}
+		mAniMap.put("shrapnel", anim);
 		bm.recycle();
 		
 		mLoaded = true;

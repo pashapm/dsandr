@@ -349,6 +349,11 @@ public class Duck extends GameObject {
 	}
 	
 	private boolean isIntersects(int ix) {
+		for (Obstacle obs : ownedWave.mObstacles) {
+			if (obs.isIntersects(ix)) {
+				return false;
+			}
+		}
 		return (!isDiving 
 				&& ix > (this.offset - duckBm.getWidth()/4) 
 				&& ix < (this.offset + duckBm.getWidth()));

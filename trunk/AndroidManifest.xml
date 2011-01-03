@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ru.jecklandin.duckshot" android:versionCode="1"
-	android:versionName="0.1">
+	package="ru.jecklandin.duckshot" android:versionCode="2"
+	android:versionName="0.5">
 
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:name="ru.jecklandin.duckshot.DuckApplication" android:debuggable="false">
+		android:name="ru.jecklandin.duckshot.DuckApplication" android:debuggable="true">
 		<activity android:name=".DuckGame" android:label="@string/app_name"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
