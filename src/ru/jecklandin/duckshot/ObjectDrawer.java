@@ -45,14 +45,18 @@ public class ObjectDrawer {
 	}
 
 	public void drawWave(Canvas c, Wave w) {
-		
-			for (Duck d : w.ducks) {
-				d.draw(c, mPaint);
-				if (d.mMoveFlag) {
-					mMovingDucks.add(d);
-				}
+
+		for (Duck d : w.mCreatures) {
+			d.draw(c, mPaint);
+			if (d.mMoveFlag) {
+				mMovingDucks.add(d);
 			}
+		}
 		
+		for (Obstacle obs : w.mObstacles) {
+			obs.draw(c, mPaint);
+		}
+
 		w.draw(c, mPaint);
 	}
 
@@ -129,7 +133,7 @@ class Environment {
 //		c.drawBitmap(mSun, m, p);
 //		rot_degree+=0.1;
 		
-		//drawing falling ducks 
+		//drawing falling mCreatures 
 		//m.setTranslate(x_offset2+mCloud2.getWidth()/2, mCloud2.getHeight());
 		
 		

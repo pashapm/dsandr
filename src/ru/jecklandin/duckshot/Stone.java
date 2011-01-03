@@ -14,16 +14,18 @@ public class Stone extends GameObject {
 	public static Bitmap mStone;
 	public static Bitmap mFountain;
 	public static Bitmap[] mAniFountain;
+	public static Bitmap[] mShrapnel;
 	
 	static {
 		Stone.mStone = ImgManager.getBitmap("stone");
 		Stone.mFountain = ImgManager.getBitmap("fountain");
 		Stone.mAniFountain = ImgManager.getAnimation("fountain");
+		Stone.mShrapnel = ImgManager.getAnimation("shrapnel");
 	}
 	
 	public boolean makeFountain = true;
 	private int rot_degree = 0;
-	private boolean fallen = false;
+	boolean fallen = false;
 	private boolean vibrated = false;
 	private float y_dest;
 	private float x_dest;
@@ -34,6 +36,8 @@ public class Stone extends GameObject {
 	
 	SpeedVector mVector;
 	SpeedVector mDeltaVector;
+
+	private boolean mBounce = false;
 	
 	public Stone(int x_dest, int y_dest) {
 		super();
@@ -58,14 +62,14 @@ public class Stone extends GameObject {
 			}
 
 			if (makeFountain) {
-//				matrix.setTranslate(x, y);
 				matrix.setTranslate(mVector.x, mVector.y);
 				drawFountain(c, p);
+			} else if (mBounce) {
+				matrix.setTranslate(mVector.x, mVector.y);
+				drawShrapnel(c, p);
 			}
 	} else {
 			getNextOffset(offset);
-//			matrix.setTranslate(x, y);
-//			matrix.postRotate(rot_degree, x, y);
 			matrix.setTranslate(mVector.x, mVector.y);
 			matrix.postRotate(rot_degree, mVector.x, mVector.y);
 			c.drawBitmap(mStone, matrix, p);
@@ -75,15 +79,28 @@ public class Stone extends GameObject {
 
 	private void drawFountain(Canvas c, Paint p) {
 		matrix.postTranslate(- mAniFountain[0].getWidth()/2, - mAniFountain[0].getHeight()*6/10);
-		if (anim_frame < 8) {
+		if (anim_frame < mAniFountain.length) {
 			c.drawBitmap(mAniFountain[anim_frame], matrix, p); 
 			anim_frame++;
-		} else if (anim_frame > 8) { 
+		} else if (anim_frame > mAniFountain.length) { 
+			sank = true;
+		} else {
+			anim_frame++;
+		} 
+	}
+	
+	private void drawShrapnel(Canvas c, Paint p) {
+		matrix.postTranslate(- mAniFountain[0].getWidth()/2, - mAniFountain[0].getHeight()*6/10);
+		if (anim_frame < mShrapnel.length) {
+			c.drawBitmap(mShrapnel[anim_frame], matrix, p); 
+			anim_frame++;
+		} else if (anim_frame > mAniFountain.length) { 
 			sank = true;
 		} else {
 			anim_frame++;
 		}
 	}
+	
 
 	@Override
 	public float getNextOffset(float curOffset) {
@@ -94,12 +111,6 @@ public class Stone extends GameObject {
 			fallen = true;
 		}
 		
-//    	speed += 1;
-//		 
-//		this.y-=(9+speed);
-//		if (y <= y_dest) {   
-//			fallen = true;
-//		}
 		return y;
 	}
 
@@ -110,6 +121,11 @@ public class Stone extends GameObject {
 
 	public boolean isFallen() {
 		return fallen;
+	}
+	
+	public void bounce() {
+		mBounce = true;
+		fallen = true;
 	}
 	
 }

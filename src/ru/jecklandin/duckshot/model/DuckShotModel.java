@@ -43,13 +43,13 @@ public class DuckShotModel {
 	private ManipulatingThread mWorkingThread;
 	
 	public DuckShotModel() {
-		WAVES_OFFSET = ScrProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.getInstance().mDesk.getHeight() - ScrProps.scale(80); 
+		WAVES_OFFSET = ScrProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
 		WAVES_HEIGHT = WAVES_NUM * WAVES_GAP;
 		
 		// loading Y-coord
 		for (int i=0; i<WAVES_NUM; ++i) {
 			mYes.add(WAVES_OFFSET + i * WAVES_GAP);
-		}
+		} 
 		
 		for (int i=0; i<mYes.size(); ++i) {
 			// -50 .. +50
@@ -58,6 +58,12 @@ public class DuckShotModel {
 			int ms = i / 2;
 			mWaves.add(new Wave(mx, mYes.get(i), ms, i));
 		}
+		
+		////
+		Obstacle o = new Obstacle(mWaves.get(5), 50, 300);
+		mWaves.get(5).mObstacles.add(o);
+		o = new Obstacle(mWaves.get(6), 50, 300);
+		mWaves.get(6).mObstacles.add(o);
 		
 		mWorkingThread = new ManipulatingThread();
 		mWorkingThread.start();
@@ -71,7 +77,7 @@ public class DuckShotModel {
 	public synchronized void populate(int num) {
 		
 		for (Wave w : mWaves) {
-			w.ducks.clear();
+			w.mCreatures.clear();
 		}
 		
 		for (int i=0; i<num; ++i) {
@@ -82,7 +88,7 @@ public class DuckShotModel {
 	public int getDucksNumber() {
 		int sum = 0;
 		for (Wave w : mWaves) {
-			for (Duck d : w.ducks) {
+			for (Duck d : w.mCreatures) {
 				if (!d.toRecycle) {
 					sum ++;
 				}
@@ -93,9 +99,13 @@ public class DuckShotModel {
 	
 	public void launchStone(int wave_number, int x) {
 		wave_number = mWaves.size() > wave_number ? wave_number : mWaves.size() - 1; //wtf
+		if (wave_number < 0) {
+			wave_number = 0;
+		}
 		Stone stone = new Stone(x, mWaves.get(wave_number).y);
 		mStones.add(stone);
 		notifyDucks(stone, wave_number);
+		notifyObstacles(stone, wave_number);
 	}
 	
 	public int getTopY() {
@@ -107,8 +117,15 @@ public class DuckShotModel {
 	}
 	
 	private void notifyDucks(Stone stone, int ny) {
-		for (Duck duck : mWaves.get(ny).ducks) {  
+		for (Duck duck : mWaves.get(ny).mCreatures) {  
 			duck.notifyStoneWasThrown(stone); 
+		} 
+	}
+	
+	private void notifyObstacles(Stone stone, int ny) {
+		for (Obstacle obs : mWaves.get(ny).mObstacles) {  
+			obs.notifyStoneWasThrown(stone); 
+			Log.d("!!noti", ""+ny);
 		} 
 	}
 	

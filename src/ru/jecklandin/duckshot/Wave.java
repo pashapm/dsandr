@@ -19,14 +19,16 @@ public class Wave extends GameObject {
 	private int MIN_OFFSET = ScrProps.scale(-100);
 	private static int MIN_DISTANCE_APPEARANCE = ScrProps.scale(80);
 	
-	
 	static {
 		Wave.waveBm = ImgManager.getBitmap("wave");
 	}
 	
 	private boolean mMovingRight = (Math.random()-0.5d) > 0;
 	private static Bitmap waveBm;  
-	public ArrayList<Duck> ducks = new ArrayList<Duck>();
+	
+	public ArrayList<Duck> mCreatures = new ArrayList<Duck>();
+	
+	public ArrayList<Obstacle> mObstacles = new ArrayList<Obstacle>();
 	
 	protected int wave_num;
 	
@@ -64,19 +66,18 @@ public class Wave extends GameObject {
 	
 	public synchronized void addDuck(Duck d) {
 		d.y = this.y; 
-		if (ducks.contains(d)) {
+		if (mCreatures.contains(d)) {
 			assert(false);
 		}
-		Log.d("!!!!", "WAVE");
-		ducks.add(d);
+		mCreatures.add(d);
 	}
 	
 	public synchronized void removeDuck(Duck d) {
-		ducks.remove(d);
+		mCreatures.remove(d);
 	}
 	
 	public Duck getDuck(int loc) {
-		return ducks.get(loc);
+		return mCreatures.get(loc);
 	} 
  
 	@Override
@@ -89,13 +90,19 @@ public class Wave extends GameObject {
 	}     
   
 	public boolean isPlaceFree(int x) {
-		boolean free = true;
-		for (Duck d : ducks) {
+		for (Duck d : mCreatures) {
 			if (Math.abs(d.offset - x) < Wave.MIN_DISTANCE_APPEARANCE) {
-				free = false;
+				return false;
 			}
 		}  
-		return free;
+		
+		for (Obstacle obs : mObstacles) {
+			if (x >= obs.getX() && x <= obs.getX() + obs.getWidth()) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	@Override
