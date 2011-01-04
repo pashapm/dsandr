@@ -76,7 +76,7 @@ public class DuckShotModel {
 		populate(0);
 		mWorkingThread.mQueue.clear();
 	}
-	 
+	  
 	public synchronized void populate(int num) {
 		
 		for (Wave w : mWaves) {
