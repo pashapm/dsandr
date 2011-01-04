@@ -36,7 +36,6 @@ public class Obstacle extends GameObject {
 		this.x = x;
 		this.y = hostingWave.y;
 		this.mHostingWave = hostingWave;
-		this.mWidth = rock1.getWidth();  
 		
 		switch (type) {
 		case ROCK1:
@@ -49,6 +48,7 @@ public class Obstacle extends GameObject {
 			break;
 		}
 		
+		this.mWidth = mCurrentBitmap.getWidth();  
 		h_offset = mCurrentBitmap.getHeight() - Wave.waveBm.getHeight();
 	}
 	
