@@ -257,18 +257,18 @@ class FPSPrinter extends Thread {
 
 	@Override
 	public void run() {
-//		while (!isInterrupted()) {
-//			if (mRunning) {
-//				Log.d("Ducks ### FPS", FpsCounter.getFPS() + "");
-//			}
-//			try {
-//				sleep(1000);
-//			} catch (InterruptedException e) {
-//				Log.d("FPS", "Stopping");
-//				return;
-//			}
-//
-//		}
+		while (!isInterrupted()) {
+			if (mRunning) {
+				Log.d("Ducks ### FPS", FpsCounter.getFPS() + "");
+			}
+			try {
+				sleep(1000);
+			} catch (InterruptedException e) {
+				Log.d("FPS", "Stopping");
+				return;
+			}
+
+		}
 
 	}
 

@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot;
 
+import ru.jecklandin.duckshot.levels.Level;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +14,8 @@ public class SoundManager {
 	public static int SOUND_PUNCH = 0;
 	
 	private static SoundManager sInstance;
+	
+	private Level mLevel;
 	
 	private SoundPool mPool;
 	private Context mCtx;
@@ -30,13 +33,6 @@ public class SoundManager {
 		readSettings();
 		
 		mPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
-		mSounds[0] = mPool.load(mCtx, R.raw.quack1, 1);
-		mSounds[1] = mPool.load(mCtx, R.raw.quack2, 1);
-		mSounds[2] = mPool.load(mCtx, R.raw.quack3, 1);
-		mSounds[3] = mPool.load(mCtx, R.raw.punch, 1);
-		
-		mSounds[4] = mPool.load(mCtx, R.raw.rock1, 1);
-		mSounds[5] = mPool.load(mCtx, R.raw.bulk, 1);
 		
 		try {
 			mPlayer.setDataSource(mCtx, Uri.parse("android.resource://ru.jecklandin.duckshot/"+R.raw.music));
@@ -97,4 +93,16 @@ public class SoundManager {
 	public void seekAtZero() {
 		mPlayer.seekTo(0);
 	}
+	
+	public void loadSounds(Level level) {
+		mLevel = level;
+		mSounds[0] = mPool.load(mCtx, mLevel.mCreatureVoices[0], 1);
+		mSounds[1] = mPool.load(mCtx, mLevel.mCreatureVoices[1], 1);
+		mSounds[2] = mPool.load(mCtx, mLevel.mCreatureVoices[2], 1);
+		mSounds[3] = mPool.load(mCtx, mLevel.mPunch, 1);
+		
+		mSounds[4] = mPool.load(mCtx, mLevel.mStoneHit, 1);
+		mSounds[5] = mPool.load(mCtx, R.raw.bulk, 1);
+	}
+	
 }

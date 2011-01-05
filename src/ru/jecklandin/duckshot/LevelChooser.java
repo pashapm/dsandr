@@ -1,5 +1,9 @@
 package ru.jecklandin.duckshot;
 
+import java.util.ArrayList;
+
+import ru.jecklandin.duckshot.levels.Level;
+import ru.jecklandin.duckshot.levels.LevelManager;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -27,24 +31,29 @@ public class LevelChooser extends ListActivity {
 		setContentView(R.layout.level_chooser);
 		((TextView) findViewById(R.id.TextView01)).setTypeface(DuckApplication.getCommonTypeface());
 		
-		Level[] lvls = new Level[5];
+//		Level[] lvls = new Level[5];
+//		
+//		lvls[0] = new Level(1, R.drawable.level_thumb1, "Rocky Lakes");
+//		lvls[1] = new Level(0, R.drawable.level_thumb0, "Unknown");
+//		lvls[2] = new Level(0, R.drawable.level_thumb0, "Unknown");
+//		lvls[3] = new Level(0, R.drawable.level_thumb0, "Unknown");
+//		lvls[4] = new Level(0, R.drawable.level_thumb0, "Unknown");
 		
-		lvls[0] = new Level(1, R.drawable.level_thumb1, "Rocky Lakes");
-		lvls[1] = new Level(0, R.drawable.level_thumb0, "Unknown");
-		lvls[2] = new Level(0, R.drawable.level_thumb0, "Unknown");
-		lvls[3] = new Level(0, R.drawable.level_thumb0, "Unknown");
-		lvls[4] = new Level(0, R.drawable.level_thumb0, "Unknown");
-		
-		mAdapter = new LevelAdapter(lvls);
+		mAdapter = new LevelAdapter(LevelManager.getInstance().getLevels());
 		getListView().setAdapter(mAdapter);
 		
 		getListView().setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Intent i1 = new Intent(LevelChooser.this, DuckGame.class);
-				i1.setAction(DuckGame.NEW_MATCH);
-				startActivity(i1);
+			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
+					long id) {
+				
+				Level level = mAdapter.mLevels.get(pos);
+				if (level.mLevelId != 0) {
+					DuckApplication.getInstance().setLevel(level);
+					Intent i1 = new Intent(LevelChooser.this, DuckGame.class);
+					i1.setAction(DuckGame.NEW_MATCH);
+					startActivity(i1);
+				}
 			}
 		});
 		
@@ -53,20 +62,20 @@ public class LevelChooser extends ListActivity {
 	
 	class LevelAdapter extends BaseAdapter {
 
-		private Level[] mLevels;
+		ArrayList<Level> mLevels;
 		
-		LevelAdapter(Level[] lvls) {
+		LevelAdapter(ArrayList<Level> lvls) {
 			mLevels = lvls;
 		}
 		
 		@Override
 		public int getCount() {
-			return mLevels.length;
+			return mLevels.size();
 		}
 
 		@Override
 		public Object getItem(int arg0) {
-			return mLevels[arg0];
+			return mLevels.get(arg0);
 		}
 
 		@Override
