@@ -128,7 +128,6 @@ public class DuckShotModel {
 	private void notifyObstacles(Stone stone, int ny) {
 		for (Obstacle obs : mWaves.get(ny).mObstacles) {  
 			obs.notifyStoneWasThrown(stone); 
-			Log.d("!!noti", ""+ny);
 		} 
 	}
 	
@@ -210,7 +209,6 @@ public class DuckShotModel {
 	}
 
 	public void addRandomDuck() {
-		Log.d(TAG, "ADDINg duck");
 		mWorkingThread.mQueue.add(42);
 	}
 

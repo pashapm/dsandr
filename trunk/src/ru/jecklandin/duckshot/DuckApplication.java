@@ -1,5 +1,6 @@
 package ru.jecklandin.duckshot;
 
+import ru.jecklandin.duckshot.levels.Level;
 import android.app.Application;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -17,6 +18,8 @@ public class DuckApplication extends Application {
     public static final String FLURRY_KEY = "TG7D2CT31BQI2GFNSLEP";
     public static final int FPS = 24;
 	
+    private Level mCurrentLevel;
+    
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -44,6 +47,16 @@ public class DuckApplication extends Application {
 		if (mCurrentMatch!=null) {
 			mCurrentMatch.setHandler(han);
 		}
+	}
+	
+	public void setLevel(Level level) {
+		mCurrentLevel = level;
+		ImgManager.loadLevelResources(level); 
+		SoundManager.getInstance().loadSounds(level);
+	}
+	
+	public Level getCurrentLevel() {
+		return mCurrentLevel;
 	}
 	
 }
