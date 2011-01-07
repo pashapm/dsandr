@@ -43,14 +43,29 @@ public class LevelCompletedDialog extends Dialog {
 	protected void onStart() {
 		super.onStart();
 		mMatch = DuckGame.getCurrentMatch();
-		TextView timeV = (TextView) findViewById(R.id.lvltime);
 		
+		TextView timeV = (TextView) findViewById(R.id.lvltime);
 		timeV.setText(+mMatch.mInitialTime/60+":"+mMatch.mInitialTime%60);
 		
+		int pointsToComplete = DuckApplication.getInstance().getCurrentLevel().mPointsToComplete;
 		TextView scoreV = (TextView) findViewById(R.id.lvlsc);
-		scoreV.setText(mMatch.getScore()+"");
+		scoreV.setText(mMatch.getScore() + " / " + pointsToComplete);
+		
+		TextView levelCompl = (TextView) findViewById(R.id.lvlc);
+		if (mMatch.getScore() < pointsToComplete) {
+			levelCompl.setText("Level failed");
+			levelCompl.setTextColor(Color.parseColor("#ff5660"));
+			findViewById(R.id.nextlev).setVisibility(View.INVISIBLE);
+		} else {
+			levelCompl.setText("Level completed");
+			levelCompl.setTextColor(Color.parseColor("#f8e000"));
+		}
 		
 		mAwardsView.mAwards = mMatch.getAwards();
+		if (mMatch.getAwards().size() == 0) {
+			findViewById(R.id.awards_lay).setVisibility(View.GONE);
+		}
+		
 		findViewById(R.id.submit_lay).setVisibility(mMatch.getScore() == 0 ? View.INVISIBLE : View.VISIBLE);
 		
 		FlurryAgent.onStartSession(getContext(), DuckApplication.FLURRY_KEY);
