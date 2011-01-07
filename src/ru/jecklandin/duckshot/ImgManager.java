@@ -80,9 +80,16 @@ public class ImgManager {
 	}
 	
 	public static Bitmap[] getAnimation(String name) {
-		return mCommonAniMap.containsKey(name) 
-			? mCommonAniMap.get(name) : 
-			  DuckApplication.getInstance().getCurrentLevel().getAnimation(name);
+//		return mCommonAniMap.containsKey(name) 
+//			? mCommonAniMap.get(name) : 
+//			  DuckApplication.getInstance().getCurrentLevel().getAnimation(name);
+			
+			if (mCommonAniMap.containsKey(name)) {
+				return mCommonAniMap.get(name);
+			} else {
+				Level l = DuckApplication.getInstance().getCurrentLevel();
+				return l.getAnimation(name);
+			}
 	}
 
 	public static void loadLevelResources(Level level) {
