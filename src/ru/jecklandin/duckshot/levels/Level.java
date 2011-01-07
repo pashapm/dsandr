@@ -11,6 +11,7 @@ public class Level {
 	public int mThumb;
 	public String mName;
 	public int mLevelId;
+	public int mPointsToComplete;
 	
 	protected boolean mBitmapsLoaded = false;
 	

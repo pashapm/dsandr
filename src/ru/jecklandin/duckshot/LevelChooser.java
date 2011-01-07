@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.levels.LevelManager;
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class LevelChooser extends ListActivity {
@@ -30,14 +30,6 @@ public class LevelChooser extends ListActivity {
 		
 		setContentView(R.layout.level_chooser);
 		((TextView) findViewById(R.id.TextView01)).setTypeface(DuckApplication.getCommonTypeface());
-		
-//		Level[] lvls = new Level[5];
-//		
-//		lvls[0] = new Level(1, R.drawable.level_thumb1, "Rocky Lakes");
-//		lvls[1] = new Level(0, R.drawable.level_thumb0, "Unknown");
-//		lvls[2] = new Level(0, R.drawable.level_thumb0, "Unknown");
-//		lvls[3] = new Level(0, R.drawable.level_thumb0, "Unknown");
-//		lvls[4] = new Level(0, R.drawable.level_thumb0, "Unknown");
 		
 		mAdapter = new LevelAdapter(LevelManager.getInstance().getLevels());
 		getListView().setAdapter(mAdapter);
@@ -53,10 +45,33 @@ public class LevelChooser extends ListActivity {
 					Intent i1 = new Intent(LevelChooser.this, DuckGame.class);
 					i1.setAction(DuckGame.NEW_MATCH);
 					startActivity(i1);
+				} else {
+					int points = mAdapter.mLevels.get(pos-1).mPointsToComplete;
+					String hint;
+					if (points == 0) {
+						hint = getString(R.string.finish_prev_indef);
+					} else {
+						hint = String.format(getString(R.string.finish_prev), points);
+					}
+					Toast t = Toast.makeText(LevelChooser.this, hint, Toast.LENGTH_SHORT);
+					TextView tw = (TextView) getLayoutInflater().inflate(R.layout.level_toast, null);
+					tw.setText(hint);
+					DuckApplication.getInstance();
+					tw.setTypeface(DuckApplication.getCommonTypeface());
+					t.setView(tw);
+					t.show();
 				}
 			}
 		});
 		
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			setResult(Activity.RESULT_OK);
+		}
+		return super.onKeyDown(keyCode, event);   
 	}
 	
 	
