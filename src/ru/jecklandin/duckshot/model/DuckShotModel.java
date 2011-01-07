@@ -70,11 +70,12 @@ public class DuckShotModel {
 	 */
 	public void addObstacles(int density) {
 		if (density > 0) {
-			ObstacleManager.getInstance().addRock(Type.ROCK1, 10, 4);
+			ObstacleManager.getInstance().addRock(Type.ROCK1, 10, 6);
 		}
 		
 		if (density > 1) {
 			ObstacleManager.getInstance().addRock(Type.ROCK2, 30, 0);
+			ObstacleManager.getInstance().addRock(Type.ROCK2, 80, 2);
 		}
 		
 		if (density > 2) {

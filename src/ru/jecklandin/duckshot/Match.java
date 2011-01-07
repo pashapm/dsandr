@@ -163,6 +163,11 @@ public class Match extends Thread {
 					Message mess = new Message();
 					mess.arg1 = 42;
 					mHandler.sendMessage(mess);
+					
+					//test
+//					DuckApplication.getInstance().getCurrentLevel().unloadResources();
+					
+					
 					return;
 				}
 			}

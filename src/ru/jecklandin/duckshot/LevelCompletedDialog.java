@@ -65,17 +65,17 @@ public class LevelCompletedDialog extends Dialog {
 		if (mMatch.getAwards().size() == 0) {
 			findViewById(R.id.awards_lay).setVisibility(View.GONE);
 		}
-		
+		 
 		findViewById(R.id.submit_lay).setVisibility(mMatch.getScore() == 0 ? View.INVISIBLE : View.VISIBLE);
 		
 		FlurryAgent.onStartSession(getContext(), DuckApplication.FLURRY_KEY);
-	}
-	
+	} 
+	   
 	@Override
 	protected void onStop() {
 		super.onStop();
 		FlurryAgent.onEndSession(getContext());
-	}
+	} 
 
 	private void submitScore() {
 		EditText ed = (EditText) findViewById(R.id.pname);
