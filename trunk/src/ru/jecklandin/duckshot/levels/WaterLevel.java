@@ -39,6 +39,12 @@ public class WaterLevel extends Level {
 		mLevelImgMap.put("cloud2", bm);
 		bm = getBitmap(R.drawable.cloudc);
 		mLevelImgMap.put("cloud3", bm);
+		bm = getBitmap(R.drawable.rock_1);
+		mLevelImgMap.put("rock1", bm);
+		bm = getBitmap(R.drawable.rock_2);
+		mLevelImgMap.put("rock2", bm);
+		bm = getBitmap(R.drawable.rock_3);
+		mLevelImgMap.put("rock3", bm);
 		
 		bm = getBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];

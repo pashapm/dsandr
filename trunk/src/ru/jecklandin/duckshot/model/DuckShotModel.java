@@ -64,13 +64,23 @@ public class DuckShotModel {
 		mWorkingThread.start();
 	}
 	
-	public void addObstacles() {
+	/**
+	 * 
+	 * @param density - how many obstacles (1,2,3)
+	 */
+	public void addObstacles(int density) {
+		if (density > 0) {
+			ObstacleManager.getInstance().addRock(Type.ROCK1, 10, 4);
+		}
 		
-		ObstacleManager.getInstance().addRock(Type.ROCK1, 10, 4);
+		if (density > 1) {
+			ObstacleManager.getInstance().addRock(Type.ROCK2, 30, 0);
+		}
 		
-		ObstacleManager.getInstance().addRock(Type.ROCK2, 30, 0);
-		ObstacleManager.getInstance().addRock(Type.ROCK2, 200, 3);
-	}
+		if (density > 2) {
+			ObstacleManager.getInstance().addRock(Type.ROCK3, 200, 3);
+		}
+	} 
 	
 	public void reinitialize() {
 		populate(0);

@@ -56,4 +56,9 @@ public class Level {
 	public Bitmap[] getAnimation(String name) {
 		return mLevelAniMap.get(name);
 	}
+	
+	@Override
+	public String toString() {
+		return "Level "+mLevelId+": "+mName;
+	}
 }

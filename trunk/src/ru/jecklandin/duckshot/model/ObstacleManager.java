@@ -23,6 +23,7 @@ public class ObstacleManager {
 		Obstacle o;
 		switch (type) {
 		case ROCK1:
+		case ROCK3:
 			o = new Obstacle(mModel.mWaves.get(wave), x, type);
 			mModel.mWaves.get(wave).mObstacles.add(o);
 			break;

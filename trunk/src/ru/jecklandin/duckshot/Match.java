@@ -13,7 +13,7 @@ import android.util.Log;
 
 public class Match extends Thread {
 
-	public static int DEFAULT_TIME = 5;
+	public static int DEFAULT_TIME = 20;
 	
 	public enum Bonus {
 		NO, DOUBLE {
@@ -120,7 +120,7 @@ public class Match extends Thread {
 		mInitialTime = seconds;
 		mHandler = han;
 		
-		DuckShotModel.getInstance().addObstacles();
+		DuckShotModel.getInstance().addObstacles(3);
 		DuckShotModel.getInstance().populate(5);
 	}
 	
