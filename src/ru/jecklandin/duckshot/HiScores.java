@@ -20,6 +20,9 @@ import java.util.regex.Pattern;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
+import ru.jecklandin.duckshot.levels.Level;
+import ru.jecklandin.duckshot.levels.LevelManager;
+
 import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
@@ -30,10 +33,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 
@@ -43,9 +53,14 @@ public class HiScores extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hiscores);
          
-//        findViewById(R.id.hiscores_lay).setBackgroundDrawable(MoreScreen.mUnderwaterBg);
         findViewById(R.id.hiscores_lay).setBackgroundResource(R.drawable.underwater_dith);
         ((TextView)findViewById(R.id.hiscores_label)).setTypeface(DuckApplication.getCommonTypeface());
+        
+//        Spinner spin = (Spinner) findViewById(R.id.lvl_spinner);
+//        LevelSpinnerAdapter spinnerAdapter = new LevelSpinnerAdapter(this, R.layout.select_lvl_elem, R.id.lvl_name, 
+//        		LevelManager.getInstance().getLevels().toArray(new Level[0]));
+//        spin.setAdapter(spinnerAdapter);
+//        spin.setSelection(0, false);
         
 		try {
 			Score[] objects = HiScoresManager.readScores().toArray(new Score[0]);
@@ -58,6 +73,26 @@ public class HiScores extends Activity {
 	}
 }
 
+class LevelSpinnerAdapter extends ArrayAdapter<Level> {
+
+	public LevelSpinnerAdapter(Context context, int res, int textViewResourceId,
+			Level[] objects) {
+		super(context, res, textViewResourceId, objects);
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		if (convertView == null) {
+			LayoutInflater inf = LayoutInflater.from(getContext());
+			convertView = inf.inflate(R.layout.select_lvl_elem, null);
+		}
+		TextView tw = (TextView) convertView.findViewById(R.id.lvl_name);
+		tw.setTypeface(DuckApplication.getCommonTypeface());
+		tw.setTextColor(Color.BLACK);
+		tw.setText("Level "+getItem(position).mLevelId);
+		return tw;
+	}
+}
 
 class HiscoresAdapter extends ArrayAdapter<Score> {
 

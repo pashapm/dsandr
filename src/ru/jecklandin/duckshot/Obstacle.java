@@ -20,12 +20,14 @@ public class Obstacle extends GameObject {
 	static {
 		Obstacle.rock1 = ImgManager.getBitmap("rock1");
 		Obstacle.rock2 = ImgManager.getBitmap("rock2");
+		Obstacle.rock3 = ImgManager.getBitmap("rock3");
 	}
 	
-	public enum Type {ROCK1, ROCK2, STUB};
+	public enum Type {ROCK1, ROCK2, ROCK3, STUB};
 	
 	private static Bitmap rock1;
 	private static Bitmap rock2;
+	private static Bitmap rock3;
 	
 	private Matrix mMatrix = new Matrix();
 	private Bitmap mCurrentBitmap;
@@ -43,6 +45,9 @@ public class Obstacle extends GameObject {
 			break;
 		case ROCK2:
 			mCurrentBitmap = rock2;
+			break;
+		case ROCK3:
+			mCurrentBitmap = rock3;
 			break;
 		default:
 			break;
