@@ -167,15 +167,11 @@ public class MainMenu extends Activity implements OnClickListener {
 			MainMenu.this.startActivityForResult(i, 0);
 			break;
 		case R.id.start:
+		case R.id.mnewgame:
+			FlurryAgent.onEvent("newGame");
 			Intent i3 = new Intent(MainMenu.this, LevelChooser.class);
 			i3.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			startActivityForResult(i3, 0);
-			break;
-		case R.id.mnewgame:
-			FlurryAgent.onEvent("newGame");
-			Intent i1 = new Intent(MainMenu.this, DuckGame.class);
-			i1.setAction(DuckGame.NEW_MATCH);
-			startActivityForResult(i1, 0);
 			break;
 		case R.id.more:
 			Intent i2 = new Intent(this, MoreScreen.class);
