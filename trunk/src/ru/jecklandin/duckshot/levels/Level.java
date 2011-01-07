@@ -47,6 +47,8 @@ public class Level {
 		for (String res : mLevelImgMap.keySet()) {
 			mLevelImgMap.get(res).recycle();
 		}
+		
+		mBitmapsLoaded = false;
 	}
 	
 	public Bitmap getBitmap(String name) {

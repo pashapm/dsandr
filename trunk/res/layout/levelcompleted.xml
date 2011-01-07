@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:orientation="vertical" android:layout_marginLeft="10dip"
-	android:layout_marginRight="10dip">
+	android:layout_marginRight="10dip" android:minWidth="250dip">
 	<TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:textStyle="bold"
 		android:textColor="#f8e000" android:layout_gravity="center"
@@ -30,8 +30,7 @@
 			android:textSize="20sp" android:text="2044" android:id="@+id/lvlsc"
 			android:layout_margin="5dip"></TextView>
 	</LinearLayout>
-	<LinearLayout android:id="@+id/LinearLayout03"
-		android:layout_height="wrap_content" android:layout_width="fill_parent">
+	<LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:id="@+id/awards_lay">
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:textStyle="bold"
 			android:textColor="#f8b100" android:id="@+id/lvlav_lab"
@@ -53,7 +52,7 @@
 	</LinearLayout>
 	<LinearLayout android:id="@+id/LinearLayout04"
 		android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
-		android:layout_width="fill_parent" android:layout_marginTop="40dip">
+		android:layout_width="fill_parent" android:layout_marginTop="30dip">
 		<Button android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_margin="10dip"
 			android:text="Retry" android:padding="10dip" android:textColor="#5e2402"
