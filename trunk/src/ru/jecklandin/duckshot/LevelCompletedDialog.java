@@ -51,7 +51,7 @@ public class LevelCompletedDialog extends Dialog {
 		scoreV.setText(mMatch.getScore()+"");
 		
 		mAwardsView.mAwards = mMatch.getAwards();
-		findViewById(R.id.submit_lay).setVisibility(View.VISIBLE);
+		findViewById(R.id.submit_lay).setVisibility(mMatch.getScore() == 0 ? View.INVISIBLE : View.VISIBLE);
 		
 		FlurryAgent.onStartSession(getContext(), DuckApplication.FLURRY_KEY);
 	}
@@ -67,7 +67,7 @@ public class LevelCompletedDialog extends Dialog {
 		String name = TextUtils.isEmpty(ed.getText().toString()) 
 			? "Unknown Player" : ed.getText().toString();
 		HiScoresManager.addScore(new Score(name, mMatch.getScore()));
-		findViewById(R.id.submit_lay).setVisibility(View.GONE);
+		findViewById(R.id.submit_lay).setVisibility(View.INVISIBLE);
 		mSubmitted = true;
 		
 		SharedPreferences prefs = getContext().getSharedPreferences("duckshot", Context.MODE_PRIVATE);

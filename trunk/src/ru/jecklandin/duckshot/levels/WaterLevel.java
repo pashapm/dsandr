@@ -15,6 +15,7 @@ public class WaterLevel extends Level {
 		mCreatureVoices = new int[] {R.raw.quack1, R.raw.quack2, R.raw.quack3};
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.rock1;
+		mPointsToComplete = 2000;
 	}
 
 	@Override

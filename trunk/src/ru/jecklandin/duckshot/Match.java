@@ -13,7 +13,7 @@ import android.util.Log;
 
 public class Match extends Thread {
 
-	public static int DEFAULT_TIME = 60;
+	public static int DEFAULT_TIME = 5;
 	
 	public enum Bonus {
 		NO, DOUBLE {
