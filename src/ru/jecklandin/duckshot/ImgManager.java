@@ -22,16 +22,8 @@ public class ImgManager {
 	private static boolean mCommonBitmapsLoaded = false;
 	
 	private static void loadCommonBitmaps() {
-		Bitmap bm = getBitmap(R.drawable.wave);
-		
-		int qq[] = new int[bm.getWidth() * bm.getHeight()];
-		bm.getPixels(qq, 0, bm.getWidth(), 0, 0, bm.getWidth(), bm.getHeight() );
-		
-		bm = Bitmap.createBitmap(qq, 0, bm.getWidth(), bm.getWidth(), bm.getHeight(), Bitmap.Config.ARGB_8888);
-		
-		bm = getBitmap(R.drawable.desk);
+		Bitmap bm = getBitmap(R.drawable.desk);
 		mCommonImgMap.put("desk", bm);
-		
 		bm = getBitmap(R.drawable.sight);
 		mCommonImgMap.put("sight", bm);
 		bm = getBitmap(R.drawable.settings_quant);
@@ -88,7 +80,7 @@ public class ImgManager {
 				return mCommonAniMap.get(name);
 			} else {
 				Level l = DuckApplication.getInstance().getCurrentLevel();
-				return l.getAnimation(name);
+ 				return l.getAnimation(name);
 			}
 	}
 

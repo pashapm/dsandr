@@ -27,7 +27,6 @@ public class Desk {
 		Desk.mDesk = ImgManager.getBitmap("desk");
 		Desk.mSight = ImgManager.getBitmap("sight");
 		Desk.mDigits = ImgManager.getAnimation("digits");
-		Desk.mDigitsTime = ImgManager.getAnimation("digits_time");
 		Desk.mAwards = ImgManager.getAnimation("awards");
 	}
 	
@@ -38,7 +37,6 @@ public class Desk {
 	public static Bitmap mTripleKill; 
 	public static Bitmap mQuadKill; 
 	public static Bitmap mMaxiKill; 
-	public static Bitmap[] mDigitsTime;
 	public static Bitmap[] mDigits;
 	public static Bitmap[] mAwards;
 	
@@ -135,9 +133,6 @@ public class Desk {
 			break;
 		case RED:
 			digits = Desk.mDigits;
-			break;
-		case WHITE:
-			digits = Desk.mDigitsTime;
 			break;
 		}
 		
