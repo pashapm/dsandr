@@ -1,7 +1,7 @@
 package ru.jecklandin.duckshot.model;
 
-import ru.jecklandin.duckshot.Obstacle;
-import ru.jecklandin.duckshot.Obstacle.Type;
+import ru.jecklandin.duckshot.units.Obstacle;
+import ru.jecklandin.duckshot.units.Obstacle.Type;
 
 public class ObstacleManager {
 

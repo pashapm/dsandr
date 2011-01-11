@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
+import ru.jecklandin.duckshot.units.Duck;
 
 import android.graphics.Color;
 import android.os.Handler;

@@ -1,6 +1,7 @@
 package ru.jecklandin.duckshot;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
+import ru.jecklandin.duckshot.units.GameObject;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -25,7 +26,7 @@ public class Stone extends GameObject {
 	
 	public boolean makeFountain = true;
 	private int rot_degree = 0;
-	boolean fallen = false;
+	public boolean fallen = false;
 	private boolean vibrated = false;
 	private float y_dest;
 	private float x_dest;
@@ -34,7 +35,7 @@ public class Stone extends GameObject {
 	
 	private static int SPEED_Y = 20;
 	
-	SpeedVector mVector;
+	public SpeedVector mVector;
 	SpeedVector mDeltaVector;
 
 	private boolean mBounce = false;
@@ -112,11 +113,6 @@ public class Stone extends GameObject {
 		}
 		
 		return y;
-	}
-
-	@Override
-	public OBJ_TYPE getRtti() {
-		return OBJ_TYPE.STONE;
 	}
 
 	public boolean isFallen() {

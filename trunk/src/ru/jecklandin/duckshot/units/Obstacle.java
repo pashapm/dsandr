@@ -1,6 +1,10 @@
-package ru.jecklandin.duckshot;
+package ru.jecklandin.duckshot.units;
 
 import java.util.List;
+
+import ru.jecklandin.duckshot.ImgManager;
+import ru.jecklandin.duckshot.SoundManager;
+import ru.jecklandin.duckshot.Stone;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -54,7 +58,7 @@ public class Obstacle extends GameObject {
 		}
 		
 		this.mWidth = mCurrentBitmap.getWidth();  
-		h_offset = mCurrentBitmap.getHeight() - Wave.waveBm.getHeight();
+		h_offset = mCurrentBitmap.getHeight() - Wave.mGroundBitmap.getHeight();
 	}
 	
 	/**
@@ -93,11 +97,6 @@ public class Obstacle extends GameObject {
 		return 0;
 	}
 
-	@Override
-	public OBJ_TYPE getRtti() {
-		return null;
-	}
-	
 	public int getWidth() {
 		return mWidth;
 	}

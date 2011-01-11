@@ -1,6 +1,9 @@
 package ru.jecklandin.duckshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.flurry.android.FlurryAgent;
 
 import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.levels.LevelManager;
@@ -39,8 +42,11 @@ public class LevelChooser extends ListActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long id) {
 				
-				Level level = mAdapter.mLevels.get(pos);
+				final Level level = mAdapter.mLevels.get(pos);
 				if (level.mLevelId != 0) {
+					FlurryAgent.onEvent("onLevelLoaded", 
+							new HashMap<String, String>() {{ put("id", level.mLevelId+""); }}
+					);
 					DuckApplication.getInstance().setLevel(level);
 					Intent i1 = new Intent(LevelChooser.this, DuckGame.class);
 					i1.setAction(DuckGame.NEW_MATCH);
@@ -120,4 +126,15 @@ public class LevelChooser extends ListActivity {
 		
 	}
 	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(this);
+	}
+	
+	@Override
+	protected void onStart() {
+		FlurryAgent.onStartSession(this, DuckApplication.FLURRY_KEY);
+		super.onStart();
+	}
 }
