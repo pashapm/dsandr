@@ -1,8 +1,10 @@
 package ru.jecklandin.duckshot.units;
 
+import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.Stone;
+import ru.jecklandin.duckshot.levels.Level;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,22 +14,15 @@ import android.graphics.Bitmap.Config;
 
 public class Obstacle extends GameObject {
 
-	private GroundObject mHostingGround;
-	private int mWidth;
+	protected GroundObject mHostingGround;
+	protected int mWidth;
+	protected Stone mStone; 
 	
-	private Stone mStone; 
+	public enum Type {TYPE1, TYPE2, TYPE3, STUB};
 	
-	static {
-		Obstacle.rock1 = ImgManager.getBitmap("rock1");
-		Obstacle.rock2 = ImgManager.getBitmap("rock2");
-		Obstacle.rock3 = ImgManager.getBitmap("rock3");
-	}
-	
-	public enum Type {ROCK1, ROCK2, ROCK3, STUB};
-	
-	private static Bitmap rock1;
-	private static Bitmap rock2;
-	private static Bitmap rock3;
+	protected static Bitmap mPic1;
+	protected static Bitmap mPic2;
+	protected static Bitmap mPic3;
 	
 	private Matrix mMatrix = new Matrix();
 	private Bitmap mCurrentBitmap;
@@ -40,14 +35,14 @@ public class Obstacle extends GameObject {
 		this.mHostingGround = hostingGround;
 		
 		switch (type) {
-		case ROCK1:
-			mCurrentBitmap = rock1;
+		case TYPE1:
+			mCurrentBitmap = mPic1;
 			break;
-		case ROCK2:
-			mCurrentBitmap = rock2;
+		case TYPE2:
+			mCurrentBitmap = mPic2;
 			break;
-		case ROCK3:
-			mCurrentBitmap = rock3;
+		case TYPE3:
+			mCurrentBitmap = mPic3;
 			break;
 		default:
 			break;
@@ -66,6 +61,13 @@ public class Obstacle extends GameObject {
 		this.y = hostingGround.y;
 		this.mWidth = mainObs.mWidth;
 		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
+	}
+	
+	public static void initBitmaps() {
+		Bitmap[] bms = DuckApplication.getInstance().getCurrentLevel().getObstacleBitmaps();
+		mPic1 = bms[0];
+		mPic2 = bms[1];
+		mPic3 = bms[2];
 	}
 	
 	@Override

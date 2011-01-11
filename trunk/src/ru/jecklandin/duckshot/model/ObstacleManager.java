@@ -19,20 +19,20 @@ public class ObstacleManager {
 		return sInstance;
 	}
 	
-	public void addRock(Type type, int x, int wave) {
+	public void addObstacle(Type type, int x, int wave) {
 		Obstacle o;
 		switch (type) {
-		case ROCK1:
-		case ROCK3:
-			o = new Obstacle(mModel.mWaves.get(wave), x, type);
-			mModel.mWaves.get(wave).mObstacles.add(o);
+		case TYPE1:
+		case TYPE3:
+			o = new Obstacle(mModel.mGrounds.get(wave), x, type);
+			mModel.mGrounds.get(wave).mObstacles.add(o);
 			break;
-		case ROCK2:
-			o = new Obstacle(mModel.mWaves.get(wave), x, type);
-			mModel.mWaves.get(wave).mObstacles.add(o);
+		case TYPE2:
+			o = new Obstacle(mModel.mGrounds.get(wave), x, type);
+			mModel.mGrounds.get(wave).mObstacles.add(o);
 			if (wave > 0) {
-				Obstacle o2 = new Obstacle(o, mModel.mWaves.get(wave));
-				mModel.mWaves.get(wave-1).mObstacles.add(o2);
+				Obstacle o2 = new Obstacle(o, mModel.mGrounds.get(wave));
+				mModel.mGrounds.get(wave-1).mObstacles.add(o2);
 			}
 		default:
 			break;
