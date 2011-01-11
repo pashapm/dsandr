@@ -3,15 +3,17 @@ package ru.jecklandin.duckshot;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
 import ru.jecklandin.duckshot.model.DuckShotModel;
+import ru.jecklandin.duckshot.units.CreatureObject;
+import ru.jecklandin.duckshot.units.Duck;
+import ru.jecklandin.duckshot.units.Obstacle;
+import ru.jecklandin.duckshot.units.Wave;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
 
 public class ObjectDrawer {
 	private static final String TAG = "ObjectDrawer";
@@ -23,7 +25,7 @@ public class ObjectDrawer {
 	private DuckShotModel model = DuckShotModel.getInstance();
 	private Environment mEnvir = new Environment();
 	
-	private ArrayList<Duck> mMovingDucks  = new ArrayList<Duck>();
+	private ArrayList<CreatureObject> mMovingCreatures  = new ArrayList<CreatureObject>();
 
 	private ObjectDrawer(Context ctx) {
 		mPaint = new Paint();
@@ -46,10 +48,10 @@ public class ObjectDrawer {
 
 	public void drawWave(Canvas c, Wave w) {
 
-		for (Duck d : w.mCreatures) {
+		for (CreatureObject d : w.mCreatures) {
 			d.draw(c, mPaint);
 			if (d.mMoveFlag) {
-				mMovingDucks.add(d);
+				mMovingCreatures.add(d);
 			}
 		}
 		
@@ -63,7 +65,7 @@ public class ObjectDrawer {
 	public boolean drawObjects(Canvas c) {
 		drawEnvironment(c);
 		
-		mMovingDucks.clear();
+		mMovingCreatures.clear();
 		
 		synchronized (DuckShotModel.getInstance()) {
 			for (int i = 0; i < model.mWaves.size(); ++i) {
@@ -73,7 +75,7 @@ public class ObjectDrawer {
 
 			// we need this to avoid concurrentexception (modifying waves while
 			// iterating)
-			for (Duck d : mMovingDucks) {
+			for (CreatureObject d : mMovingCreatures) {
 				d.move();
 			}
 			DuckShotModel.getInstance().notifyAll();

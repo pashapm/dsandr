@@ -177,7 +177,7 @@ public class Desk {
 		mSightY = y;
 	}
 	
-	protected int getSightX() {
+	public int getSightX() {
 		return mSightX;
 	}
 	
@@ -196,5 +196,13 @@ public class Desk {
 	public void playBonus(Bonus bonus) {
 		mBonus = bonus;
 		mBonusPaint.setColor(bonus.getColor());
+	}
+	
+	public static void drawScoreDigits(Canvas c, Paint p, Matrix mat, int score) {
+		Bitmap[] bms = Desk.getDigits(score, DigitType.YELLOW);
+		for (int i=0; i<bms.length; ++i) {
+			mat.postTranslate(ScrProps.scale(15), 0);
+			c.drawBitmap(bms[i], mat, p);	
+		}
 	}
 }

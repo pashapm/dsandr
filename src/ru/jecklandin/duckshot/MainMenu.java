@@ -1,5 +1,8 @@
 package ru.jecklandin.duckshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -174,6 +177,7 @@ public class MainMenu extends Activity implements OnClickListener {
 			startActivityForResult(i3, 0);
 			break;
 		case R.id.more:
+			FlurryAgent.onEvent("onMoreScreen");
 			Intent i2 = new Intent(this, MoreScreen.class);
 			startActivity(i2);
 			break;
@@ -195,14 +199,22 @@ public class MainMenu extends Activity implements OnClickListener {
 	}
 	
 	private void commitSettings() {
-		int sound = mSoundBar.getProgress();
-		int effects = mEffectsBar.getProgress();
+		final int sound = mSoundBar.getProgress();
+		final int effects = mEffectsBar.getProgress();
 		SharedPreferences prefs = getSharedPreferences("ducks", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
 		editor.putInt("sound", sound);
 		editor.commit();
 		editor.putInt("effects", effects);
 		editor.commit();
+		
+		
+//		FlurryAgent.onEvent("settings", 
+//			new HashMap<String, String>() {{ 
+//				put("sound", sound+"");
+//				put("effects", effects+"");
+//			}}
+//		);
 	}
 	
 	private void restoreSettings() {

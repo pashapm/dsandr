@@ -13,8 +13,12 @@ import com.flurry.android.FlurryAgent;
 import android.content.Context;
 import android.util.Log;
 import ru.jecklandin.duckshot.*;
-import ru.jecklandin.duckshot.GameObject.OBJ_TYPE;
-import ru.jecklandin.duckshot.Obstacle.Type;
+import ru.jecklandin.duckshot.units.CreatureObject;
+import ru.jecklandin.duckshot.units.Duck;
+import ru.jecklandin.duckshot.units.GroundObject;
+import ru.jecklandin.duckshot.units.Obstacle;
+import ru.jecklandin.duckshot.units.Wave;
+import ru.jecklandin.duckshot.units.Obstacle.Type;
 
 public class DuckShotModel {
 
@@ -102,7 +106,7 @@ public class DuckShotModel {
 	public int getDucksNumber() {
 		int sum = 0;
 		for (Wave w : mWaves) {
-			for (Duck d : w.mCreatures) {
+			for (CreatureObject d : w.mCreatures) {
 				if (!d.toRecycle) {
 					sum ++;
 				}
@@ -131,8 +135,8 @@ public class DuckShotModel {
 	}
 	
 	private void notifyDucks(Stone stone, int ny) {
-		for (Duck duck : mWaves.get(ny).mCreatures) {  
-			duck.notifyStoneWasThrown(stone); 
+		for (CreatureObject creat : mWaves.get(ny).mCreatures) {  
+			creat.notifyStoneWasThrown(stone); 
 		} 
 	}
 	
@@ -166,7 +170,7 @@ public class DuckShotModel {
 			if (--tries < 0) {
 				return -1;
 			}
-		} while (!addDuck(d, wave_num, randx));
+		} while (!addCreature(d, wave_num, randx));
 		
 		return randx;
 	}
@@ -178,14 +182,13 @@ public class DuckShotModel {
 	 * @param x
 	 * @return
 	 */
-	public boolean addDuck(Duck d, int wave_num, int x) {
+	public boolean addCreature(CreatureObject d, int wave_num, int x) {
 		Wave ownedWave = mWaves.get(wave_num);
 		if (!ownedWave.isPlaceFree(x)) {
 			return false;
 		}
 		
 		d.setOwnedWave(ownedWave, x);
-		d.setRandomDelay();
 		return true;
 	}
 	
@@ -194,12 +197,12 @@ public class DuckShotModel {
 	 * @param duck
 	 * @return distance
 	 */
-	public int moveDuckToRandomWave(Duck duck) {
-		Duck d = duck;
-		Wave wave = duck.ownedWave;
+	public int moveCreatureToRandomGround(CreatureObject duck) {
+		CreatureObject d = duck;
+		GroundObject wave = duck.ownedWave;
 		int wasy = d.ownedWave.y;
 		int wasx = (int) d.ownedWave.offset;
-		duck.ownedWave.removeDuck(duck);
+		duck.ownedWave.removeCreature(duck);
 		int randy = 0;
 		int randx = 0; 
 		// look for free wave
@@ -209,7 +212,7 @@ public class DuckShotModel {
 				randy -= (randy==0 ? -1 : 1);
 			}
 			randx = (int) (Math.random() * ScrProps.screenWidth);;
-		} while ( ! addDuck(d, randy, randx));
+		} while ( ! addCreature(d, randy, randx));
 		
 		
 		int ydistance = Math.abs(wasy - mWaves.get(randy).y);

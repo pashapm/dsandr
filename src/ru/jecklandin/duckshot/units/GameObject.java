@@ -1,4 +1,4 @@
-package ru.jecklandin.duckshot;
+package ru.jecklandin.duckshot.units;
 
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -13,15 +13,22 @@ public abstract class GameObject {
 		matrix = new Matrix();
 	}
 	
-	public enum OBJ_TYPE {WAVE, DUCK, STONE};
-	
 	public int x;
 	public int y;
 	public float speed;
 	
-	protected Matrix matrix;
+	protected Matrix matrix = new Matrix();
 	public float offset = 0;
 	public abstract float getNextOffset(float curOffset);
-	public abstract OBJ_TYPE getRtti();
 	public abstract void draw(Canvas c, Paint p);
+	
+	@Override
+	public boolean equals(Object o) {
+		return this.id == ((Wave)o).id;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
 }
