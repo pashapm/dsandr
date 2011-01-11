@@ -5,6 +5,7 @@ import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.units.Obstacle;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -33,28 +34,28 @@ public class WaterLevel extends Level {
 			return;
 		}
 		
-		Bitmap bm = getBitmap(R.drawable.wave);
+		Bitmap bm = loadBitmap(R.drawable.wave);
 		mLevelImgMap.put("wave", bm);
-		bm = getBitmap(R.drawable.duck);
+		bm = loadBitmap(R.drawable.duck);
 		mLevelImgMap.put("duck", bm);
-		bm = getBitmap(R.drawable.deadduck);
+		bm = loadBitmap(R.drawable.deadduck);
 		mLevelImgMap.put("deadduck", bm);
-		bm = getBitmap(R.drawable.stonea);
+		bm = loadBitmap(R.drawable.stonea);
 		mLevelImgMap.put("stone", bm);
-		bm = getBitmap(R.drawable.clouda);
+		bm = loadBitmap(R.drawable.clouda);
 		mLevelImgMap.put("cloud1", bm);
-		bm = getBitmap(R.drawable.cloudb);
+		bm = loadBitmap(R.drawable.cloudb);
 		mLevelImgMap.put("cloud2", bm);
 //		bm = getBitmap(R.drawable.cloudc);
 //		mLevelImgMap.put("cloud3", bm);
-		bm = getBitmap(R.drawable.rock_1);
+		bm = loadBitmap(R.drawable.rock_1);
 		mLevelImgMap.put("rock1", bm);
-		bm = getBitmap(R.drawable.rock_2);
+		bm = loadBitmap(R.drawable.rock_2);
 		mLevelImgMap.put("rock2", bm);
-		bm = getBitmap(R.drawable.rock_3);
+		bm = loadBitmap(R.drawable.rock_3);
 		mLevelImgMap.put("rock3", bm);
 		
-		bm = getBitmap(R.drawable.anifountain);
+		bm = loadBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];
 		int diff_x = ScrProps.scale(84);
 		int diff_y = ScrProps.scale(84);
@@ -66,7 +67,7 @@ public class WaterLevel extends Level {
 		mLevelAniMap.put("fountain", anim);
 		bm.recycle();
 		   
-		bm = getBitmap(R.drawable.duckdive);
+		bm = loadBitmap(R.drawable.duckdive);
 		anim = new Bitmap[16]; 
 		diff_x = ScrProps.scale(84);
 		diff_y = ScrProps.scale(84);
@@ -76,7 +77,7 @@ public class WaterLevel extends Level {
 		mLevelAniMap.put("duckdive", anim);
 		bm.recycle();
 		
-		bm = getBitmap(R.drawable.duckemerge);
+		bm = loadBitmap(R.drawable.duckemerge);
 		anim = new Bitmap[8];
 		diff_x = ScrProps.scale(84);
 		diff_y = ScrProps.scale(84);
@@ -86,7 +87,7 @@ public class WaterLevel extends Level {
 		mLevelAniMap.put("duckemerge", anim);
 		bm.recycle();
 		
-		bm = getBitmap(R.drawable.shrapnel);
+		bm = loadBitmap(R.drawable.shrapnel);
 		anim = new Bitmap[6]; 
 		diff_x = ScrProps.scale(100);
 		diff_y = ScrProps.scale(100);
@@ -99,8 +100,13 @@ public class WaterLevel extends Level {
 		super.loadResources();
 	}
 	
-	private static Bitmap getBitmap(int id) {
-		return BitmapFactory.decodeResource(DuckApplication.getInstance().getResources(), id);
+	@Override
+	public Bitmap[] getObstacleBitmaps() {
+		return new Bitmap[] {
+				ImgManager.getBitmap("rock1"),
+				ImgManager.getBitmap("rock2"),
+				ImgManager.getBitmap("rock3")
+		};
 	}
 	
 	private static class WaterEnvironment implements Environment {

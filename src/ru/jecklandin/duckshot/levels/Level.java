@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.units.Obstacle;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -73,5 +76,13 @@ public class Level {
 	@Override
 	public String toString() {
 		return "Level "+mLevelId+": "+mName;
+	}
+	
+	public Bitmap[] getObstacleBitmaps() {
+		return null;
+	}
+	
+	protected static Bitmap loadBitmap(int id) {
+		return BitmapFactory.decodeResource(DuckApplication.getInstance().getResources(), id);
 	}
 }

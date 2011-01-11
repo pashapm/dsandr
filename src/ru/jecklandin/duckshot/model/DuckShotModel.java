@@ -25,7 +25,7 @@ public class DuckShotModel {
 	private static String TAG = "DuckShotModel";
 	  
 	// Game objects 
-	public ArrayList<GroundObject> mWaves = new ArrayList<GroundObject>();
+	public ArrayList<GroundObject> mGrounds = new ArrayList<GroundObject>();
 	public ArrayList<Stone> mStones = new ArrayList<Stone>();
 	public ArrayList<Integer> mYes = new ArrayList<Integer>();
 	
@@ -61,7 +61,7 @@ public class DuckShotModel {
 			int mx = (int) (Math.random()*50 - 50);
 			// 1 .. 5
 			int ms = i / 2;
-			mWaves.add(new Wave(mx, mYes.get(i), ms, i));
+			mGrounds.add(new Wave(mx, mYes.get(i), ms, i));
 		}
 		
 		mWorkingThread = new ManipulatingThread();
@@ -74,16 +74,16 @@ public class DuckShotModel {
 	 */
 	public void addObstacles(int density) {
 		if (density > 0) {
-			ObstacleManager.getInstance().addRock(Type.ROCK1, 10, 6);
+			ObstacleManager.getInstance().addObstacle(Type.TYPE1, 10, 6);
 		}
 		
 		if (density > 1) {
-			ObstacleManager.getInstance().addRock(Type.ROCK2, 30, 0);
-			ObstacleManager.getInstance().addRock(Type.ROCK2, 80, 2);
+			ObstacleManager.getInstance().addObstacle(Type.TYPE2, 30, 0);
+			ObstacleManager.getInstance().addObstacle(Type.TYPE2, 80, 2);
 		}
 		
 		if (density > 2) {
-			ObstacleManager.getInstance().addRock(Type.ROCK3, 200, 3);
+			ObstacleManager.getInstance().addObstacle(Type.TYPE3, 200, 3);
 		}
 	} 
 	
@@ -94,7 +94,7 @@ public class DuckShotModel {
 	  
 	public synchronized void populate(int num) {
 		
-		for (GroundObject w : mWaves) {
+		for (GroundObject w : mGrounds) {
 			w.mCreatures.clear();
 		}
 		
@@ -105,7 +105,7 @@ public class DuckShotModel {
 	
 	public int getDucksNumber() {
 		int sum = 0;
-		for (GroundObject w : mWaves) {
+		for (GroundObject w : mGrounds) {
 			for (CreatureObject d : w.mCreatures) {
 				if (!d.toRecycle) {
 					sum ++;
@@ -116,11 +116,11 @@ public class DuckShotModel {
 	}
 	
 	public void launchStone(int wave_number, int x) {
-		wave_number = mWaves.size() > wave_number ? wave_number : mWaves.size() - 1; //wtf
+		wave_number = mGrounds.size() > wave_number ? wave_number : mGrounds.size() - 1; //wtf
 		if (wave_number < 0) {
 			wave_number = 0;
 		}
-		Stone stone = new Stone(x, mWaves.get(wave_number).y);
+		Stone stone = new Stone(x, mGrounds.get(wave_number).y);
 		mStones.add(stone);
 		notifyDucks(stone, wave_number);
 		notifyObstacles(stone, wave_number);
@@ -135,13 +135,13 @@ public class DuckShotModel {
 	}
 	
 	private void notifyDucks(Stone stone, int ny) {
-		for (CreatureObject creat : mWaves.get(ny).mCreatures) {  
+		for (CreatureObject creat : mGrounds.get(ny).mCreatures) {  
 			creat.notifyStoneWasThrown(stone); 
 		} 
 	}
 	
 	private void notifyObstacles(Stone stone, int ny) {
-		for (Obstacle obs : mWaves.get(ny).mObstacles) {  
+		for (Obstacle obs : mGrounds.get(ny).mObstacles) {  
 			obs.notifyStoneWasThrown(stone); 
 		} 
 	}
@@ -183,7 +183,7 @@ public class DuckShotModel {
 	 * @return
 	 */
 	public boolean addCreature(CreatureObject d, int wave_num, int x) {
-		GroundObject ownedGround = mWaves.get(wave_num);
+		GroundObject ownedGround = mGrounds.get(wave_num);
 		if (!ownedGround.isPlaceFree(x)) {
 			return false;
 		}
@@ -207,15 +207,15 @@ public class DuckShotModel {
 		int randx = 0; 
 		// look for free wave
 		do {
-			randy = (int) (Math.random() * mWaves.size());
-			if (randy == mWaves.indexOf(wave)) {  //we want another wave
+			randy = (int) (Math.random() * mGrounds.size());
+			if (randy == mGrounds.indexOf(wave)) {  //we want another wave
 				randy -= (randy==0 ? -1 : 1);
 			}
 			randx = (int) (Math.random() * ScrProps.screenWidth);;
 		} while ( ! addCreature(d, randy, randx));
 		
 		
-		int ydistance = Math.abs(wasy - mWaves.get(randy).y);
+		int ydistance = Math.abs(wasy - mGrounds.get(randy).y);
 		int xdistance = Math.abs(wasx - randx);
 		Log.d(TAG, "Moved duck "+ydistance+" | "+xdistance);
 		Log.d(TAG, "Dist "+Math.hypot(xdistance, ydistance));
@@ -239,7 +239,7 @@ public class DuckShotModel {
 
 	public int getTimeoutByDistance(int distance) {
 		int maxtm = 80; //80 drawings is max timeout
-		int maxy = mWaves.get(mWaves.size()-1).y - mWaves.get(0).y;
+		int maxy = mGrounds.get(mGrounds.size()-1).y - mGrounds.get(0).y;
 		int maxx = ScrProps.screenWidth;
 		int maxdist = (int) Math.hypot(maxx, maxy);
 		int timeout = distance * maxtm / maxdist;
@@ -267,7 +267,7 @@ public class DuckShotModel {
 						int randy;
 						// look for free wave
 						do {
-							randy = (int) (Math.random() * mWaves.size());
+							randy = (int) (Math.random() * mGrounds.size());
 						} while (addCreature(randy) < 0);
 						DuckShotModel.getInstance().notifyAll();
 					} 

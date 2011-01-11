@@ -64,8 +64,8 @@ public class ObjectDrawer {
 		mMovingCreatures.clear();
 		
 		synchronized (DuckShotModel.getInstance()) {
-			for (int i = 0; i < model.mWaves.size(); ++i) {
-				GroundObject w = model.mWaves.get(i);
+			for (int i = 0; i < model.mGrounds.size(); ++i) {
+				GroundObject w = model.mGrounds.get(i);
 				drawGroundObject(c, w);
 			}
 

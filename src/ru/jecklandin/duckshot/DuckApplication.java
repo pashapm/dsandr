@@ -1,6 +1,7 @@
 package ru.jecklandin.duckshot;
 
 import ru.jecklandin.duckshot.levels.Level;
+import ru.jecklandin.duckshot.units.Obstacle;
 import android.app.Application;
 import android.graphics.Typeface;
 import android.media.AudioManager;
@@ -53,6 +54,7 @@ public class DuckApplication extends Application {
 		mCurrentLevel = level;
 		ImgManager.loadLevelResources(level); 
 		SoundManager.getInstance().loadSounds(level);
+		Obstacle.initBitmaps();
 	}
 	
 	public Level getCurrentLevel() {

@@ -273,7 +273,7 @@ public class Duck extends CreatureObject {
 	}
 	
 	public void setOwnedWave(GroundObject ground, int xa) {
-		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mWaves.size() - 1 - ground.wave_num);
+		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
 		isDiving = true;
 		emerge();
 		super.setOwnedWave(ground, xa);
