@@ -1,22 +1,18 @@
 package ru.jecklandin.duckshot.units;
 
-import java.util.List;
-
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.Stone;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Bitmap.Config;
-import android.util.Log;
 
 public class Obstacle extends GameObject {
 
-	private Wave mHostingWave;
+	private GroundObject mHostingGround;
 	private int mWidth;
 	
 	private Stone mStone; 
@@ -38,10 +34,10 @@ public class Obstacle extends GameObject {
 	
 	private int h_offset;
 	
-	public Obstacle(Wave hostingWave, int x, Type type) {
+	public Obstacle(GroundObject hostingGround, int x, Type type) {
 		this.x = x;
-		this.y = hostingWave.y;
-		this.mHostingWave = hostingWave;
+		this.y = hostingGround.y;
+		this.mHostingGround = hostingGround;
 		
 		switch (type) {
 		case ROCK1:
@@ -64,10 +60,10 @@ public class Obstacle extends GameObject {
 	/**
 	 * Stub (transparent) obstacle
 	 */
-	public Obstacle(Obstacle mainObs, Wave hostingWave) {
+	public Obstacle(Obstacle mainObs, GroundObject hostingGround) {
 		this.x = mainObs.x;
-		this.mHostingWave = hostingWave;
-		this.y = hostingWave.y;
+		this.mHostingGround = hostingGround;
+		this.y = hostingGround.y;
 		this.mWidth = mainObs.mWidth;
 		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
 	}
@@ -77,7 +73,7 @@ public class Obstacle extends GameObject {
 		p.setColor(Color.BLACK);
 		
 		mMatrix.reset();
-		mMatrix.setTranslate(x, mHostingWave.y - h_offset); 
+		mMatrix.setTranslate(x, mHostingGround.y - h_offset); 
 		c.drawBitmap(mCurrentBitmap, mMatrix, p);
 		
 		if (mStone != null && mStone.mVector.y <= this.y) {

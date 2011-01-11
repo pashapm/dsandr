@@ -19,7 +19,11 @@ public abstract class GameObject {
 	
 	protected Matrix matrix = new Matrix();
 	public float offset = 0;
-	public abstract float getNextOffset(float curOffset);
+	
+	public float getNextOffset(float curOffset) {
+		return this.offset;
+	}
+	
 	public abstract void draw(Canvas c, Paint p);
 	
 	@Override

@@ -1,12 +1,9 @@
 package ru.jecklandin.duckshot;
 
-import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.units.GameObject;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
 
 public class Stone extends GameObject {
 

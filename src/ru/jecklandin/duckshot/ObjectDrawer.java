@@ -1,13 +1,11 @@
 package ru.jecklandin.duckshot;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.units.CreatureObject;
-import ru.jecklandin.duckshot.units.Duck;
+import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
-import ru.jecklandin.duckshot.units.Wave;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -23,8 +21,6 @@ public class ObjectDrawer {
 	
 	private Paint mPaint;
 	private DuckShotModel model = DuckShotModel.getInstance();
-	private Environment mEnvir = new Environment();
-	
 	private ArrayList<CreatureObject> mMovingCreatures  = new ArrayList<CreatureObject>();
 
 	private ObjectDrawer(Context ctx) {
@@ -46,7 +42,7 @@ public class ObjectDrawer {
 		return s_instance;
 	}
 
-	public void drawWave(Canvas c, Wave w) {
+	public void drawGroundObject(Canvas c, GroundObject w) {
 
 		for (CreatureObject d : w.mCreatures) {
 			d.draw(c, mPaint);
@@ -69,8 +65,8 @@ public class ObjectDrawer {
 		
 		synchronized (DuckShotModel.getInstance()) {
 			for (int i = 0; i < model.mWaves.size(); ++i) {
-				Wave w = model.mWaves.get(i);
-				drawWave(c, w);
+				GroundObject w = model.mWaves.get(i);
+				drawGroundObject(c, w);
 			}
 
 			// we need this to avoid concurrentexception (modifying waves while
@@ -87,7 +83,7 @@ public class ObjectDrawer {
 	}
 	
 	private void drawEnvironment(Canvas c) {
-		mEnvir.draw(c, mPaint);
+		DuckApplication.getInstance().getCurrentLevel().mEnvironment.draw(c, mPaint);
 	}
 
 	private void drawStones(Canvas c) {
@@ -109,59 +105,3 @@ public class ObjectDrawer {
 	}
 }
 
-class Environment {
-	
-	// Bitmaps
-	private static Bitmap mSun;
-	private static Bitmap mCloud1;
-	private static Bitmap mCloud2;
-	private static Bitmap mCloud3;
-	
-	static {
-		mSun = ImgManager.getBitmap("sun");
-		mCloud1 = ImgManager.getBitmap("cloud1");
-		mCloud2 = ImgManager.getBitmap("cloud2");
-		mCloud3 = ImgManager.getBitmap("cloud3");
-	}
-	
-	Matrix m = new Matrix();
-	float rot_degree = 0;
-	float x_offset1 = 0;
-	float x_offset2 = 0;
-	
-	public void draw(Canvas c, Paint p) {
-//		m.setRotate(rot_degree, mSun.getWidth()/2, mSun.getHeight()/2);
-//		m.postTranslate(-mSun.getWidth()/2, -mSun.getHeight()/2);
-//		c.drawBitmap(mSun, m, p);
-//		rot_degree+=0.1;
-		
-		//drawing falling mCreatures 
-		//m.setTranslate(x_offset2+mCloud2.getWidth()/2, mCloud2.getHeight());
-		
-		
-		m.setTranslate(x_offset2, 0 );
-		c.drawBitmap(mCloud2, m, p);
-		if (x_offset2 > ScrProps.screenWidth * 1.2) {
-			x_offset2 = -mCloud2.getWidth();
-		} else {
-			x_offset2+=0.3;
-		}
-		
-		m.setTranslate(x_offset1, 30);
-		c.drawBitmap(mCloud1, m, p);
-		if (x_offset1 > ScrProps.screenWidth * 1.1) {
-			x_offset1 = -mCloud1.getWidth();
-		} else {
-			x_offset1+=0.1;
-		}
-		
-		p.setColor(Color.parseColor("#5984c8")); 
-		c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
-		
-		
-	}
-	
-	public void dropDucks(int num) {
-		
-	}
-}

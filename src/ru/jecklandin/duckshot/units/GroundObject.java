@@ -24,11 +24,6 @@ public abstract class GroundObject extends GameObject {
 	
 	protected int wave_num;
 	
-	@Override
-	public float getNextOffset(float curOffset) {
-		return this.offset;
-	}
-	
 	public boolean isPlaceFree(int x) {
 		for (CreatureObject d : mCreatures) {
 			if (Math.abs(d.offset - x) < Wave.MIN_DISTANCE_APPEARANCE) {

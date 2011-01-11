@@ -4,7 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import ru.jecklandin.duckshot.Environment;
+import ru.jecklandin.duckshot.ImgManager;
+import ru.jecklandin.duckshot.ScrProps;
+
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 
 public class Level {
 	
@@ -23,6 +31,8 @@ public class Level {
 	public int mPunch;
 	public int mStoneHit;
 	
+	public Environment mEnvironment;
+	
 	public Level(int level_id, int thumb, String name) {
 		mThumb = thumb;
 		mName = name;
@@ -34,6 +44,7 @@ public class Level {
 	}
 	
 	public void loadResources() {
+		mEnvironment.init();
 		mBitmapsLoaded = true;
 	}
 	

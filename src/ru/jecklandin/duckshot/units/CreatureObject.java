@@ -28,7 +28,7 @@ public abstract class CreatureObject extends GameObject {
 	 */
 	public boolean mMoveFlag = false;
 	
-	public GroundObject ownedWave;
+	public GroundObject ownedGround;
 	
 	public int mScoreValue = 0;
 	public int mSumValues = 0;
@@ -54,14 +54,14 @@ public abstract class CreatureObject extends GameObject {
 	}
 	
 	public void setOwnedWave(GroundObject wave, int xa) {
-		this.ownedWave = wave;
+		this.ownedGround = wave;
 		this.offset = xa;
-		this.ownedWave.addCreature(this);
+		this.ownedGround.addCreature(this);
 	}
 	
 	protected boolean isDanger() {
 		int wave_num = DuckShotModel.getInstance().getTargetWave();
-		if (wave_num != ownedWave.wave_num) {
+		if (wave_num != ownedGround.wave_num) {
 			return false;
 		}
 		
@@ -73,7 +73,7 @@ public abstract class CreatureObject extends GameObject {
 	}
 	
 	protected boolean isIntersects(int ix) {
-		for (Obstacle obs : ownedWave.mObstacles) {
+		for (Obstacle obs : ownedGround.mObstacles) {
 			if (obs.isIntersects(ix)) {
 				return false;
 			}
