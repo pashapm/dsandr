@@ -25,7 +25,7 @@ public class DuckShotModel {
 	private static String TAG = "DuckShotModel";
 	  
 	// Game objects 
-	public ArrayList<Wave> mWaves = new ArrayList<Wave>();
+	public ArrayList<GroundObject> mWaves = new ArrayList<GroundObject>();
 	public ArrayList<Stone> mStones = new ArrayList<Stone>();
 	public ArrayList<Integer> mYes = new ArrayList<Integer>();
 	
@@ -94,7 +94,7 @@ public class DuckShotModel {
 	  
 	public synchronized void populate(int num) {
 		
-		for (Wave w : mWaves) {
+		for (GroundObject w : mWaves) {
 			w.mCreatures.clear();
 		}
 		
@@ -105,7 +105,7 @@ public class DuckShotModel {
 	
 	public int getDucksNumber() {
 		int sum = 0;
-		for (Wave w : mWaves) {
+		for (GroundObject w : mWaves) {
 			for (CreatureObject d : w.mCreatures) {
 				if (!d.toRecycle) {
 					sum ++;
@@ -151,9 +151,9 @@ public class DuckShotModel {
 	 * @param wave_num
 	 * @return x is it able to place one more duck, -1 otherwise
 	 */
-	public int addDuck(int wave_num) {
+	public int addCreature(int wave_num) {
 		Duck d = new Duck( 0 );
-		return addDuck(d, wave_num);
+		return addCreature(d, wave_num);
 	}
 	
 	/**
@@ -162,7 +162,7 @@ public class DuckShotModel {
 	 * @param wave_num
 	 * @return -1 if can't, x otherwise
 	 */
-	public int addDuck(Duck d, int wave_num) {
+	public int addCreature(CreatureObject d, int wave_num) {
 		int randx;
 		int tries = 3; 
 		do {
@@ -183,26 +183,26 @@ public class DuckShotModel {
 	 * @return
 	 */
 	public boolean addCreature(CreatureObject d, int wave_num, int x) {
-		Wave ownedWave = mWaves.get(wave_num);
-		if (!ownedWave.isPlaceFree(x)) {
+		GroundObject ownedGround = mWaves.get(wave_num);
+		if (!ownedGround.isPlaceFree(x)) {
 			return false;
 		}
 		
-		d.setOwnedWave(ownedWave, x);
+		d.setOwnedWave(ownedGround, x);
 		return true;
 	}
 	
 	/**
 	 * 
-	 * @param duck
+	 * @param creature
 	 * @return distance
 	 */
-	public int moveCreatureToRandomGround(CreatureObject duck) {
-		CreatureObject d = duck;
-		GroundObject wave = duck.ownedWave;
-		int wasy = d.ownedWave.y;
-		int wasx = (int) d.ownedWave.offset;
-		duck.ownedWave.removeCreature(duck);
+	public int moveCreatureToRandomGround(CreatureObject creature) {
+		CreatureObject d = creature;
+		GroundObject wave = creature.ownedGround;
+		int wasy = d.ownedGround.y;
+		int wasx = (int) d.ownedGround.offset;
+		creature.ownedGround.removeCreature(creature);
 		int randy = 0;
 		int randx = 0; 
 		// look for free wave
@@ -268,7 +268,7 @@ public class DuckShotModel {
 						// look for free wave
 						do {
 							randy = (int) (Math.random() * mWaves.size());
-						} while (addDuck(randy) < 0);
+						} while (addCreature(randy) < 0);
 						DuckShotModel.getInstance().notifyAll();
 					} 
 				} catch (InterruptedException e) {

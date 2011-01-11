@@ -136,7 +136,7 @@ public class Duck extends CreatureObject {
 					isDead = true;
 					SoundManager.getInstance().playHit();
 					DuckGame.getCurrentMatch().requestNextDuckIfNeed();
-					Bonus bonus = DuckGame.getCurrentMatch().addKilledDuck(this);
+					Bonus bonus = DuckGame.getCurrentMatch().addKilledCreature(this);
 					if (bonus != Bonus.NO) {
 						Desk.getInstance().playBonus(bonus);
 					}
@@ -237,7 +237,7 @@ public class Duck extends CreatureObject {
 		
 		addit_m.reset();
 		addit_m.setScale(0.6f, 0.6f);
-		addit_m.postTranslate(this.offset, ownedWave.y + ScrProps.scale(dead_sink));
+		addit_m.postTranslate(this.offset, ownedGround.y + ScrProps.scale(dead_sink));
 		Desk.drawScoreDigits(c, p, addit_m, mSumValues);
 	}
 

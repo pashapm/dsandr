@@ -1,7 +1,6 @@
 package ru.jecklandin.duckshot;
 
 import ru.jecklandin.duckshot.levels.Level;
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;

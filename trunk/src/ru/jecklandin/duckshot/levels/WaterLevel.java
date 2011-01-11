@@ -1,10 +1,16 @@
 package ru.jecklandin.duckshot.levels;
 
 import ru.jecklandin.duckshot.DuckApplication;
+import ru.jecklandin.duckshot.Environment;
+import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.util.Log;
 
 public class WaterLevel extends Level {
@@ -16,6 +22,8 @@ public class WaterLevel extends Level {
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.rock1;
 		mPointsToComplete = 1000;
+		
+		mEnvironment = new WaterEnvironment();
 	}
 
 	@Override
@@ -37,8 +45,8 @@ public class WaterLevel extends Level {
 		mLevelImgMap.put("cloud1", bm);
 		bm = getBitmap(R.drawable.cloudb);
 		mLevelImgMap.put("cloud2", bm);
-		bm = getBitmap(R.drawable.cloudc);
-		mLevelImgMap.put("cloud3", bm);
+//		bm = getBitmap(R.drawable.cloudc);
+//		mLevelImgMap.put("cloud3", bm);
 		bm = getBitmap(R.drawable.rock_1);
 		mLevelImgMap.put("rock1", bm);
 		bm = getBitmap(R.drawable.rock_2);
@@ -93,6 +101,45 @@ public class WaterLevel extends Level {
 	
 	private static Bitmap getBitmap(int id) {
 		return BitmapFactory.decodeResource(DuckApplication.getInstance().getResources(), id);
+	}
+	
+	private static class WaterEnvironment implements Environment {
+		
+		// Bitmaps
+		private static Bitmap mCloud1;
+		private static Bitmap mCloud2;
+		
+		Matrix m = new Matrix();
+		float rot_degree = 0;
+		float x_offset1 = 0;
+		float x_offset2 = 0;
+		
+		public void draw(Canvas c, Paint p) {
+			m.setTranslate(x_offset2, 0 );
+			c.drawBitmap(mCloud2, m, p);
+			if (x_offset2 > ScrProps.screenWidth * 1.2) {
+				x_offset2 = -mCloud2.getWidth();
+			} else {
+				x_offset2+=0.3;
+			}
+			
+			m.setTranslate(x_offset1, 30);
+			c.drawBitmap(mCloud1, m, p);
+			if (x_offset1 > ScrProps.screenWidth * 1.1) {
+				x_offset1 = -mCloud1.getWidth();
+			} else {
+				x_offset1+=0.1;
+			}
+			
+			p.setColor(Color.parseColor("#5984c8")); 
+			c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
+		}
+
+		@Override
+		public void init() {
+			mCloud1 = ImgManager.getBitmap("cloud1");
+			mCloud2 = ImgManager.getBitmap("cloud2");
+		}
 	}
 	
 }

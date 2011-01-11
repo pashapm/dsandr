@@ -1,16 +1,12 @@
 package ru.jecklandin.duckshot;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 import ru.jecklandin.duckshot.model.DuckShotModel;
-import ru.jecklandin.duckshot.units.Duck;
-
+import ru.jecklandin.duckshot.units.CreatureObject;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 public class Match extends Thread {
 
@@ -175,9 +171,9 @@ public class Match extends Thread {
 		}
 	}
 	
-	public Bonus addKilledDuck(Duck duck) {
+	public Bonus addKilledCreature(CreatureObject creature) {
 		long timestamp = System.currentTimeMillis();
-		KillEvent event = new KillEvent(duck, timestamp);
+		KillEvent event = new KillEvent(creature, timestamp);
 		int length = mKilledDucks.size();
 		Bonus bonus = Bonus.NO;
 		if (!mKilledDucks.isEmpty() && (timestamp - mKilledDucks.get(length-1).mTimestamp) < 5000) {
@@ -212,11 +208,11 @@ public class Match extends Thread {
 	
 	
 	class KillEvent {
-		Duck mDuck;
+		CreatureObject mCreature;
 		Long mTimestamp;
 		Bonus mBonusAwarded;
-		KillEvent(Duck d, long timestamp) {
-			mDuck = d;
+		KillEvent(CreatureObject d, long timestamp) {
+			mCreature = d;
 			mTimestamp = timestamp;
 		}
 	}
