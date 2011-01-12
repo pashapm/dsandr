@@ -22,21 +22,10 @@ import android.util.Log;
 public class Duck extends CreatureObject {
 
 	private static final String TAG = "ru.jecklandin.duckshot.Duck";
-	private int MAX_OFFSET = ScrProps.scale(300);
-	private int MIN_OFFSET = 0;
   
-	static {
-		CreatureObject.commonBm = ImgManager.getBitmap("duck");
-		Duck.deadDuckBm = ImgManager.getBitmap("deadduck");
-		Duck.mAniDiving = ImgManager.getAnimation("duckdive");
-		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
-	}
-
 	private static Bitmap deadDuckBm;
 	private static Bitmap[] mAniDiving;
 	private static Bitmap[] mAniEmerging;
-	
-	private Matrix addit_m;
 	
 	// ===============   state
 
@@ -46,15 +35,10 @@ public class Duck extends CreatureObject {
 	private boolean isEmerging = false;
 	private int emerging_frame = 0;
 
-	private boolean isDead = false;
 	private int dead_degree = 0;
 	private int dead_sink = 0;
 	private boolean has_sink = false;
-	private boolean end_animation = false;
 	
-	private int delay = 0;
-	
-	private int overallTicks = 0;
 	
 	public Duck(int x) {
 		super(); 
@@ -63,6 +47,13 @@ public class Duck extends CreatureObject {
 		addit_m = new Matrix();
 	}
 
+	public static void initBitmaps() {
+		CreatureObject.commonBm = ImgManager.getBitmap("creature");
+		Duck.deadDuckBm = ImgManager.getBitmap("deadduck");
+		Duck.mAniDiving = ImgManager.getAnimation("duckdive");
+		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
+	} 
+	
 	@Override
 	public float getNextOffset(float curOffset) {
 		if (isDead) {
@@ -165,10 +156,6 @@ public class Duck extends CreatureObject {
 		}
 	}
 
-	private void addValue(int val) {
-		mSumValues += val;
-	}
-	
 	private void drawEmerging(Canvas c, Paint p) {
 		if (emerging_frame < 8) {
 			c.drawBitmap(mAniEmerging[emerging_frame], matrix, p); 

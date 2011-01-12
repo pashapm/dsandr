@@ -7,6 +7,7 @@ import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.Grass;
 import ru.jecklandin.duckshot.units.GroundObject;
+import ru.jecklandin.duckshot.units.Hedgehog;
 
 public class ForestLevel extends WaterLevel {
 
@@ -18,8 +19,9 @@ public class ForestLevel extends WaterLevel {
 	public void loadResources() {
 		super.loadResources();
 		
-		Bitmap bm = loadBitmap(R.drawable.grass);
-		mLevelImgMap.put("ground", bm);
+		
+		
+		Hedgehog.initBitmaps();
 	}
 	
 	@Override
