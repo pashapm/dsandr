@@ -1,6 +1,7 @@
 package ru.jecklandin.duckshot;
 
 import ru.jecklandin.duckshot.levels.Level;
+import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
 import android.app.Application;
@@ -58,6 +59,7 @@ public class DuckApplication extends Application {
 		
 		Obstacle.initBitmaps();
 		GroundObject.initBitmap();
+		DuckShotModel.getInstance().reinitialize(level);
 	}
 	
 	public Level getCurrentLevel() {

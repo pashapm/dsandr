@@ -23,7 +23,6 @@ public class Wave extends GroundObject {
 		this.wave_num = wave_num;
 		this.offset = x;
 		this.speed = speed;
-		matrix = new Matrix();
 	}
 	
 	@Override
@@ -49,5 +48,15 @@ public class Wave extends GroundObject {
 		c.drawBitmap(mGroundBitmap, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
 		c.drawRect(0, y+mGroundBitmap.getHeight()-2, ScrProps.screenWidth, y+mGroundBitmap.getHeight()+ScrProps.scale(50), p);
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return this.id == ((Wave)o).id;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
 	}
 }
