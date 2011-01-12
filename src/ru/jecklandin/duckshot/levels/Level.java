@@ -51,6 +51,8 @@ public class Level {
 	public void loadResources() {
 		mEnvironment.init();
 		mBitmapsLoaded = true;
+		
+		GroundObject.initBitmap();
 	}
 	
 	public void unloadResources() {

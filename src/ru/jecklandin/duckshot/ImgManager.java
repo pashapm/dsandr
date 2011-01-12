@@ -30,6 +30,9 @@ public class ImgManager {
 		mCommonImgMap.put("quant", bm);
 		bm = getBitmap(R.drawable.settings_quant_e);
 		mCommonImgMap.put("quant_e", bm);
+		bm = getBitmap(R.drawable.stonea);
+		mCommonImgMap.put("stone", bm);
+		
 		
 		bm = getBitmap(R.drawable.digits);
 		Bitmap[] anim = new Bitmap[11];

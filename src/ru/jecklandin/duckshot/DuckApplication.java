@@ -58,7 +58,7 @@ public class DuckApplication extends Application {
 		SoundManager.getInstance().loadSounds(level);
 		
 		Obstacle.initBitmaps();
-		GroundObject.initBitmap();
+		
 		DuckShotModel.getInstance().reinitialize(level);
 	}
 	

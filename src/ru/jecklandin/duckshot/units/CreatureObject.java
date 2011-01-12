@@ -1,6 +1,7 @@
 package ru.jecklandin.duckshot.units;
 
 import ru.jecklandin.duckshot.Desk;
+import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.Stone;
 import ru.jecklandin.duckshot.Desk.DigitType;
@@ -13,12 +14,33 @@ import android.graphics.Paint;
 
 public abstract class CreatureObject extends GameObject {
 
+	protected int MAX_OFFSET = ScrProps.scale(300);
+	protected int MIN_OFFSET = 0;
+	
 	protected abstract void drawNormal(Canvas c, Paint p);
 	
 	protected Stone mStone;
 	
 	protected static Bitmap commonBm;
-	/**
+	
+	public GroundObject ownedGround;
+	
+	public int mScoreValue = 0;
+	public int mSumValues = 0;
+	public int mHealth = 100;
+	
+	protected Matrix addit_m;
+	
+	// state 
+    protected boolean mMovingRight = true;
+    protected int ticksBeforeNextDive = generateNextDive();
+    protected int ticksBeforeNextRotate = generateNextRotate();
+    protected int timeout = 0;
+    protected boolean isDead = false;
+    protected int delay = 0;
+    protected int overallTicks = 0;
+    protected boolean end_animation = false;
+    /**
 	 * The duck is dead and need to be removed 
 	 */
 	public boolean toRecycle = false;
@@ -28,21 +50,8 @@ public abstract class CreatureObject extends GameObject {
 	 */
 	public boolean mMoveFlag = false;
 	
-	public GroundObject ownedGround;
-	
-	public int mScoreValue = 0;
-	public int mSumValues = 0;
-	public int mHealth = 100;
-	
-	// state 
-    protected boolean mMovingRight = true;
-    protected int ticksBeforeNextDive = generateNextDive();
-    protected int ticksBeforeNextRotate = generateNextRotate();
-    protected int timeout = 0;
-	
 	@Override
-	public void draw(Canvas c, Paint p) {
-	}
+	public abstract void draw(Canvas c, Paint p); 
 
 	@Override
 	public float getNextOffset(float curOffset) {
@@ -141,5 +150,9 @@ public abstract class CreatureObject extends GameObject {
 		mMovingRight = rnd < 0.5;   
 		
 //		Log.d(TAG, "timeout: "+timeout+", ticksBeforeNextDive: "+ticksBeforeNextDive+" ,movingRight: "+mMovingRight);
+	}
+	
+	protected void addValue(int val) {
+		mSumValues += val;
 	}
 }

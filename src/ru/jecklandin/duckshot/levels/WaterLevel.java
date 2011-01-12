@@ -42,11 +42,9 @@ public class WaterLevel extends Level {
 		Bitmap bm = loadBitmap(R.drawable.wave);
 		mLevelImgMap.put("ground", bm);
 		bm = loadBitmap(R.drawable.duck);
-		mLevelImgMap.put("duck", bm);
+		mLevelImgMap.put("creature", bm);
 		bm = loadBitmap(R.drawable.deadduck);
 		mLevelImgMap.put("deadduck", bm);
-		bm = loadBitmap(R.drawable.stonea);
-		mLevelImgMap.put("stone", bm);
 		bm = loadBitmap(R.drawable.clouda);
 		mLevelImgMap.put("cloud1", bm);
 		bm = loadBitmap(R.drawable.cloudb);
@@ -102,7 +100,17 @@ public class WaterLevel extends Level {
 		mLevelAniMap.put("shrapnel", anim);
 		bm.recycle();
 		
+		///////////////////////////////
+		bm = loadBitmap(R.drawable.grass);
+		mLevelImgMap.put("ground", bm);
+		bm = loadBitmap(R.drawable.hh);
+		mLevelImgMap.put("creature", bm);
+		
+		
+		
 		super.loadResources();
+		
+		Duck.initBitmaps(); 
 	}
 	
 	@Override
