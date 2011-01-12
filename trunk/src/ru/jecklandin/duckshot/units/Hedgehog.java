@@ -72,7 +72,7 @@ public class Hedgehog extends CreatureObject {
 			matrix.setScale(-1, 1);
 			matrix.postTranslate(commonBm.getWidth(), 0);
 		}
-		matrix.postTranslate(next_offset, y - commonBm.getHeight() / 4);
+		matrix.postTranslate(next_offset, y - commonBm.getHeight() / 2);
 		
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {
@@ -89,10 +89,11 @@ public class Hedgehog extends CreatureObject {
 		DuckGame.getVibrator().vibrate(30);
 		mStone.makeFountain = false;
 		mHealth -= hps;
-		
+		 
 		addValue(mScoreValue);
 		if (mHealth <=0) {
 			isDead = true;
+			end_animation = true;
 			SoundManager.getInstance().playHit();
 			DuckGame.getCurrentMatch().requestNextCreatureIfNeed();
 			Bonus bonus = DuckGame.getCurrentMatch().addKilledCreature(this);
@@ -102,7 +103,7 @@ public class Hedgehog extends CreatureObject {
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
 		} else {
 			SoundManager.getInstance().playQuack();
-		}
+		}  
 	}
 	
 	@Override

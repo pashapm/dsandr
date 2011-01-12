@@ -5,10 +5,12 @@ import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.model.DuckShotModel;
+import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Wave;
+import ru.jecklandin.duckshot.units.Obstacle.Type;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -50,11 +52,11 @@ public class WaterLevel extends Level {
 //		bm = getBitmap(R.drawable.cloudc);
 //		mLevelImgMap.put("cloud3", bm);
 		bm = loadBitmap(R.drawable.rock_1);
-		mLevelImgMap.put("rock1", bm);
+		mLevelImgMap.put("obstacle1", bm);
 		bm = loadBitmap(R.drawable.rock_2);
-		mLevelImgMap.put("rock2", bm);
+		mLevelImgMap.put("obstacle2", bm);
 		bm = loadBitmap(R.drawable.rock_3);
-		mLevelImgMap.put("rock3", bm);
+		mLevelImgMap.put("obstacle3", bm);
 		
 		bm = loadBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];
@@ -107,6 +109,10 @@ public class WaterLevel extends Level {
 		mLevelImgMap.put("grass_dark", bm);
 		bm = loadBitmap(R.drawable.grass_light);
 		mLevelImgMap.put("grass_light", bm);
+		bm = loadBitmap(R.drawable.tree_1);
+		mLevelImgMap.put("obstacle1", bm);
+		bm = loadBitmap(R.drawable.tree_2);
+		mLevelImgMap.put("obstacle2", bm);
 		
 		super.loadResources();
 	}
@@ -114,9 +120,9 @@ public class WaterLevel extends Level {
 	@Override
 	public Bitmap[] getObstacleBitmaps() {
 		return new Bitmap[] {
-				ImgManager.getBitmap("rock1"),
-				ImgManager.getBitmap("rock2"),
-				ImgManager.getBitmap("rock3")
+				ImgManager.getBitmap("obstacle1"),
+				ImgManager.getBitmap("obstacle2"),
+				ImgManager.getBitmap("obstacle3")
 		};
 	}
 	
@@ -133,6 +139,17 @@ public class WaterLevel extends Level {
 	public void initItemsBitmaps() {
 		super.initItemsBitmaps();
 		Duck.initBitmaps(); 
+	}
+	
+	@Override
+	public void setObstacles() {
+		for (GroundObject go : DuckShotModel.getInstance().mGrounds) {
+			go.mObstacles.clear();
+		}
+		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(10), 6);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(30), 0);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(80), 2);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(200), 3);
 	}
 	
 	public static class WaterEnvironment extends Environment {
