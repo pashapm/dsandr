@@ -52,7 +52,7 @@ public class Level {
 		mEnvironment.init();
 		mBitmapsLoaded = true;
 		
-		GroundObject.initBitmap();
+		GroundObject.initBitmaps();
 	}
 	
 	public void unloadResources() {
@@ -98,5 +98,10 @@ public class Level {
 	
 	public CreatureObject createCreatureObject(int x) {
 		return null;
+	}
+
+	public void initItemsBitmaps() {
+		Obstacle.initBitmaps();
+		GroundObject.initBitmaps();
 	}
 }

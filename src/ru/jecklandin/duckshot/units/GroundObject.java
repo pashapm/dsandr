@@ -18,7 +18,7 @@ public abstract class GroundObject extends GameObject {
 	
 	public static Bitmap mGroundBitmap;  
 	
-	public static void initBitmap() {
+	public static void initBitmaps() {
 		GroundObject.mGroundBitmap = ImgManager.getBitmap("ground");
 	}  
 	

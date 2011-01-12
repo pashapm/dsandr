@@ -50,8 +50,7 @@ public abstract class CreatureObject extends GameObject {
 	 */
 	public boolean mMoveFlag = false;
 	
-	@Override
-	public abstract void draw(Canvas c, Paint p); 
+	protected abstract void handleHit(int hps); 
 
 	@Override
 	public float getNextOffset(float curOffset) {

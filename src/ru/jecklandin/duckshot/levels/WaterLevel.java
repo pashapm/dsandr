@@ -105,6 +105,10 @@ public class WaterLevel extends Level {
 		mLevelImgMap.put("ground", bm);
 		bm = loadBitmap(R.drawable.hh);
 		mLevelImgMap.put("creature", bm);
+		bm = loadBitmap(R.drawable.grass_dark);
+		mLevelImgMap.put("grass_dark", bm);
+		bm = loadBitmap(R.drawable.grass_light);
+		mLevelImgMap.put("grass_light", bm);
 		
 		
 		

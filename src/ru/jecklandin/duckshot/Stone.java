@@ -14,6 +14,8 @@ public class Stone extends GameObject {
 	public static Bitmap[] mAniFountain;
 	public static Bitmap[] mShrapnel;
 	
+	public final static int HPS = 50;
+	
 	static {
 		Stone.mStone = ImgManager.getBitmap("stone");
 		Stone.mFountain = ImgManager.getBitmap("fountain");
