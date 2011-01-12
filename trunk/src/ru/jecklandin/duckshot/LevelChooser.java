@@ -114,7 +114,7 @@ public class LevelChooser extends ListActivity {
 			Level lvl = (Level) getItem(pos);
 			
 			((ImageView) elem.findViewById(R.id.lvl_thumb)).setImageResource(lvl.mThumb);
-			((ImageView) elem.findViewById(R.id.lvl_thumb)).setBackgroundColor(Color.parseColor(lvl.mLevelId == 0 ? "#855b22" : "#180e4e"));
+			((ImageView) elem.findViewById(R.id.lvl_thumb)).setBackgroundColor(lvl.mDominatingColor);
 			
 			TextView lvl_name = (TextView) elem.findViewById(R.id.lvl_name);
 			lvl_name.setText(lvl.mName);

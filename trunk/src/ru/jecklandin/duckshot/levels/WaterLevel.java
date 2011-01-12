@@ -1,23 +1,19 @@
 package ru.jecklandin.duckshot.levels;
 
-import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.Duck;
-import ru.jecklandin.duckshot.units.Grass;
 import ru.jecklandin.duckshot.units.GroundObject;
-import ru.jecklandin.duckshot.units.Obstacle;
 import ru.jecklandin.duckshot.units.Wave;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
 
 public class WaterLevel extends Level {
 
@@ -29,7 +25,9 @@ public class WaterLevel extends Level {
 		mStoneHit = R.raw.rock1;
 		mPointsToComplete = 1000;
 		
-		mEnvironment = new WaterEnvironment();
+		mEnvironment = new WaterEnvironment(mBgColor);
+		setDominatingColor(Color.parseColor("#18084a"));
+		setBackgroundColor(Color.parseColor("#5984c8"));
 	}
 
 	@Override
@@ -110,11 +108,7 @@ public class WaterLevel extends Level {
 		bm = loadBitmap(R.drawable.grass_light);
 		mLevelImgMap.put("grass_light", bm);
 		
-		
-		
 		super.loadResources();
-		
-		Duck.initBitmaps(); 
 	}
 	
 	@Override
@@ -135,7 +129,17 @@ public class WaterLevel extends Level {
 		return new Duck(x);
 	}
 	
-	public static class WaterEnvironment implements Environment {
+	@Override
+	public void initItemsBitmaps() {
+		super.initItemsBitmaps();
+		Duck.initBitmaps(); 
+	}
+	
+	public static class WaterEnvironment extends Environment {
+		
+		WaterEnvironment(int bgColor) {
+	    	super(bgColor);
+	    }
 		
 		// Bitmaps
 		private static Bitmap mCloud1;
@@ -147,6 +151,9 @@ public class WaterLevel extends Level {
 		float x_offset2 = 0;
 		
 		public void draw(Canvas c, Paint p) {
+			p.setColor(Color.parseColor("#5984c8")); 
+			c.drawRect(0, 0, ScrProps.screenWidth, DuckShotModel.GROUND_OFFSET+DuckShotModel.GROUNDS_GAP, p);
+			
 			m.setTranslate(x_offset2, 0 );
 			c.drawBitmap(mCloud2, m, p);
 			if (x_offset2 > ScrProps.screenWidth * 1.2) {
@@ -163,7 +170,6 @@ public class WaterLevel extends Level {
 				x_offset1+=0.1;
 			}
 			
-			p.setColor(Color.parseColor("#5984c8")); 
 			c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
 		}
 

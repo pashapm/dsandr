@@ -3,10 +3,16 @@ package ru.jecklandin.duckshot;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-public interface Environment {
+public abstract class Environment {
 	
-	public void init();
+	protected int mBgColor;
 	
-	public void draw(Canvas c, Paint p);
+	public Environment(int bgColor) {
+		mBgColor = bgColor;
+	}
+	
+	public abstract void init();
+	
+	public abstract void draw(Canvas c, Paint p);
 	
 }
