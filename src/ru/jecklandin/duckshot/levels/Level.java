@@ -8,9 +8,12 @@ import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.model.DuckShotModel;
+import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
+import ru.jecklandin.duckshot.units.Obstacle.Type;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -114,5 +117,9 @@ public class Level {
 	public void initItemsBitmaps() {
 		Obstacle.initBitmaps();
 		GroundObject.initBitmaps();
+	}
+
+	public void setObstacles() {
+
 	}
 }

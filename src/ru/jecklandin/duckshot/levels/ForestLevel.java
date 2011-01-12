@@ -13,12 +13,14 @@ import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.levels.WaterLevel.WaterEnvironment;
 import ru.jecklandin.duckshot.model.DuckShotModel;
+import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.Grass;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Hedgehog;
 import ru.jecklandin.duckshot.units.Grass.GRASS_TYPE;
+import ru.jecklandin.duckshot.units.Obstacle.Type;
 
 public class ForestLevel extends WaterLevel {
 
@@ -62,7 +64,26 @@ public class ForestLevel extends WaterLevel {
 		}
 	}
 	
-public static class ForestEnvironment extends Environment {
+	@Override
+	public Bitmap[] getObstacleBitmaps() {
+		return new Bitmap[] {
+				ImgManager.getBitmap("obstacle2"),
+				ImgManager.getBitmap("obstacle1"),
+				ImgManager.getBitmap("obstacle2")
+		};
+	}
+	 
+	public void setObstacles() {
+		for (GroundObject go : DuckShotModel.getInstance().mGrounds) {
+			go.mObstacles.clear();
+		}
+		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(10), 4);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(160), 0);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(220), 1);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(200), 7);
+	}
+	
+	public static class ForestEnvironment extends Environment {
 		
 	    ForestEnvironment(int bgColor) {
 	    	super(bgColor);

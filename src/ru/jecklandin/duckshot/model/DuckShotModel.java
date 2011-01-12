@@ -68,18 +68,7 @@ public class DuckShotModel {
 	 * @param density - how many obstacles (1,2,3)
 	 */
 	public void addObstacles(int density) {
-		if (density > 0) {
-			ObstacleManager.getInstance().addObstacle(Type.TYPE1, 10, 6);
-		}
-		
-		if (density > 1) {
-			ObstacleManager.getInstance().addObstacle(Type.TYPE2, 30, 0);
-			ObstacleManager.getInstance().addObstacle(Type.TYPE2, 80, 2);
-		}
-		
-		if (density > 2) {
-			ObstacleManager.getInstance().addObstacle(Type.TYPE3, 200, 3);
-		}
+		DuckApplication.getInstance().getCurrentLevel().setObstacles();
 	} 
 	
 	public void reinitialize(Level level) {
