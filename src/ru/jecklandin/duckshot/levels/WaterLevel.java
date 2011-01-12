@@ -35,7 +35,7 @@ public class WaterLevel extends Level {
 		}
 		
 		Bitmap bm = loadBitmap(R.drawable.wave);
-		mLevelImgMap.put("wave", bm);
+		mLevelImgMap.put("ground", bm);
 		bm = loadBitmap(R.drawable.duck);
 		mLevelImgMap.put("duck", bm);
 		bm = loadBitmap(R.drawable.deadduck);
@@ -109,7 +109,7 @@ public class WaterLevel extends Level {
 		};
 	}
 	
-	private static class WaterEnvironment implements Environment {
+	public static class WaterEnvironment implements Environment {
 		
 		// Bitmaps
 		private static Bitmap mCloud1;

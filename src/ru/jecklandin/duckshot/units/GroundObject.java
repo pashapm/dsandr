@@ -2,15 +2,9 @@ package ru.jecklandin.duckshot.units;
 
 import java.util.ArrayList;
 
-import ru.jecklandin.duckshot.Desk;
+import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
-import ru.jecklandin.duckshot.Desk.DigitType;
-import ru.jecklandin.duckshot.model.DuckShotModel;
-
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 
 public abstract class GroundObject extends GameObject {
 
@@ -18,11 +12,15 @@ public abstract class GroundObject extends GameObject {
 	
 	protected static int MIN_DISTANCE_APPEARANCE = ScrProps.scale(80);
 	
-	public static Bitmap mGroundBitmap;  
-	
 	public ArrayList<CreatureObject> mCreatures = new ArrayList<CreatureObject>();;
 	
 	protected int wave_num;
+	
+	public static Bitmap mGroundBitmap;  
+	
+	public static void initBitmap() {
+		GroundObject.mGroundBitmap = ImgManager.getBitmap("ground");
+	}  
 	
 	public boolean isPlaceFree(int x) {
 		for (CreatureObject d : mCreatures) {

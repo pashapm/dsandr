@@ -2,6 +2,7 @@ package ru.jecklandin.duckshot.units;
 
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -11,10 +12,6 @@ public class Wave extends GroundObject {
 	
 	private int MAX_OFFSET = 0;
 	private int MIN_OFFSET = ScrProps.scale(-100);
-	
-	static {
-		GroundObject.mGroundBitmap = ImgManager.getBitmap("wave");
-	}
 	
 	private boolean mMovingRight = (Math.random()-0.5d) > 0;
 	
@@ -52,5 +49,5 @@ public class Wave extends GroundObject {
 		c.drawBitmap(mGroundBitmap, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
 		c.drawRect(0, y+mGroundBitmap.getHeight()-2, ScrProps.screenWidth, y+mGroundBitmap.getHeight()+ScrProps.scale(50), p);
-	}     
+	}
 }

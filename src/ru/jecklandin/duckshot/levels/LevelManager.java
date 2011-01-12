@@ -14,7 +14,7 @@ public class LevelManager {
 	private ArrayList<Level> mAvailableLevels = new ArrayList<Level>();
 	
 	public LevelManager() {
-		WaterLevel lev1 = new WaterLevel(1, R.drawable.level_thumb1, "Rocky Lakes");
+		ForestLevel lev1 = new ForestLevel(1, R.drawable.level_thumb1, "Rocky Lakes");
 		mAvailableLevels.add(lev1);
 		
 		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "Unknown"));
