@@ -51,8 +51,6 @@ public abstract class GroundObject extends GameObject {
 	}
 	
 	public CreatureObject getCreature(int loc) {
-		return mCreatures.get(loc);
+		return mCreatures.get(loc); 
 	} 
-	
-	
 }

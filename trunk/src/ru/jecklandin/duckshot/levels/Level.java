@@ -8,6 +8,8 @@ import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.units.CreatureObject;
+import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
 
 import android.graphics.Bitmap;
@@ -84,5 +86,15 @@ public class Level {
 	
 	protected static Bitmap loadBitmap(int id) {
 		return BitmapFactory.decodeResource(DuckApplication.getInstance().getResources(), id);
+	}
+	
+	//      FACTORY METHODS
+	
+	public GroundObject createGroundObject(int x, int y, float speed, int wave_num) {
+		return null;
+	}
+	
+	public CreatureObject createCreatureObject(int x) {
+		return null;
 	}
 }

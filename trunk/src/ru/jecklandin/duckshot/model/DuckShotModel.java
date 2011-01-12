@@ -1,24 +1,20 @@
 package ru.jecklandin.duckshot.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Vector;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.flurry.android.FlurryAgent;
-
-import android.content.Context;
-import android.util.Log;
-import ru.jecklandin.duckshot.*;
+import ru.jecklandin.duckshot.Desk;
+import ru.jecklandin.duckshot.DuckApplication;
+import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.Stone;
+import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.units.CreatureObject;
-import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
-import ru.jecklandin.duckshot.units.Wave;
 import ru.jecklandin.duckshot.units.Obstacle.Type;
+import android.util.Log;
 
 public class DuckShotModel {
 
@@ -39,30 +35,29 @@ public class DuckShotModel {
 		return s_instance;
 	}
 
-	public static final int WAVES_NUM = 10;
-	public static int WAVES_HEIGHT = 0;
-	public static final int MAX_MSEC = 1999;
-	public static int WAVES_OFFSET;
-	public static final int WAVES_GAP = ScrProps.scale(28);
+	public static final int GROUNDS_NUM = 10;
+	public static int GROUND_HEIGHT = 0;
+	public static int GROUND_OFFSET;
+	public static final int GROUNDS_GAP = ScrProps.scale(28);
 	
 	private ManipulatingThread mWorkingThread;
 	
 	public DuckShotModel() {
-		WAVES_OFFSET = ScrProps.screenHeight - WAVES_NUM * WAVES_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
-		WAVES_HEIGHT = WAVES_NUM * WAVES_GAP;
+		GROUND_OFFSET = ScrProps.screenHeight - GROUNDS_NUM * GROUNDS_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
+		GROUND_HEIGHT = GROUNDS_NUM * GROUNDS_GAP;
 		
 		// loading Y-coord
-		for (int i=0; i<WAVES_NUM; ++i) {
-			mYes.add(WAVES_OFFSET + i * WAVES_GAP);
+		for (int i=0; i<GROUNDS_NUM; ++i) {
+			mYes.add(GROUND_OFFSET + i * GROUNDS_GAP);
 		} 
 		
-		for (int i=0; i<mYes.size(); ++i) {
-			// -50 .. +50
-			int mx = (int) (Math.random()*50 - 50);
-			// 1 .. 5
-			int ms = i / 2;
-			mGrounds.add(new Wave(mx, mYes.get(i), ms, i));
-		}
+//		for (int i=0; i<mYes.size(); ++i) {
+//			// -50 .. +50
+//			int mx = (int) (Math.random()*50 - 50);
+//			// 1 .. 5
+//			int ms = i / 2;
+//			mGrounds.add(new Wave(mx, mYes.get(i), ms, i));
+//		}
 		
 		mWorkingThread = new ManipulatingThread();
 		mWorkingThread.start();
@@ -87,7 +82,17 @@ public class DuckShotModel {
 		}
 	} 
 	
-	public void reinitialize() {
+	public void reinitialize(Level level) {
+		
+		mGrounds.clear();
+		for (int i=0; i<mYes.size(); ++i) {
+			// -50 .. +50
+			int mx = (int) (Math.random()*50 - 50);
+			// 1 .. 5
+			int ms = i / 2;
+			mGrounds.add(level.createGroundObject(mx, mYes.get(i), ms, i));
+		}
+		
 		populate(0);
 		mWorkingThread.mQueue.clear();
 	}
@@ -99,7 +104,7 @@ public class DuckShotModel {
 		}
 		
 		for (int i=0; i<num; ++i) {
-			addRandomDuck();
+			addRandomCreature();
 		}
 	}
 	
@@ -131,7 +136,7 @@ public class DuckShotModel {
 	}
 	
 	public int getBottomY() {
-		return mYes.get(mYes.size()-1) + WAVES_GAP;
+		return mYes.get(mYes.size()-1) + GROUNDS_GAP;
 	}
 	
 	private void notifyDucks(Stone stone, int ny) {
@@ -152,8 +157,9 @@ public class DuckShotModel {
 	 * @return x is it able to place one more duck, -1 otherwise
 	 */
 	public int addCreature(int wave_num) {
-		Duck d = new Duck( 0 );
-		return addCreature(d, wave_num);
+		Level lev = DuckApplication.getInstance().getCurrentLevel();
+		CreatureObject creature = lev.createCreatureObject(0);
+		return addCreature(creature, wave_num);
 	}
 	
 	/**
@@ -222,7 +228,7 @@ public class DuckShotModel {
 		return (int) Math.hypot(xdistance, ydistance);
 	}
 
-	public void addRandomDuck() {
+	public void addRandomCreature() {
 		mWorkingThread.mQueue.add(42);
 	}
 

@@ -129,10 +129,10 @@ public class SlingView extends View {
 			int sightx = x>center ? center-a1 : center+a1;
 			int b1 = (int) (y<SOCKET_DEFAULT_Y ? 0 : y - SOCKET_DEFAULT_Y);
  
-			int sighty = SOCKET_DEFAULT_Y - b1 * DuckShotModel.WAVES_HEIGHT / SLING_AREA_HEIGHT;
+			int sighty = SOCKET_DEFAULT_Y - b1 * DuckShotModel.GROUND_HEIGHT / SLING_AREA_HEIGHT;
 			Desk.getInstance().setSight(sightx, sighty); 
 			
-			int wave_num = DuckShotModel.WAVES_NUM - 1 - b1 * DuckShotModel.WAVES_NUM / SLING_AREA_HEIGHT;
+			int wave_num = DuckShotModel.GROUNDS_NUM - 1 - b1 * DuckShotModel.GROUNDS_NUM / SLING_AREA_HEIGHT;
 			DuckShotModel.getInstance().setTargetWave(wave_num);
 		} 
 
@@ -143,7 +143,7 @@ public class SlingView extends View {
 			int center = SOCKET_DEFAULT_X; 
 			int a1 = Math.abs(center - x);
 			int b1 = y<SOCKET_DEFAULT_Y ? 0 : y - SOCKET_DEFAULT_Y;
-			int wave_num = DuckShotModel.WAVES_NUM - 1 - b1 * DuckShotModel.WAVES_NUM / SLING_AREA_HEIGHT;
+			int wave_num = DuckShotModel.GROUNDS_NUM - 1 - b1 * DuckShotModel.GROUNDS_NUM / SLING_AREA_HEIGHT;
 			DuckShotModel.getInstance().launchStone(wave_num, x>center ? center-a1 : center+a1);
 			slx = SOCKET_DEFAULT_X;
 			sly = SOCKET_DEFAULT_Y;

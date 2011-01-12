@@ -5,7 +5,12 @@ import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.units.CreatureObject;
+import ru.jecklandin.duckshot.units.Duck;
+import ru.jecklandin.duckshot.units.Grass;
+import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
+import ru.jecklandin.duckshot.units.Wave;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -107,6 +112,15 @@ public class WaterLevel extends Level {
 				ImgManager.getBitmap("rock2"),
 				ImgManager.getBitmap("rock3")
 		};
+	}
+	
+	@Override
+	public GroundObject createGroundObject(int x, int y, float speed, int wave_num) {
+		return new Wave(x, y, speed, wave_num);
+	}
+	
+	public CreatureObject createCreatureObject(int x) {
+		return new Duck(x);
 	}
 	
 	public static class WaterEnvironment implements Environment {
