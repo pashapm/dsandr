@@ -108,7 +108,7 @@ public class DuckShotModel {
 		}
 	}
 	
-	public int getDucksNumber() {
+	public int getCreaturesNumber() {
 		int sum = 0;
 		for (GroundObject w : mGrounds) {
 			for (CreatureObject d : w.mCreatures) {

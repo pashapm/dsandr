@@ -54,12 +54,13 @@ public class DuckApplication extends Application {
 	
 	public void setLevel(Level level) {
 		mCurrentLevel = level;
+		
 		ImgManager.loadLevelResources(level); 
 		SoundManager.getInstance().loadSounds(level);
-		
 		Obstacle.initBitmaps();
 		
 		DuckShotModel.getInstance().reinitialize(level);
+		level.initItemsBitmaps();
 	}
 	
 	public Level getCurrentLevel() {

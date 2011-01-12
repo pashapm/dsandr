@@ -109,7 +109,7 @@ public class Match extends Thread {
 	private long mMatchMs; 
 	private boolean mPaused = false;
 	private int mScore = 0;
-	private ArrayList<KillEvent> mKilledDucks = new ArrayList<KillEvent>();
+	private ArrayList<KillEvent> mKilledCreatures = new ArrayList<KillEvent>();
 	private ArrayList<Bonus> mAwards = new ArrayList<Bonus>();
 	
 	public Match(int seconds, Handler han) {
@@ -174,13 +174,13 @@ public class Match extends Thread {
 	public Bonus addKilledCreature(CreatureObject creature) {
 		long timestamp = System.currentTimeMillis();
 		KillEvent event = new KillEvent(creature, timestamp);
-		int length = mKilledDucks.size();
+		int length = mKilledCreatures.size();
 		Bonus bonus = Bonus.NO;
-		if (!mKilledDucks.isEmpty() && (timestamp - mKilledDucks.get(length-1).mTimestamp) < 5000) {
-			bonus = mKilledDucks.get(length-1).mBonusAwarded.next();
+		if (!mKilledCreatures.isEmpty() && (timestamp - mKilledCreatures.get(length-1).mTimestamp) < 5000) {
+			bonus = mKilledCreatures.get(length-1).mBonusAwarded.next();
 		}
 		event.mBonusAwarded = bonus;
-		mKilledDucks.add(event);
+		mKilledCreatures.add(event);
 		if (bonus != Bonus.NO) {
 			mAwards.add(bonus);
 		}
@@ -192,8 +192,8 @@ public class Match extends Thread {
 		mScore += sc;
 	}
 	
-	public void requestNextDuckIfNeed() {
-		if (DuckShotModel.getInstance().getDucksNumber() < 5) {
+	public void requestNextCreatureIfNeed() {
+		if (DuckShotModel.getInstance().getCreaturesNumber() < 5) {
 			DuckShotModel.getInstance().addRandomCreature();
 		}
 	}

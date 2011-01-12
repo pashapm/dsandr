@@ -117,26 +117,7 @@ public class Duck extends CreatureObject {
 		
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {
-				
-				DuckGame.getVibrator().vibrate(30);
-				mStone.makeFountain = false;
-				mHealth -= 50;
-				
-				addValue(mScoreValue);
-				if (mHealth <=0) {
-					isDead = true;
-					SoundManager.getInstance().playHit();
-					DuckGame.getCurrentMatch().requestNextDuckIfNeed();
-					Bonus bonus = DuckGame.getCurrentMatch().addKilledCreature(this);
-					if (bonus != Bonus.NO) {
-						Desk.getInstance().playBonus(bonus);
-					}
-					DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
-				} else {
-					SoundManager.getInstance().playQuack();
-					dive();
-				}
-				
+				handleHit(mStone.HPS);
 			}
 			mStone = null;
 		}
@@ -153,6 +134,28 @@ public class Duck extends CreatureObject {
 			} else {
 				drawNormal(c, p);
 			}
+		}
+	}
+	
+	@Override
+	public void handleHit(int hps) {
+		DuckGame.getVibrator().vibrate(30);
+		mStone.makeFountain = false;
+		mHealth -= hps;
+		
+		addValue(mScoreValue);
+		if (mHealth <=0) {
+			isDead = true;
+			SoundManager.getInstance().playHit();
+			DuckGame.getCurrentMatch().requestNextCreatureIfNeed();
+			Bonus bonus = DuckGame.getCurrentMatch().addKilledCreature(this);
+			if (bonus != Bonus.NO) {
+				Desk.getInstance().playBonus(bonus);
+			}
+			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
+		} else {
+			SoundManager.getInstance().playQuack();
+			dive();
 		}
 	}
 
@@ -266,5 +269,5 @@ public class Duck extends CreatureObject {
 		super.setOwnedWave(ground, xa);
 		setRandomDelay();
 	}
-	 
+
 }
