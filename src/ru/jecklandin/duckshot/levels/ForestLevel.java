@@ -24,12 +24,15 @@ public class ForestLevel extends WaterLevel {
 
 	public ForestLevel(int levelId, int thumb, String name) {
 		super(levelId, thumb, name);
+		
+		setDominatingColor(Color.parseColor("#234a25"));
+		setBackgroundColor(Color.parseColor("#226c26"));
+		mEnvironment = new ForestEnvironment(mBgColor);
 	}
 
 	@Override
 	public void loadResources() {
 		super.loadResources();
-		
 	}
 	
 	@Override
@@ -59,42 +62,23 @@ public class ForestLevel extends WaterLevel {
 		}
 	}
 	
-public static class ForestEnvironment implements Environment {
+public static class ForestEnvironment extends Environment {
 		
-		// Bitmaps
-		private static Bitmap mCloud1;
-		private static Bitmap mCloud2;
-		
-		Matrix m = new Matrix();
-		float rot_degree = 0;
-		float x_offset1 = 0;
-		float x_offset2 = 0;
-		
+	    ForestEnvironment(int bgColor) {
+	    	super(bgColor);
+	    }
+	    
 		public void draw(Canvas c, Paint p) {
-			m.setTranslate(x_offset2, 0 );
-			c.drawBitmap(mCloud2, m, p);
-			if (x_offset2 > ScrProps.screenWidth * 1.2) {
-				x_offset2 = -mCloud2.getWidth();
-			} else {
-				x_offset2+=0.3;
-			}
+			c.drawColor(Color.parseColor("#234a25"));
 			
-			m.setTranslate(x_offset1, 30);
-			c.drawBitmap(mCloud1, m, p);
-			if (x_offset1 > ScrProps.screenWidth * 1.1) {
-				x_offset1 = -mCloud1.getWidth();
-			} else {
-				x_offset1+=0.1;
-			}
-			
-			p.setColor(Color.parseColor("#216221")); 
+			p.setColor(mBgColor); 
 			c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
 		}
 
 		@Override
 		public void init() {
-			mCloud1 = ImgManager.getBitmap("cloud1");
-			mCloud2 = ImgManager.getBitmap("cloud2");
+//			mCloud1 = ImgManager.getBitmap("cloud1");
+//			mCloud2 = ImgManager.getBitmap("cloud2");
 		}
 	}
 

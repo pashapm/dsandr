@@ -35,6 +35,8 @@ public class Level {
 	public int[] mCreatureVoices;
 	public int mPunch;
 	public int mStoneHit;
+	public int mDominatingColor;
+	public int mBgColor;
 	
 	public Environment mEnvironment;
 	
@@ -42,6 +44,15 @@ public class Level {
 		mThumb = thumb;
 		mName = name;
 		mLevelId = level_id;
+		setDominatingColor(Color.parseColor("#845a21"));
+	}
+	
+	public void setDominatingColor(int dominatingColor) {
+		mDominatingColor = dominatingColor;
+	}
+	
+	public void setBackgroundColor(int bgColor) {
+		mBgColor = bgColor;
 	}
 	
 	public boolean isLoaded() {
