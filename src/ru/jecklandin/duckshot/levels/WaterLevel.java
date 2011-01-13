@@ -30,6 +30,8 @@ public class WaterLevel extends Level {
 		mEnvironment = new WaterEnvironment(mBgColor);
 		setDominatingColor(Color.parseColor("#18084a"));
 		setBackgroundColor(Color.parseColor("#5984c8"));
+		
+		mLevelSettings.putBoolean("fountain", true);
 	}
 
 	@Override
@@ -49,14 +51,16 @@ public class WaterLevel extends Level {
 		mLevelImgMap.put("cloud1", bm);
 		bm = loadBitmap(R.drawable.cloudb);
 		mLevelImgMap.put("cloud2", bm);
-//		bm = getBitmap(R.drawable.cloudc);
-//		mLevelImgMap.put("cloud3", bm);
 		bm = loadBitmap(R.drawable.rock_1);
 		mLevelImgMap.put("obstacle1", bm);
 		bm = loadBitmap(R.drawable.rock_2);
 		mLevelImgMap.put("obstacle2", bm);
 		bm = loadBitmap(R.drawable.rock_3);
 		mLevelImgMap.put("obstacle3", bm);
+		bm = loadBitmap(R.drawable.sling_socket);
+		mLevelImgMap.put("socket", bm);
+		bm = loadBitmap(R.drawable.stonea);
+		mLevelImgMap.put("missile", bm);
 		
 		bm = loadBitmap(R.drawable.anifountain);
 		Bitmap[] anim = new Bitmap[8];
@@ -98,21 +102,7 @@ public class WaterLevel extends Level {
 			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
 		}
 		mLevelAniMap.put("shrapnel", anim);
-		bm.recycle();
-		
-		///////////////////////////////
-		bm = loadBitmap(R.drawable.grass);
-		mLevelImgMap.put("ground", bm);
-		bm = loadBitmap(R.drawable.hh);
-		mLevelImgMap.put("creature", bm);
-		bm = loadBitmap(R.drawable.grass_dark);
-		mLevelImgMap.put("grass_dark", bm);
-		bm = loadBitmap(R.drawable.grass_light);
-		mLevelImgMap.put("grass_light", bm);
-		bm = loadBitmap(R.drawable.tree_1);
-		mLevelImgMap.put("obstacle1", bm);
-		bm = loadBitmap(R.drawable.tree_2);
-		mLevelImgMap.put("obstacle2", bm);
+		bm.recycle(); 
 		
 		super.loadResources();
 	}

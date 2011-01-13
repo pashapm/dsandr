@@ -15,8 +15,7 @@ public class SlingView extends View {
    public int slx;
    public int sly;
 	
-   Bitmap sling;
-   Bitmap socket;
+  
    
    private static int SLING_X;
    private static int SLING_Y;
@@ -33,14 +32,16 @@ public class SlingView extends View {
    
    private long mLastShotTime = 0;
    
+   private static Bitmap mSlingBm;
+   private static Bitmap mSocketBm;
+   
 	public SlingView(Context context) {
 		super(context);
-		sling = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling2 );
-		socket = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling_socket );
+		mSlingBm = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling2 );
 		
 		SLING_X = ScrProps.scale(80);
-		SLING_Y = ScrProps.screenHeight - sling.getHeight() + ScrProps.scale(20);
-		
+		SLING_Y = ScrProps.screenHeight - mSlingBm.getHeight() + ScrProps.scale(20);
+		 
 		SOCKET_DEFAULT_X = SLING_X + ScrProps.scale(84);
 		SOCKET_DEFAULT_Y = SLING_Y + ScrProps.scale(40);
 		
@@ -52,22 +53,24 @@ public class SlingView extends View {
 		mPaint.setAntiAlias(true);
 	}
 	
-	
+	public static void initBitmaps() {
+		mSocketBm = ImgManager.getBitmap("socket");
+	}
 	
 	@Override 
 	public void draw(Canvas canvas) {
 		mPaint.setColor(Color.parseColor("#a76e21"));
-		canvas.drawBitmap(sling, SLING_X, SLING_Y, mPaint);
+		canvas.drawBitmap(mSlingBm, SLING_X, SLING_Y, mPaint);
 		Path p2 = getRectangle(SLING_X + ScrProps.scale(28),
 				SLING_Y + ScrProps.scale(24),
-				slx - socket.getWidth() / 2 + ScrProps.scale(10),
+				slx - mSocketBm.getWidth() / 2 + ScrProps.scale(10),
 				sly, ScrProps.scale(8));
 		canvas.drawPath(p2, mPaint);
 		
-		Path p3 = getRectangle(slx + socket.getWidth() / 2 - ScrProps.scale(10), sly, SLING_X + ScrProps.scale(142), SLING_Y + ScrProps.scale(28), ScrProps.scale(8));
+		Path p3 = getRectangle(slx + mSocketBm.getWidth() / 2 - ScrProps.scale(10), sly, SLING_X + ScrProps.scale(142), SLING_Y + ScrProps.scale(28), ScrProps.scale(8));
 		canvas.drawPath(p3, mPaint);
-		canvas.drawBitmap(socket, slx - socket.getWidth() / 2, sly
-				- socket.getHeight() / 2, mPaint);
+		canvas.drawBitmap(mSocketBm, slx - mSocketBm.getWidth() / 2, sly
+				- mSocketBm.getHeight() / 2, mPaint);
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
@@ -76,9 +79,6 @@ public class SlingView extends View {
 			mPath.setLastPoint(x1, y1);
 			mPath.lineTo(x2, y2);
 			
-			int b = x2 - x1;
-			int a = y2 - y1;
-
 			double alpha = getAngle(x2-x1, y2-y1);
 			double beta = ((y2-y1) > 0 ? 1 : 3)*Math.PI/2 - alpha;
 			

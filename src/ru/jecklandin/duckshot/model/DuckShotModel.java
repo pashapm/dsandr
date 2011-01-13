@@ -51,14 +51,6 @@ public class DuckShotModel {
 			mYes.add(GROUND_OFFSET + i * GROUNDS_GAP);
 		} 
 		
-//		for (int i=0; i<mYes.size(); ++i) {
-//			// -50 .. +50
-//			int mx = (int) (Math.random()*50 - 50);
-//			// 1 .. 5
-//			int ms = i / 2;
-//			mGrounds.add(new Wave(mx, mYes.get(i), ms, i));
-//		}
-		
 		mWorkingThread = new ManipulatingThread();
 		mWorkingThread.start();
 	}
@@ -73,7 +65,9 @@ public class DuckShotModel {
 	
 	public void reinitialize(Level level) {
 		
+		mStones.clear();
 		mGrounds.clear();
+		
 		for (int i=0; i<mYes.size(); ++i) {
 			// -50 .. +50
 			int mx = (int) (Math.random()*50 - 50);
@@ -81,6 +75,8 @@ public class DuckShotModel {
 			int ms = i / 2;
 			mGrounds.add(level.createGroundObject(mx, mYes.get(i), ms, i));
 		}
+		
+		
 		
 		populate(0);
 		mWorkingThread.mQueue.clear();

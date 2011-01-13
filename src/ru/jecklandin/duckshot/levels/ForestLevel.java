@@ -22,18 +22,58 @@ import ru.jecklandin.duckshot.units.Hedgehog;
 import ru.jecklandin.duckshot.units.Grass.GRASS_TYPE;
 import ru.jecklandin.duckshot.units.Obstacle.Type;
 
-public class ForestLevel extends WaterLevel {
+public class ForestLevel extends Level {
 
 	public ForestLevel(int levelId, int thumb, String name) {
 		super(levelId, thumb, name);
 		
+		mCreatureVoices = new int[] {R.raw.quack1, R.raw.quack2, R.raw.quack3};
+		mPunch = R.raw.punch;
+		mStoneHit = R.raw.rock1;
+		mPointsToComplete = 1000;
+		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
 		mEnvironment = new ForestEnvironment(mBgColor);
+		
+		mLevelSettings.putBoolean("fountain", false);
 	}
 
 	@Override
 	public void loadResources() {
+		
+		Bitmap[] anim;
+		int diff_x;
+		int diff_y;
+		
+		Bitmap bm = loadBitmap(R.drawable.grass);
+		mLevelImgMap.put("ground", bm);
+		bm = loadBitmap(R.drawable.hh);
+		mLevelImgMap.put("creature", bm);
+		bm = loadBitmap(R.drawable.grass_dark);
+		mLevelImgMap.put("grass_dark", bm);
+		bm = loadBitmap(R.drawable.grass_light);
+		mLevelImgMap.put("grass_light", bm);
+		bm = loadBitmap(R.drawable.tree_1);
+		mLevelImgMap.put("obstacle1", bm);
+		bm = loadBitmap(R.drawable.tree_2);
+		mLevelImgMap.put("obstacle2", bm);
+		bm = loadBitmap(R.drawable.apple_socket);
+		mLevelImgMap.put("socket", bm);
+		bm = loadBitmap(R.drawable.apple);
+		mLevelImgMap.put("missile", bm);
+		
+		bm = loadBitmap(R.drawable.apple_shrapnel);
+		anim = new Bitmap[5]; 
+		diff_x = ScrProps.scale(100);
+		diff_y = ScrProps.scale(100);
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
+		}  
+		mLevelAniMap.put("shrapnel", anim);
+		bm.recycle();
+		
+		
 		super.loadResources();
 	}
 	

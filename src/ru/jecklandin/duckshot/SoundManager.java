@@ -53,7 +53,7 @@ public class SoundManager {
 		return sInstance;
 	}
 	
-	public void playQuack() {
+	public void playScream() {
 		int s = (int) (Math.random()*3);
 		play(mSounds[s]);
 	}
@@ -72,7 +72,7 @@ public class SoundManager {
 	
 	private void play(int id) {
 		mPool.play(id, mEffects/8f, mEffects/8f, 1, 0, 1);
-	}
+	} 
 	
 	public void readSettings() {
 		SharedPreferences prefs = mCtx.getSharedPreferences("ducks", Context.MODE_PRIVATE);
