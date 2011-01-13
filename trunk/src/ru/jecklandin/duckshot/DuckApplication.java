@@ -53,8 +53,12 @@ public class DuckApplication extends Application {
 	}
 	
 	public void setLevel(Level level) {
-		mCurrentLevel = level;
+		if (mCurrentLevel != null) {
+			mCurrentLevel.unloadResources();
+			System.gc();
+		}
 		
+		mCurrentLevel = level;
 		ImgManager.loadLevelResources(level); 
 		SoundManager.getInstance().loadSounds(level);
 		Obstacle.initBitmaps();

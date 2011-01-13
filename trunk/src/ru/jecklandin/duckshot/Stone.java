@@ -4,24 +4,18 @@ import ru.jecklandin.duckshot.units.GameObject;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Bundle;
+import android.util.Log;
 
 public class Stone extends GameObject {
 
 	private static final String TAG = "Stone";
 	
 	public static Bitmap mStone;
-	public static Bitmap mFountain;
 	public static Bitmap[] mAniFountain;
 	public static Bitmap[] mShrapnel;
 	
 	public final static int HPS = 50;
-	
-	static {
-		Stone.mStone = ImgManager.getBitmap("stone");
-		Stone.mFountain = ImgManager.getBitmap("fountain");
-		Stone.mAniFountain = ImgManager.getAnimation("fountain");
-		Stone.mShrapnel = ImgManager.getAnimation("shrapnel");
-	}
 	
 	public boolean makeFountain = true;
 	private int rot_degree = 0;
@@ -50,6 +44,16 @@ public class Stone extends GameObject {
 		
 		float ratio = (this.y - this.y_dest) / (x_dest - SlingView.SOCKET_DEFAULT_X);
 		mDeltaVector = new SpeedVector(SPEED_Y/ratio, -SPEED_Y);
+		
+		Bundle settings = DuckApplication.getInstance().getCurrentLevel().getSettings();
+		makeFountain = settings.getBoolean("fountain", true);
+		Log.d("!!", settings.containsKey("fountain")+" "+makeFountain);
+	}
+	
+	public static void initBitmaps() {
+		Stone.mStone = ImgManager.getBitmap("missile");
+		Stone.mAniFountain = ImgManager.getAnimation("fountain");
+		Stone.mShrapnel = ImgManager.getAnimation("shrapnel");
 	}
 	
 	@Override
@@ -90,11 +94,11 @@ public class Stone extends GameObject {
 	}
 	
 	private void drawShrapnel(Canvas c, Paint p) {
-		matrix.postTranslate(- mAniFountain[0].getWidth()/2, - mAniFountain[0].getHeight()*6/10);
+		matrix.postTranslate(- mShrapnel[0].getWidth()/2, - mShrapnel[0].getHeight()*6/10);
 		if (anim_frame < mShrapnel.length) {
 			c.drawBitmap(mShrapnel[anim_frame], matrix, p); 
 			anim_frame++;
-		} else if (anim_frame > mAniFountain.length) { 
+		} else if (anim_frame > mShrapnel.length) { 
 			sank = true;
 		} else {
 			anim_frame++;

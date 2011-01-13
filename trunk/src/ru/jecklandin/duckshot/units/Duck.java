@@ -154,7 +154,7 @@ public class Duck extends CreatureObject {
 			}
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
 		} else {
-			SoundManager.getInstance().playQuack();
+			SoundManager.getInstance().playScream();
 			dive();
 		}
 	}

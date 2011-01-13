@@ -8,6 +8,8 @@ import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.SlingView;
+import ru.jecklandin.duckshot.Stone;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
@@ -21,6 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.os.Bundle;
 
 public class Level {
 	
@@ -40,6 +43,8 @@ public class Level {
 	public int mStoneHit;
 	public int mDominatingColor;
 	public int mBgColor;
+	
+	protected Bundle mLevelSettings = new Bundle();
 	
 	public Environment mEnvironment;
 	
@@ -80,6 +85,9 @@ public class Level {
 			mLevelImgMap.get(res).recycle();
 		}
 		
+		mLevelImgMap.clear();
+		mLevelAniMap.clear();
+		
 		mBitmapsLoaded = false;
 	}
 	
@@ -104,8 +112,11 @@ public class Level {
 		return BitmapFactory.decodeResource(DuckApplication.getInstance().getResources(), id);
 	}
 	
-	//      FACTORY METHODS
+	public Bundle getSettings() {
+		return mLevelSettings;
+	}
 	
+	//      FACTORY METHODS
 	public GroundObject createGroundObject(int x, int y, float speed, int wave_num) {
 		return null;
 	}
@@ -117,6 +128,8 @@ public class Level {
 	public void initItemsBitmaps() {
 		Obstacle.initBitmaps();
 		GroundObject.initBitmaps();
+		SlingView.initBitmaps(); 
+		Stone.initBitmaps();
 	}
 
 	public void setObstacles() {
