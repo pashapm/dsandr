@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
+import android.os.Vibrator;
 
 public class SoundManager {
 	
@@ -16,12 +17,14 @@ public class SoundManager {
 	
 	private Level mLevel;
 	
+	private Vibrator mVibrator;
 	private SoundPool mPool;
 	private Context mCtx;
 	private int[] mSounds = new int[6];
 	
 	private int mSound = 4;
 	private int mEffects = 4;
+	private boolean mVibrate = true;
 	
 	private MediaPlayer mPlayer = new MediaPlayer();
 	
@@ -32,6 +35,7 @@ public class SoundManager {
 		readSettings();
 		
 		mPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+		mVibrator = (Vibrator) DuckApplication.getInstance().getSystemService(Context.VIBRATOR_SERVICE);
 		
 		try {
 			mPlayer.setDataSource(mCtx, Uri.parse("android.resource://ru.jecklandin.duckshot/"+R.raw.music));
@@ -79,6 +83,7 @@ public class SoundManager {
 		mSound = prefs.getInt("sound", 4);
 		mEffects = prefs.getInt("effects", 4);
 		mPlayer.setVolume(mSound/8f, mSound/8f);
+		mVibrate = prefs.getBoolean("vibrate", true);
 	}
 	
 	public void turnMusic(boolean on) {
@@ -104,4 +109,9 @@ public class SoundManager {
 		mSounds[5] = mPool.load(mCtx, R.raw.bulk, 1);
 	}
 	
+	public void vibrate(int i) {
+		if (mVibrate) {
+			mVibrator.vibrate(i);
+		}
+	}
 }

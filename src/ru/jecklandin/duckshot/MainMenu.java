@@ -1,8 +1,5 @@
 package ru.jecklandin.duckshot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -19,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
@@ -39,6 +37,7 @@ public class MainMenu extends Activity implements OnClickListener {
 	
 	private DucksSeekBar mSoundBar;
 	private DucksSeekBar mEffectsBar;
+	private CheckBox mVibroCheck;
 	
 	enum State {MAIN, RESUME};
 	State mState = State.MAIN;
@@ -68,6 +67,7 @@ public class MainMenu extends Activity implements OnClickListener {
 		
 		mSoundBar = ((DucksSeekBar) findViewById(R.id.soundbar));
 		mEffectsBar = ((DucksSeekBar) findViewById(R.id.effectsbar));
+		mVibroCheck = ((CheckBox) findViewById(R.id.vibro));
 		
 		((ImageButton) findViewById(R.id.soundon)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.soundoff)).setOnClickListener(this);
@@ -199,28 +199,24 @@ public class MainMenu extends Activity implements OnClickListener {
 	}
 	
 	private void commitSettings() {
-		final int sound = mSoundBar.getProgress();
-		final int effects = mEffectsBar.getProgress();
+		int sound = mSoundBar.getProgress();
+		int effects = mEffectsBar.getProgress();
+		boolean vibrate = mVibroCheck.isChecked();
 		SharedPreferences prefs = getSharedPreferences("ducks", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
 		editor.putInt("sound", sound);
 		editor.commit();
 		editor.putInt("effects", effects);
 		editor.commit();
-		
-		
-//		FlurryAgent.onEvent("settings", 
-//			new HashMap<String, String>() {{ 
-//				put("sound", sound+"");
-//				put("effects", effects+"");
-//			}}
-//		);
+		editor.putBoolean("vibrate", vibrate);
+		editor.commit();
 	}
 	
 	private void restoreSettings() {
 		SharedPreferences prefs = getSharedPreferences("ducks", Context.MODE_PRIVATE);
 		mSoundBar.setProgress(prefs.getInt("sound", 4));
 		mEffectsBar.setProgress(prefs.getInt("effects", 4));
+		mVibroCheck.setChecked(prefs.getBoolean("vibrate", true));
 	}
 	
 	@Override
