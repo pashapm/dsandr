@@ -4,14 +4,18 @@ import ru.jecklandin.duckshot.Desk;
 import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.DuckGame;
 import ru.jecklandin.duckshot.ImgManager;
+import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.Match.Bonus;
+import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
 public class Hedgehog extends CreatureObject {
 
+	private int dead_stage;
+	
 	public Hedgehog(int x) {
 		super(); 
 		this.offset = x; 
@@ -81,7 +85,13 @@ public class Hedgehog extends CreatureObject {
 			mStone = null;
 		}
 		
-		drawNormal(c, p);
+		
+		
+		if (isDead) {
+			drawDeadAnimation(c, p);
+		} else {
+			drawNormal(c, p);
+		}
 	}
 	
 	@Override
@@ -93,7 +103,6 @@ public class Hedgehog extends CreatureObject {
 		addValue(mScoreValue);
 		if (mHealth <=0) {
 			isDead = true;
-			end_animation = true;
 			SoundManager.getInstance().playHit();
 			DuckGame.getCurrentMatch().requestNextCreatureIfNeed();
 			Bonus bonus = DuckGame.getCurrentMatch().addKilledCreature(this);
@@ -104,6 +113,32 @@ public class Hedgehog extends CreatureObject {
 		} else {
 			SoundManager.getInstance().playScream();
 		}  
+	}
+	
+	private void drawScore(Canvas c, Paint p) {
+		dead_stage-=ScrProps.scale(4);
+		
+		addit_m.reset();
+		addit_m.setScale(0.6f, 0.6f);
+		addit_m.postTranslate(this.offset, ownedGround.y + ScrProps.scale(dead_stage));
+		Desk.drawScoreDigits(c, p, addit_m, mSumValues);
+	}
+	
+	int sp = 0;
+	
+	private void drawDeadAnimation(Canvas c, Paint p) {
+		matrix.postTranslate(0, sp);
+		c.drawBitmap(ImgManager.getBitmap("spirit"), matrix, p);
+		drawScore(c, p);
+		sp-=4;
+		if (sp < -52) {
+			end_animation = true;
+		}
+	}
+	
+	public void setOwnedWave(GroundObject ground, int xa) {
+		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
+		super.setOwnedWave(ground, xa);
 	}
 	
 	@Override
