@@ -61,7 +61,7 @@ public class Stone extends GameObject {
 		matrix.reset();
 		if (fallen) {
 			if (!vibrated) {
-				DuckGame.s_instance.mVibro.vibrate(20);
+				SoundManager.getInstance().vibrate(20);
 				vibrated = true;
 			}
 

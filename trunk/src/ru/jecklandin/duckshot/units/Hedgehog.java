@@ -86,7 +86,7 @@ public class Hedgehog extends CreatureObject {
 	
 	@Override
 	public void handleHit(int hps) {
-		DuckGame.getVibrator().vibrate(30);
+		SoundManager.getInstance().vibrate(30);
 		mStone.makeFountain = false;
 		mHealth -= hps;
 		 

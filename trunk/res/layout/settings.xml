@@ -15,16 +15,16 @@
 			android:src="@drawable/settings_soundoff" android:background="#00000000"
 			android:scaleType="center" android:layout_width="wrap_content"
 			android:layout_weight="0" android:id="@+id/soundoff"></ImageButton>
-		<ru.jecklandin.duckshot.DucksSeekBar
+		 <ru.jecklandin.duckshot.DucksSeekBar
 			android:layout_height="wrap_content" android:layout_width="fill_parent"
 			android:max="8" android:progress="4" android:minHeight="40dip"
 			android:layout_weight="1" android:id="@+id/soundbar">
-		</ru.jecklandin.duckshot.DucksSeekBar>
+		</ru.jecklandin.duckshot.DucksSeekBar> 
 		<ImageButton android:layout_height="wrap_content"
 			android:background="#00000000" android:src="@drawable/settings_soundon"
 			android:scaleType="center" android:layout_width="wrap_content"
 			android:id="@+id/soundon"></ImageButton>
-	</LinearLayout>
+	</LinearLayout> 
 	<LinearLayout android:id="@+id/LinearLayout03"
 		android:layout_height="wrap_content" android:layout_width="fill_parent"
 		android:gravity="bottom|center" android:minHeight="70dip">
@@ -38,16 +38,20 @@
 			android:src="@drawable/settings_soundoff" android:background="#00000000"
 			android:scaleType="center" android:layout_width="wrap_content"
 			android:layout_weight="0" android:id="@+id/effectsoff"></ImageButton>
+		 
 		<ru.jecklandin.duckshot.DucksSeekBar
 			android:layout_height="wrap_content" android:layout_width="fill_parent"
 			android:max="8" android:progress="4" android:minHeight="40dip"
 			android:layout_weight="1" android:id="@+id/effectsbar">
-		</ru.jecklandin.duckshot.DucksSeekBar>
+		</ru.jecklandin.duckshot.DucksSeekBar> 
 		<ImageButton android:layout_height="wrap_content"
 			android:background="#00000000" android:src="@drawable/settings_soundon"
 			android:scaleType="center" android:layout_width="wrap_content"
 			android:id="@+id/effectson"></ImageButton>
+	</LinearLayout><LinearLayout android:id="@+id/LinearLayout03" android:layout_height="wrap_content" android:layout_width="fill_parent" android:minHeight="100dip" android:layout_gravity="center" android:gravity="center">
+		<CheckBox android:id="@+id/vibro" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" " android:layout_marginRight="10dip" android:button="@drawable/checkbox" android:checked="true"></CheckBox><ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/ImageView02s" android:src="@drawable/settings_vibrolab"></ImageView>
 	</LinearLayout>
+
 
 
 

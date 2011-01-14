@@ -31,7 +31,6 @@ public class DuckGame extends Activity {
 	private static final int PAUSE_DIALOG = 2;
 	
 	GameField mGf;
-    Vibrator mVibro;
     
     Match mMatch;
     DuckApplication mApplication;
@@ -54,7 +53,6 @@ public class DuckGame extends Activity {
         DuckGame.s_instance = this;
         
         mApplication = (DuckApplication)getApplication();
-        mVibro = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         mGf = new GameField(this);
         mTimer = new DuckTimer(mGf);
         mFpsPr = new FPSPrinter();
@@ -191,9 +189,7 @@ public class DuckGame extends Activity {
 		return DuckGame.s_instance.mMatch;
 	}
 	
-	public static Vibrator getVibrator() {
-		return DuckGame.s_instance.mVibro;
-	}
+
 	
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -217,6 +213,8 @@ public class DuckGame extends Activity {
 			mShownDialog = false;
 		}
 	}
+
+
 } 
 
 class DuckTimer extends Thread {
