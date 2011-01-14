@@ -27,18 +27,18 @@ public class ForestLevel extends Level {
 	public ForestLevel(int levelId, int thumb, String name) {
 		super(levelId, thumb, name);
 		
-		mCreatureVoices = new int[] {R.raw.quack1, R.raw.quack2, R.raw.quack3};
+		mCreatureVoices = new int[] {R.raw.hh_1, R.raw.hh_1, R.raw.hh_1};
 		mPunch = R.raw.punch;
-		mStoneHit = R.raw.rock1;
+		mStoneHit = R.raw.apple;
 		mPointsToComplete = 1000;
 		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
 		mEnvironment = new ForestEnvironment(mBgColor);
 		
-		mLevelSettings.putBoolean("fountain", false);
+		mLevelSettings.putBoolean("fountain", true);
 	}
-
+ 
 	@Override
 	public void loadResources() {
 		
@@ -62,6 +62,8 @@ public class ForestLevel extends Level {
 		mLevelImgMap.put("socket", bm);
 		bm = loadBitmap(R.drawable.apple);
 		mLevelImgMap.put("missile", bm);
+		bm = loadBitmap(R.drawable.hh_spirit);
+		mLevelImgMap.put("spirit", bm);
 		
 		bm = loadBitmap(R.drawable.apple_shrapnel);
 		anim = new Bitmap[5]; 
@@ -71,6 +73,16 @@ public class ForestLevel extends Level {
 			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
 		}  
 		mLevelAniMap.put("shrapnel", anim);
+		bm.recycle();
+		
+		bm = loadBitmap(R.drawable.apple_fountain);
+		anim = new Bitmap[5]; 
+		diff_x = ScrProps.scale(100);
+		diff_y = ScrProps.scale(50);
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
+		}  
+		mLevelAniMap.put("fountain", anim);
 		bm.recycle();
 		
 		
