@@ -1,6 +1,8 @@
 package ru.jecklandin.duckshot.levels;
 
 import java.util.ArrayList;
+
+import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.R;
 
 public class LevelManager {
@@ -27,6 +29,20 @@ public class LevelManager {
 	
 	public ArrayList<Level> getLevels() {
 		return mAvailableLevels;
+	}
+	
+	public void loadNextLevel() {
+		Level cur = DuckApplication.getInstance().getCurrentLevel();
+		int indx = mAvailableLevels.indexOf(cur);
+		if (indx != mAvailableLevels.size()-1) {
+			DuckApplication.getInstance().setLevel(mAvailableLevels.get(indx+1));
+		}
+	}
+	
+	public boolean isNextLevelAvailable() {
+		Level cur = DuckApplication.getInstance().getCurrentLevel();
+		int indx = mAvailableLevels.indexOf(cur);
+		return mAvailableLevels.get(indx+1).mLevelId != 0;
 	}
 	
 }

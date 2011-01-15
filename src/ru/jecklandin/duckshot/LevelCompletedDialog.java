@@ -7,6 +7,7 @@ import java.util.Map;
 import com.flurry.android.FlurryAgent;
 
 import ru.jecklandin.duckshot.Match.Bonus;
+import ru.jecklandin.duckshot.levels.LevelManager;
 
 import android.app.Activity;
 import android.app.Application;
@@ -39,6 +40,8 @@ public class LevelCompletedDialog extends Dialog {
 	private AwardsView mAwardsView;
 	private boolean mSubmitted = false;
 	
+	private boolean go_next_lvl = false;
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -55,7 +58,7 @@ public class LevelCompletedDialog extends Dialog {
 		if (mMatch.getScore() < pointsToComplete) {
 			levelCompl.setText("Level failed");
 			levelCompl.setTextColor(Color.parseColor("#ff5660"));
-			findViewById(R.id.nextlev).setVisibility(View.INVISIBLE);
+			//findViewById(R.id.nextlev).setVisibility(View.INVISIBLE);
 		} else {
 			levelCompl.setText("Level completed");
 			levelCompl.setTextColor(Color.parseColor("#f8e000"));
@@ -139,10 +142,17 @@ public class LevelCompletedDialog extends Dialog {
 			
 			@Override
 			public void onCancel(DialogInterface dialog) {
-				Intent i = new Intent(getOwnerActivity(), MainMenu.class);
-				i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-				i.setAction(MainMenu.SHOW_MAIN_MENU);
-				getOwnerActivity().startActivity(i);
+				if (!go_next_lvl) {
+					Intent i = new Intent(getOwnerActivity(), MainMenu.class);
+					i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+					i.setAction(MainMenu.SHOW_MAIN_MENU);
+					getOwnerActivity().startActivity(i);
+				} else {
+					Intent i1 = new Intent(getOwnerActivity(), DuckGame.class);
+					i1.setAction(DuckGame.NEW_MATCH);
+					i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+					getOwnerActivity().startActivity(i1);
+				}
 			}
 		});
 		
@@ -172,8 +182,14 @@ public class LevelCompletedDialog extends Dialog {
 			
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(getContext(), Sorry.class);
-				getOwnerActivity().startActivity(i);
+				if (LevelManager.getInstance().isNextLevelAvailable()) {
+					LevelManager.getInstance().loadNextLevel();
+					go_next_lvl = true;
+					cancel();
+				} else {
+					Intent i = new Intent(getContext(), Sorry.class);
+					getOwnerActivity().startActivity(i);
+				}
 			}
 		});
 		
