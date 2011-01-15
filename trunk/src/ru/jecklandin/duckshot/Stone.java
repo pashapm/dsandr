@@ -15,7 +15,7 @@ public class Stone extends GameObject {
 	public static Bitmap[] mAniFountain;
 	public static Bitmap[] mShrapnel;
 	
-	public final static int HPS = 50;
+	public final int HPS = 50;
 	
 	public boolean makeFountain = true;
 	private int rot_degree = 0;
@@ -47,7 +47,6 @@ public class Stone extends GameObject {
 		
 		Bundle settings = DuckApplication.getInstance().getCurrentLevel().getSettings();
 		makeFountain = settings.getBoolean("fountain", true);
-		Log.d("!!", settings.containsKey("fountain")+" "+makeFountain);
 	}
 	
 	public static void initBitmaps() {

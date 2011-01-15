@@ -158,7 +158,7 @@ public class WaterLevel extends Level {
 		float x_offset2 = 0;
 		
 		public void draw(Canvas c, Paint p) {
-			p.setColor(Color.parseColor("#5984c8")); 
+			p.setColor(Color.parseColor("#5989d9")); 
 			c.drawRect(0, 0, ScrProps.screenWidth, DuckShotModel.GROUND_OFFSET+DuckShotModel.GROUNDS_GAP, p);
 			
 			m.setTranslate(x_offset2, 0 );
@@ -177,6 +177,7 @@ public class WaterLevel extends Level {
 				x_offset1+=0.1;
 			}
 			
+			p.setColor(Color.parseColor("#5984c8")); 
 			c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
 		}
 
