@@ -29,11 +29,7 @@ public class Duck extends CreatureObject {
 	
 	// ===============   state
 
-	private boolean isDiving = false;
-	private int diving_frame = 0;
 
-	private boolean isEmerging = false;
-	private int emerging_frame = 0;
 
 	private int dead_degree = 0;
 	private int dead_sink = 0;
@@ -62,9 +58,9 @@ public class Duck extends CreatureObject {
 		
 		overallTicks++;
 		if (Desk.getInstance().getSightVisibility() 
-				&& overallTicks % (DuckApplication.FPS) == 0 && !isDiving) {
+				&& overallTicks % (DuckApplication.FPS) == 0 && !isHidden) {
 			if (isDanger()) {  //the sight is nearby!
-				dive();
+				hide();
 			}
 		}
 		
@@ -75,7 +71,7 @@ public class Duck extends CreatureObject {
 		}
 		
 		if (--ticksBeforeNextDive < 0) {
-			dive();
+			hide();
 		} else if (--ticksBeforeNextRotate < 0) {
 			rotate();
 		}
@@ -125,8 +121,8 @@ public class Duck extends CreatureObject {
 		if (isDead) {
 			drawDeadAnimation(c, p);
 		} else {
-			if (isDiving) {
-				if (isEmerging) {
+			if (isHidden) {
+				if (isAppearing) {
 					drawEmerging(c, p);
 				} else {
 					drawDiving(c, p); 	
@@ -155,7 +151,7 @@ public class Duck extends CreatureObject {
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
 		} else {
 			SoundManager.getInstance().playScream();
-			dive();
+			hide();
 		}
 	}
 
@@ -164,8 +160,8 @@ public class Duck extends CreatureObject {
 			c.drawBitmap(mAniEmerging[emerging_frame], matrix, p); 
 			emerging_frame++;
 		} else {
-			isEmerging = false;
-			isDiving = false;
+			isAppearing = false;
+			isHidden = false;
 			drawNormal(c, p);
 		}
 	}
@@ -176,7 +172,7 @@ public class Duck extends CreatureObject {
 			c.drawBitmap(mAniDiving[diving_frame], matrix, p); 
 			diving_frame++;
 		}  else {
-			emerge();
+			appear();
 			mMoveFlag  = true;
 		}
 	}
@@ -233,18 +229,18 @@ public class Duck extends CreatureObject {
 
 	@Override
 	protected boolean isIntersects(int ix) {
-		return !isDiving && super.isIntersects(ix);
+		return !isHidden && super.isIntersects(ix);
 	}
 	
 
-	public void dive() {
-		isDiving = true;
-		isEmerging = false;
+	public void hide() {
+		isHidden = true;
+		isAppearing = false;
 		emerging_frame = 0;
 	}
 	
-	public void emerge() {
-		isEmerging = true;
+	public void appear() {
+		isAppearing = true;
 		diving_frame = 0;
 	}
 
@@ -264,8 +260,8 @@ public class Duck extends CreatureObject {
 	
 	public void setOwnedWave(GroundObject ground, int xa) {
 		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
-		isDiving = true;
-		emerge();
+		isHidden = true;
+		appear();
 		super.setOwnedWave(ground, xa);
 		setRandomDelay();
 	}

@@ -10,7 +10,7 @@ import android.os.Message;
 
 public class Match extends Thread {
 
-	public static int DEFAULT_TIME = 10;
+	public static int DEFAULT_TIME = 60;
 	
 	public enum Bonus {
 		NO, DOUBLE {

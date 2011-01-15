@@ -40,6 +40,13 @@ public abstract class CreatureObject extends GameObject {
     protected int delay = 0;
     protected int overallTicks = 0;
     protected boolean end_animation = false;
+    
+    protected boolean isHidden = false;
+    protected int diving_frame = 0;
+
+    protected boolean isAppearing = false;
+    protected int emerging_frame = 0;
+    
     /**
 	 * The duck is dead and need to be removed 
 	 */
@@ -147,11 +154,20 @@ public abstract class CreatureObject extends GameObject {
 		speed = generateNextSpeed();
 		double rnd = Math.random();
 		mMovingRight = rnd < 0.5;   
-		
-//		Log.d(TAG, "timeout: "+timeout+", ticksBeforeNextDive: "+ticksBeforeNextDive+" ,movingRight: "+mMovingRight);
 	}
 	
 	protected void addValue(int val) {
 		mSumValues += val;
+	}
+	
+	public void hide() {
+		isHidden = true;
+		isAppearing = false;
+		emerging_frame = 0;
+	}
+	
+	public void appear() {
+		isAppearing = true;
+		diving_frame = 0;
 	}
 }

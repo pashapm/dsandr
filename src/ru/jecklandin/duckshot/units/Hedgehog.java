@@ -21,6 +21,8 @@ public class Hedgehog extends CreatureObject {
 		this.offset = x; 
 		speed = 2;
 		addit_m = new Matrix();
+		
+		mHealth = 150;
 	}
 
 	@Override
@@ -55,6 +57,12 @@ public class Hedgehog extends CreatureObject {
 			offset -= speed;
 		}
 		
+		if (--ticksBeforeNextDive < 0) {
+			hide();
+		} else if (--ticksBeforeNextRotate < 0) {
+			rotate();
+		}
+		
 		if (offset < MIN_OFFSET) {
 			mMovingRight = true;
 		} else if (offset > MAX_OFFSET) {
@@ -69,6 +77,17 @@ public class Hedgehog extends CreatureObject {
 			toRecycle = true;
 			return;
 		}
+		
+		if (delay > 0) {
+			delay--;
+			return;
+		}
+		
+		if (timeout > 0) {
+			timeout--;
+			return;
+		}
+		
 		matrix.reset();
 		
 		float next_offset = getNextOffset(offset);
@@ -90,7 +109,15 @@ public class Hedgehog extends CreatureObject {
 		if (isDead) {
 			drawDeadAnimation(c, p);
 		} else {
-			drawNormal(c, p);
+			if (isHidden) {
+				if (isAppearing) {
+					drawEmerging(c, p);
+				} else {
+					drawDiving(c, p); 	
+				}
+			} else {
+				drawNormal(c, p);
+			}
 		}
 	}
 	
@@ -136,10 +163,37 @@ public class Hedgehog extends CreatureObject {
 		}
 	}
 	
+	private void drawEmerging(Canvas c, Paint p) {
+		if (emerging_frame < 8) {
+			//c.drawBitmap(mAniEmerging[emerging_frame], matrix, p); 
+			emerging_frame++;
+		} else {
+			isAppearing = false;
+			isHidden = false;
+			drawNormal(c, p);
+		}
+	}
+
+	private void drawDiving(Canvas c, Paint p) {
+		matrix.postTranslate(0, ScrProps.scale(-10));
+		if (diving_frame < 16) {
+			//c.drawBitmap(mAniDiving[diving_frame], matrix, p); 
+			diving_frame++;
+		}  else {
+			appear();
+			mMoveFlag  = true;
+		}
+	}
+	
 	public void setOwnedWave(GroundObject ground, int xa) {
 		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
 		super.setOwnedWave(ground, xa);
 	}
+	
+	public void setRandomDelay() {
+		delay = (int) (Math.random() * 4 * DuckApplication.FPS);
+	}
+	
 	
 	@Override
 	public boolean equals(Object o) {

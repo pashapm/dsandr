@@ -19,10 +19,12 @@ public class LevelManager {
 		WaterLevel lev1 = new WaterLevel(1, R.drawable.level_thumb1, "Rocky Lakes");
 		mAvailableLevels.add(lev1);
 		
-		ForestLevel lev2 = new ForestLevel(2, R.drawable.level_thumb2, "Homish Forest");
+		FarwaterLevel lev2 = new FarwaterLevel(2, R.drawable.level_thumb3, "Farvater");
 		mAvailableLevels.add(lev2);
 		
-		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "Unknown"));
+		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Homish Forest");
+		mAvailableLevels.add(lev3);
+		
 		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "Unknown"));
 		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "Unknown"));
 	}
