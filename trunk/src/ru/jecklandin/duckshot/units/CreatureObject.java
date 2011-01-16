@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 public abstract class CreatureObject extends GameObject {
 
@@ -22,6 +23,7 @@ public abstract class CreatureObject extends GameObject {
 	protected Stone mStone;
 	
 	protected static Bitmap commonBm;
+	protected static Bitmap secondCommonBm;
 	
 	public GroundObject ownedGround;
 	
@@ -103,10 +105,24 @@ public abstract class CreatureObject extends GameObject {
 		
 		int color = Color.parseColor("#6bff00");
 		int length = w;
-		if (mHealth < 100 && mHealth > 0) {
-			color = Color.parseColor("#ff5a00");
+		
+		switch (mHealth) {
+		case 70:
+			color = Color.parseColor("#ffe900");
+			length = (w * 2) / 3;
+			break;
+		case 50:
+			color = Color.parseColor("#ff8500");
 			length = w / 2;
-		} 
+			break;
+		case 20:
+			color = Color.parseColor("#ff5a00");
+			length = w / 5;
+			break;
+		default:
+			break;
+		}
+		
 		p.setColor(color);  
 		
 		if (mMovingRight) {

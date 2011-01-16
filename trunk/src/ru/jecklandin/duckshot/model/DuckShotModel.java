@@ -11,6 +11,7 @@ import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.Stone;
 import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.units.CreatureObject;
+import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
 import ru.jecklandin.duckshot.units.Obstacle.Type;
@@ -154,6 +155,13 @@ public class DuckShotModel {
 	 * @return -1 if can't, x otherwise
 	 */
 	public int addCreature(CreatureObject d, int wave_num) {
+		
+//		//TODO 
+//		if (d instanceof Duck && ((Duck)d).isArmored()) {
+//			return 300;
+//		}
+		
+			
 		int randx;
 		int tries = 3; 
 		do {
