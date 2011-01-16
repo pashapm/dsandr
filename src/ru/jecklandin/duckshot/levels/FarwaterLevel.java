@@ -5,6 +5,8 @@ import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
+import ru.jecklandin.duckshot.units.CreatureObject;
+import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle.Type;
 import android.graphics.Bitmap;
@@ -26,6 +28,8 @@ public class FarwaterLevel extends WaterLevel {
 		mLevelImgMap.get("obstacle1").recycle();
 		Bitmap bm = loadBitmap(R.drawable.submarine);
 		mLevelImgMap.put("obstacle1", bm);
+		bm = loadBitmap(R.drawable.duck_armored);
+		mLevelImgMap.put("duck_armored", bm);
 		
 	}
 	
@@ -36,6 +40,14 @@ public class FarwaterLevel extends WaterLevel {
 				ImgManager.getBitmap("obstacle1"),
 				ImgManager.getBitmap("obstacle1")
 		};
+	}
+	
+	public CreatureObject createCreatureObject(int x) {
+		Duck duck = (Duck) super.createCreatureObject(x);
+		if (Math.random() > .5d) {
+			duck.setArmored(true);
+		}
+		return duck;
 	}
 	
 	@Override

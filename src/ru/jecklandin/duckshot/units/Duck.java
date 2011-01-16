@@ -28,7 +28,7 @@ public class Duck extends CreatureObject {
 	private static Bitmap[] mAniEmerging;
 	
 	// ===============   state
-
+	private boolean mIsArmored = false;
 
 
 	private int dead_degree = 0;
@@ -42,9 +42,12 @@ public class Duck extends CreatureObject {
 		speed = 2;
 		addit_m = new Matrix();
 	}
+	
+	
 
 	public static void initBitmaps() {
 		CreatureObject.commonBm = ImgManager.getBitmap("creature");
+		CreatureObject.secondCommonBm = ImgManager.getBitmap("duck_armored");
 		Duck.deadDuckBm = ImgManager.getBitmap("deadduck");
 		Duck.mAniDiving = ImgManager.getAnimation("duckdive");
 		Duck.mAniEmerging = ImgManager.getAnimation("duckemerge");
@@ -60,7 +63,12 @@ public class Duck extends CreatureObject {
 		if (Desk.getInstance().getSightVisibility() 
 				&& overallTicks % (DuckApplication.FPS) == 0 && !isHidden) {
 			if (isDanger()) {  //the sight is nearby!
-				hide();
+				if (isArmored()) {
+					rotate();
+					speed = 5;
+				} else {
+					hide();
+				}
 			}
 		}
 		
@@ -70,7 +78,7 @@ public class Duck extends CreatureObject {
 			offset -= speed;
 		}
 		
-		if (--ticksBeforeNextDive < 0) {
+		if (--ticksBeforeNextDive < 0 && !isArmored()) {
 			hide();
 		} else if (--ticksBeforeNextRotate < 0) {
 			rotate();
@@ -149,6 +157,9 @@ public class Duck extends CreatureObject {
 				Desk.getInstance().playBonus(bonus);
 			}
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
+		} else if (isArmored()) {
+			setArmored(false);
+			speed = 5;
 		} else {
 			SoundManager.getInstance().playScream();
 			hide();
@@ -179,7 +190,13 @@ public class Duck extends CreatureObject {
  
 	@Override
 	protected void drawNormal(Canvas c, Paint p) {
-		c.drawBitmap(commonBm, matrix, p);
+		if (isArmored()) {
+			matrix.postTranslate(0, -ScrProps.scale(9));
+			c.drawBitmap(secondCommonBm, matrix, p);
+		} else {
+			c.drawBitmap(commonBm, matrix, p);
+		}
+		
 		float[] point = new float[] {0, 0};   
 		matrix.mapPoints(point);
 		drawHealth(point, c, p);
@@ -264,6 +281,18 @@ public class Duck extends CreatureObject {
 		appear();
 		super.setOwnedWave(ground, xa);
 		setRandomDelay();
+	}
+
+
+	public void setArmored(boolean mIsArmored) {
+		this.mIsArmored = mIsArmored;
+		if (mIsArmored) {
+			mHealth = 120;
+		}
+	}
+
+	public boolean isArmored() {
+		return mIsArmored;
 	}
 
 }
