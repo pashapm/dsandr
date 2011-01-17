@@ -85,6 +85,25 @@ public class ForestLevel extends Level {
 		mLevelAniMap.put("fountain", anim);
 		bm.recycle();
 		
+		bm = loadBitmap(R.drawable.hh_hide);
+		anim = new Bitmap[8]; 
+		diff_x = ScrProps.scale(75);
+		diff_y = ScrProps.scale(75);
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
+		}  
+		mLevelAniMap.put("hide", anim);
+		bm.recycle();
+		
+		bm = loadBitmap(R.drawable.hh_appear);
+		anim = new Bitmap[8]; 
+		diff_x = ScrProps.scale(75);
+		diff_y = ScrProps.scale(75);
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
+		}  
+		mLevelAniMap.put("appear", anim);
+		bm.recycle();
 		
 		super.loadResources();
 	}
