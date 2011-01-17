@@ -25,8 +25,8 @@ public class LevelManager {
 		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Homish Forest");
 		mAvailableLevels.add(lev3);
 		
-		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "Unknown"));
-		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "Unknown"));
+		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "<Locked>"));
+		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "<Locked>"));
 	}
 	
 	public ArrayList<Level> getLevels() {

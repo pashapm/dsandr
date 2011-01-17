@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Go sling</string>
-    <string name="sorry">This game is being developed, so only one level is available.\n\nIf you like it you can encourage the developers with rating the game on the Market.</string>
+    <string name="sorry">This game is being developed, so only three levels are available.\n\nIf you like it you can encourage the developers with rating the game on the Market.</string>
 	<string name="error_report">The game crashed last time. Would you mind sending a report?</string>
 	<string name="finish_prev">You need %1$d points\non the previous level\nto open this one.</string>
 	<string name="finish_prev_indef">You need to finish\nthe previous levels first.</string>

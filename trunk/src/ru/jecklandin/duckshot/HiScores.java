@@ -37,6 +37,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -45,10 +46,13 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 
 public class HiScores extends Activity {
 
+	private Spinner mSpinner;
+	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hiscores);
@@ -56,20 +60,42 @@ public class HiScores extends Activity {
         findViewById(R.id.hiscores_lay).setBackgroundResource(R.drawable.underwater_dith);
         ((TextView)findViewById(R.id.hiscores_label)).setTypeface(DuckApplication.getCommonTypeface());
         
-//        Spinner spin = (Spinner) findViewById(R.id.lvl_spinner);
-//        LevelSpinnerAdapter spinnerAdapter = new LevelSpinnerAdapter(this, R.layout.select_lvl_elem, R.id.lvl_name, 
-//        		LevelManager.getInstance().getLevels().toArray(new Level[0]));
-//        spin.setAdapter(spinnerAdapter);
-//        spin.setSelection(0, false);
-        
+        mSpinner = (Spinner) findViewById(R.id.lvl_spinner);
+        final LevelSpinnerAdapter spinnerAdapter = new LevelSpinnerAdapter(this, R.layout.select_lvl_elem, R.id.lvl_name, 
+        		LevelManager.getInstance().getLevels().toArray(new Level[0]));
+        mSpinner.setAdapter(spinnerAdapter);
+        mSpinner.setSelection(0, false);
+        mSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int pos, long arg3) {
+				loadScores(spinnerAdapter.getItem(pos));
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				
+			}
+		});
+	}
+	
+	private void loadScores(Level lvl) {
 		try {
-			Score[] objects = HiScoresManager.readScores().toArray(new Score[0]);
+			Score[] objects = HiScoresManager.readScores(lvl).toArray(new Score[0]);
 			HiscoresAdapter adap = new HiscoresAdapter(this, R.layout.scorestring, objects);
 	        ListView list = (ListView) findViewById(android.R.id.list);
 	        list.setAdapter(adap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	protected void onStart() {
+		mSpinner.setSelection(0);
+		loadScores(LevelManager.getInstance().getLevels().get(0));
+		super.onStart();
 	}
 }
 
@@ -81,13 +107,17 @@ class LevelSpinnerAdapter extends ArrayAdapter<Level> {
 	}
 
 	@Override
+	public boolean isEnabled(int position) {
+		return getItem(position).mLevelId != 0;
+	}
+	
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			LayoutInflater inf = LayoutInflater.from(getContext());
 			convertView = inf.inflate(R.layout.select_lvl_elem, null);
 		}
 		TextView tw = (TextView) convertView.findViewById(R.id.lvl_name);
-		tw.setTypeface(DuckApplication.getCommonTypeface());
 		tw.setTextColor(Color.BLACK);
 		tw.setText("Level "+getItem(position).mLevelId);
 		return tw;
