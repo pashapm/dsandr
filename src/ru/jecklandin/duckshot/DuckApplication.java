@@ -19,7 +19,7 @@ public class DuckApplication extends Application {
     private static int MUSIC_ID;
     
     public static final String FLURRY_KEY = "TG7D2CT31BQI2GFNSLEP";
-    public static final int FPS = 24;
+    public static final int FPS = 23;
 	
     private Level mCurrentLevel;
     

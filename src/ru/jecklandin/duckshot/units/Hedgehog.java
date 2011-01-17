@@ -8,6 +8,7 @@ import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.Match.Bonus;
 import ru.jecklandin.duckshot.model.DuckShotModel;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -16,13 +17,17 @@ public class Hedgehog extends CreatureObject {
 
 	private int dead_stage;
 	
+	private static Bitmap mAngel;
+	private static Bitmap[] mHidingAnim;
+	private static Bitmap[] mAppearingAnim;
+	
 	public Hedgehog(int x) {
 		super(); 
 		this.offset = x; 
-		speed = 2;
+		speed = 2.5f;
 		addit_m = new Matrix();
 		
-		mHealth = 150;
+		mHealth = 120;
 	}
 
 	@Override
@@ -35,6 +40,14 @@ public class Hedgehog extends CreatureObject {
 
 	public static void initBitmaps() {
 		CreatureObject.commonBm = ImgManager.getBitmap("creature");
+		Hedgehog.mAngel = ImgManager.getBitmap("spirit");
+		Hedgehog.mHidingAnim = ImgManager.getAnimation("hide");
+		Hedgehog.mAppearingAnim = ImgManager.getAnimation("appear");
+	}
+	
+	@Override
+	protected float generateNextSpeed() {
+		return (float) (Math.random()*2.5+1);
 	}
 	
 	@Override
@@ -113,7 +126,7 @@ public class Hedgehog extends CreatureObject {
 				if (isAppearing) {
 					drawEmerging(c, p);
 				} else {
-					drawDiving(c, p); 	
+					drawHiding(c, p); 	
 				}
 			} else {
 				drawNormal(c, p);
@@ -155,17 +168,17 @@ public class Hedgehog extends CreatureObject {
 	
 	private void drawDeadAnimation(Canvas c, Paint p) {
 		matrix.postTranslate(0, sp);
-		c.drawBitmap(ImgManager.getBitmap("spirit"), matrix, p);
+		c.drawBitmap(mAngel, matrix, p);
 		drawScore(c, p);
 		sp-=4;
-		if (sp < -52) {
+		if (sp < -80) { 
 			end_animation = true;
 		}
 	}
 	
 	private void drawEmerging(Canvas c, Paint p) {
 		if (emerging_frame < 8) {
-			//c.drawBitmap(mAniEmerging[emerging_frame], matrix, p); 
+			c.drawBitmap(mAppearingAnim[emerging_frame], matrix, p); 
 			emerging_frame++;
 		} else {
 			isAppearing = false;
@@ -174,10 +187,10 @@ public class Hedgehog extends CreatureObject {
 		}
 	}
 
-	private void drawDiving(Canvas c, Paint p) {
+	private void drawHiding(Canvas c, Paint p) {
 		matrix.postTranslate(0, ScrProps.scale(-10));
-		if (diving_frame < 16) {
-			//c.drawBitmap(mAniDiving[diving_frame], matrix, p); 
+		if (diving_frame < 8) {
+			c.drawBitmap(mHidingAnim[diving_frame], matrix, p); 
 			diving_frame++;
 		}  else {
 			appear();

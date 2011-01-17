@@ -16,7 +16,7 @@ import android.util.Log;
 public abstract class CreatureObject extends GameObject {
 
 	protected int MAX_OFFSET = ScrProps.scale(300);
-	protected int MIN_OFFSET = 0;
+	protected int MIN_OFFSET = -ScrProps.scale(70);
 	
 	protected abstract void drawNormal(Canvas c, Paint p);
 	

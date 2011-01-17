@@ -156,16 +156,15 @@ public class DuckShotModel {
 	 */
 	public int addCreature(CreatureObject d, int wave_num) {
 		
-//		//TODO 
-//		if (d instanceof Duck && ((Duck)d).isArmored()) {
-//			return 300;
-//		}
-		
-			
+		boolean outOfScreen = false;
+		if (d instanceof Duck && ((Duck)d).isArmored()) {
+			outOfScreen = true;
+		}
+
 		int randx;
 		int tries = 3; 
 		do {
-			randx = (int) (Math.random() * ScrProps.screenWidth);
+			randx = (int) (ScrProps.screenWidth * (outOfScreen ? 1 : Math.random()));
 			if (--tries < 0) {
 				return -1;
 			}
