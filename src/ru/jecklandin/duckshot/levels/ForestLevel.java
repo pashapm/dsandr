@@ -27,10 +27,10 @@ public class ForestLevel extends Level {
 	public ForestLevel(int levelId, int thumb, String name) {
 		super(levelId, thumb, name);
 		
-		mCreatureVoices = new int[] {R.raw.hh_1, R.raw.hh_1, R.raw.hh_1};
+		mCreatureVoices = new int[] {R.raw.hh_1, R.raw.hh_2, R.raw.hh_3};
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.apple;
-		mPointsToComplete = 1000;
+		mPointsToComplete = 2000;
 		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
@@ -41,10 +41,6 @@ public class ForestLevel extends Level {
  
 	@Override
 	public void loadResources() {
-		
-		Bitmap[] anim;
-		int diff_x;
-		int diff_y;
 		
 		Bitmap bm = loadBitmap(R.drawable.grass);
 		mLevelImgMap.put("ground", bm);
@@ -65,45 +61,10 @@ public class ForestLevel extends Level {
 		bm = loadBitmap(R.drawable.hh_spirit);
 		mLevelImgMap.put("spirit", bm);
 		
-		bm = loadBitmap(R.drawable.apple_shrapnel);
-		anim = new Bitmap[5]; 
-		diff_x = ScrProps.scale(100);
-		diff_y = ScrProps.scale(100);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}  
-		mLevelAniMap.put("shrapnel", anim);
-		bm.recycle();
-		
-		bm = loadBitmap(R.drawable.apple_fountain);
-		anim = new Bitmap[5]; 
-		diff_x = ScrProps.scale(100);
-		diff_y = ScrProps.scale(50);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}  
-		mLevelAniMap.put("fountain", anim);
-		bm.recycle();
-		
-		bm = loadBitmap(R.drawable.hh_hide);
-		anim = new Bitmap[8]; 
-		diff_x = ScrProps.scale(75);
-		diff_y = ScrProps.scale(75);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}  
-		mLevelAniMap.put("hide", anim);
-		bm.recycle();
-		
-		bm = loadBitmap(R.drawable.hh_appear);
-		anim = new Bitmap[8]; 
-		diff_x = ScrProps.scale(75);
-		diff_y = ScrProps.scale(75);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}  
-		mLevelAniMap.put("appear", anim);
-		bm.recycle();
+		makeAnimation(R.drawable.apple_shrapnel, 5, 100, 100, "shrapnel");
+		makeAnimation(R.drawable.apple_fountain, 5, 100, 50, "fountain");
+		makeAnimation(R.drawable.hh_hide, 8, 75, 75, "hide");
+		makeAnimation(R.drawable.hh_appear, 8, 75, 75, "appear");
 		
 		super.loadResources();
 	}

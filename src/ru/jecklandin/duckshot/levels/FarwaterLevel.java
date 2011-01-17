@@ -21,8 +21,6 @@ public class FarwaterLevel extends WaterLevel {
 
 	@Override
 	public void loadResources() {
-		 
-		
 		super.loadResources();
 		
 		mLevelImgMap.get("obstacle1").recycle();
@@ -30,7 +28,6 @@ public class FarwaterLevel extends WaterLevel {
 		mLevelImgMap.put("obstacle1", bm);
 		bm = loadBitmap(R.drawable.duck_armored);
 		mLevelImgMap.put("duck_armored", bm);
-		
 	}
 	
 	@Override

@@ -160,6 +160,7 @@ public class Duck extends CreatureObject {
 		} else if (isArmored()) {
 			setArmored(false);
 			speed = 5;
+			SoundManager.getInstance().playArmorHit();
 		} else {
 			SoundManager.getInstance().playScream();
 			hide();
@@ -261,10 +262,6 @@ public class Duck extends CreatureObject {
 		diving_frame = 0;
 	}
 
-	public void setRandomDelay() {
-		delay = (int) (Math.random() * 4 * DuckApplication.FPS);
-	}
-	
 	@Override
 	public boolean equals(Object o) {
 		return this.id == ((Duck)o).id;

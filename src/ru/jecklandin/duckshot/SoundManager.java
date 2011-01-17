@@ -1,5 +1,8 @@
 package ru.jecklandin.duckshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ru.jecklandin.duckshot.levels.Level;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,6 +10,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Vibrator;
 
 public class SoundManager {
@@ -20,7 +24,7 @@ public class SoundManager {
 	private Vibrator mVibrator;
 	private SoundPool mPool;
 	private Context mCtx;
-	private int[] mSounds = new int[6];
+	private int[] mSounds = new int[7];
 	
 	private int mSound = 4;
 	private int mEffects = 4;
@@ -52,7 +56,7 @@ public class SoundManager {
 			sInstance = new SoundManager(ctx);
 		}
 	}
-	 
+	 	
 	public static SoundManager getInstance() {
 		return sInstance;
 	}
@@ -64,6 +68,10 @@ public class SoundManager {
 	
 	public void playHit() {
 		play(mSounds[3]);
+	}
+	
+	public void playArmorHit() {
+		play(mSounds[6]);
 	}
 	
 	public void playRockHit() {
@@ -100,13 +108,14 @@ public class SoundManager {
 	
 	public void loadSounds(Level level) {
 		mLevel = level;
+		
 		mSounds[0] = mPool.load(mCtx, mLevel.mCreatureVoices[0], 1);
 		mSounds[1] = mPool.load(mCtx, mLevel.mCreatureVoices[1], 1);
 		mSounds[2] = mPool.load(mCtx, mLevel.mCreatureVoices[2], 1);
 		mSounds[3] = mPool.load(mCtx, mLevel.mPunch, 1);
-		
 		mSounds[4] = mPool.load(mCtx, mLevel.mStoneHit, 1);
 		mSounds[5] = mPool.load(mCtx, R.raw.bulk, 1);
+		mSounds[6] = mPool.load(mCtx, R.raw.helmet, 1);
 	}
 	
 	public void vibrate(int i) {
