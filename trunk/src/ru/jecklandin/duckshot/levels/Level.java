@@ -7,6 +7,7 @@ import java.util.Vector;
 import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
+import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SlingView;
 import ru.jecklandin.duckshot.Stone;
@@ -41,6 +42,7 @@ public class Level {
 	public int[] mCreatureVoices;
 	public int mPunch;
 	public int mStoneHit;
+	
 	public int mDominatingColor;
 	public int mBgColor;
 	
@@ -133,6 +135,16 @@ public class Level {
 	}
 
 	public void setObstacles() {
-
+	}
+	
+	protected Bitmap[] makeAnimation(int source, int frames_num, int dx, int dy, String storeAs) {
+		Bitmap bm = loadBitmap(source);
+		Bitmap[] anim = new Bitmap[frames_num]; 
+		for (int i=0; i<anim.length; ++i) {
+			anim[i] = Bitmap.createBitmap(bm, i*dx, 0, dx, dy);
+		}  
+		mLevelAniMap.put(storeAs, anim);
+		bm.recycle();
+		return anim;
 	}
 }

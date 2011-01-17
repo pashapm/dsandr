@@ -62,47 +62,10 @@ public class WaterLevel extends Level {
 		bm = loadBitmap(R.drawable.stonea);
 		mLevelImgMap.put("missile", bm);
 		
-		bm = loadBitmap(R.drawable.anifountain);
-		Bitmap[] anim = new Bitmap[8];
-		int diff_x = ScrProps.scale(84);
-		int diff_y = ScrProps.scale(84);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}
-		bm.getWidth();
-		bm.getHeight(); 
-		mLevelAniMap.put("fountain", anim);
-		bm.recycle();
-		   
-		bm = loadBitmap(R.drawable.duckdive);
-		anim = new Bitmap[16]; 
-		diff_x = ScrProps.scale(84);
-		diff_y = ScrProps.scale(84);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}
-		mLevelAniMap.put("duckdive", anim);
-		bm.recycle();
-		
-		bm = loadBitmap(R.drawable.duckemerge);
-		anim = new Bitmap[8];
-		diff_x = ScrProps.scale(84);
-		diff_y = ScrProps.scale(84);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		} 
-		mLevelAniMap.put("duckemerge", anim);
-		bm.recycle();
-		
-		bm = loadBitmap(R.drawable.shrapnel);
-		anim = new Bitmap[6]; 
-		diff_x = ScrProps.scale(100);
-		diff_y = ScrProps.scale(100);
-		for (int i=0; i<anim.length; ++i) {
-			anim[i] = Bitmap.createBitmap(bm, i*diff_x, 0, diff_x, diff_y);
-		}
-		mLevelAniMap.put("shrapnel", anim);
-		bm.recycle(); 
+		makeAnimation(R.drawable.anifountain, 8, 84, 84, "fountain");
+		makeAnimation(R.drawable.duckdive, 16, 84, 84, "duckdive");
+		makeAnimation(R.drawable.shrapnel, 6, 100, 100, "shrapnel");
+		makeAnimation(R.drawable.duckemerge, 8, 84, 84, "duckemerge");
 		
 		super.loadResources();
 	}

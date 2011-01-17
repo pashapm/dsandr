@@ -152,6 +152,7 @@ public class Hedgehog extends CreatureObject {
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
 		} else {
 			SoundManager.getInstance().playScream();
+			hide();
 		}  
 	}
 	
@@ -199,12 +200,11 @@ public class Hedgehog extends CreatureObject {
 	}
 	
 	public void setOwnedWave(GroundObject ground, int xa) {
-		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
+		mScoreValue = 90 + 20*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
+		isHidden = true;
+		appear();
 		super.setOwnedWave(ground, xa);
-	}
-	
-	public void setRandomDelay() {
-		delay = (int) (Math.random() * 4 * DuckApplication.FPS);
+		setRandomDelay();
 	}
 	
 	

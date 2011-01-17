@@ -1,6 +1,7 @@
 package ru.jecklandin.duckshot.units;
 
 import ru.jecklandin.duckshot.Desk;
+import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.Stone;
@@ -185,5 +186,9 @@ public abstract class CreatureObject extends GameObject {
 	public void appear() {
 		isAppearing = true;
 		diving_frame = 0;
+	}
+	
+	public void setRandomDelay() {
+		delay = (int) (Math.random() * 4 * DuckApplication.FPS);
 	}
 }

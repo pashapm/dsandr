@@ -93,7 +93,7 @@ public class Stone extends GameObject {
 	}
 	
 	private void drawShrapnel(Canvas c, Paint p) {
-		matrix.postTranslate(- mShrapnel[0].getWidth()/2, - mShrapnel[0].getHeight()*6/10);
+		matrix.postTranslate(- mShrapnel[0].getWidth()/2, - mShrapnel[0].getHeight()/2);
 		if (anim_frame < mShrapnel.length) {
 			c.drawBitmap(mShrapnel[anim_frame], matrix, p); 
 			anim_frame++;
