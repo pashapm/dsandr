@@ -58,7 +58,7 @@ public class LevelCompletedDialog extends Dialog {
 		if (mMatch.getScore() < pointsToComplete) {
 			levelCompl.setText("Level failed");
 			levelCompl.setTextColor(Color.parseColor("#ff5660"));
-			//findViewById(R.id.nextlev).setVisibility(View.INVISIBLE);
+			findViewById(R.id.nextlev).setVisibility(View.INVISIBLE);
 		} else {
 			levelCompl.setText("Level completed");
 			levelCompl.setTextColor(Color.parseColor("#f8e000"));
@@ -160,7 +160,7 @@ public class LevelCompletedDialog extends Dialog {
 			
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				if (!mSubmitted) {
+				if (!mSubmitted && mMatch.getScore() != 0) {
 					submitScore();
 				}
 			}

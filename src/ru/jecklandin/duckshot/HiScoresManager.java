@@ -13,23 +13,34 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
+import ru.jecklandin.duckshot.levels.Level;
+
 import android.content.Context;
 import android.os.Environment;
 import android.util.Xml;
 
 public class HiScoresManager {
 
-	private static File mScoresFile;
 	private static final int SCORES_NUMBER = 10;
 	
-	static {
-		mScoresFile = new File(DuckApplication.getInstance().getDir("hiscores", Context.MODE_PRIVATE), "level1.xml");
+	private static File getFileForLevel(Level level) {
+		String fn = "level"+level.mLevelId+".xml";
+		return new File(DuckApplication.getInstance().getDir("hiscores", Context.MODE_PRIVATE), fn);
 	}
 	
+	/**
+	 * Adds new score record for the current level
+	 * @param score
+	 * @return
+	 */
 	public static boolean addScore(Score score) {
+		
+		Level curLevel = DuckApplication.getInstance().getCurrentLevel();
+		File scoresFile = getFileForLevel(curLevel);
+		
 		Score[] objects = new Score[0];
         try {
-        	List<Score> scores = HiScoresManager.readScores();
+        	List<Score> scores = HiScoresManager.readScores(curLevel);
         	if (scores == null) {
         		scores = new ArrayList<Score>();
         	}
@@ -37,7 +48,7 @@ public class HiScoresManager {
         	objects = scores.toArray(objects);
         	Arrays.sort(objects);
         	if (scores.size() <= SCORES_NUMBER) {
-        		writeScoresFile(objects, mScoresFile); 
+        		writeScoresFile(objects, scoresFile); 
         		return true;
         	}
 		} catch (Exception e) {
@@ -52,21 +63,29 @@ public class HiScoresManager {
 		Score[] newScores = new Score[10];
 		System.arraycopy(objects, 0, newScores, 0, SCORES_NUMBER);
 		try {
-			writeScoresFile(newScores, mScoresFile);
+			writeScoresFile(newScores, scoresFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
 	}
 	
-	static List<Score> readScores() throws Exception {
+	/**
+	 * Reads score records for the current level
+	 * @return
+	 * @throws Exception
+	 */
+	static List<Score> readScores(Level lvl) throws Exception {
+		
+		File scoresFile = getFileForLevel(lvl);
+		
 		List<Score> scores = new ArrayList<Score>();
-		if (! mScoresFile.exists()) {
+		if (! scoresFile.exists()) {
 			return scores;
 		}
 		
         XmlPullParser parser = Xml.newPullParser();
-        parser.setInput(new FileInputStream(mScoresFile), null);
+        parser.setInput(new FileInputStream(scoresFile), null);
         int eventType = parser.getEventType();
         Score currentScore = null;
         while (eventType != XmlPullParser.END_DOCUMENT) {
