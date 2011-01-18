@@ -25,13 +25,14 @@ public class HiScoresManager {
 	
 	private static File getFileForLevel(Level level) {
 		String fn = "level"+level.mLevelId+".xml";
+//		return new File(Environment.getExternalStorageDirectory(),  fn);
 		return new File(DuckApplication.getInstance().getDir("hiscores", Context.MODE_PRIVATE), fn);
 	}
 	
 	/**
 	 * Adds new score record for the current level
 	 * @param score
-	 * @return
+	 * @return 
 	 */
 	public static boolean addScore(Score score) {
 		

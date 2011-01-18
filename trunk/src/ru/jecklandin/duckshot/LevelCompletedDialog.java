@@ -70,7 +70,8 @@ public class LevelCompletedDialog extends Dialog {
 			if (! mLvlManager.isNextLevelUnlocked()) {
 				mLvlManager.unlockNextLevel();
 			}
-			LevelManager.getInstance().unlockNextLevel();
+			mLvlManager.unlockNextLevel();
+			findViewById(R.id.nextlev).setVisibility(View.VISIBLE);
 		}
 		
 		mAwardsView.mAwards = mMatch.getAwards();
@@ -165,15 +166,15 @@ public class LevelCompletedDialog extends Dialog {
 			}
 		});
 		
-		setOnDismissListener(new OnDismissListener() {
-			
-			@Override
-			public void onDismiss(DialogInterface dialog) {
-				if (!mSubmitted && mMatch.getScore() != 0) {
-					submitScore();
-				}
-			}
-		});
+//		setOnDismissListener(new OnDismissListener() {
+//			
+//			@Override
+//			public void onDismiss(DialogInterface dialog) {
+//				if (!mSubmitted && mMatch.getScore() != 0) {
+//					submitScore();
+//				}
+//			}
+//		});
 		
 		bretry.setOnClickListener(new View.OnClickListener() {
 			

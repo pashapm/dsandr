@@ -64,7 +64,7 @@ public class Duck extends CreatureObject {
 				&& overallTicks % (DuckApplication.FPS) == 0 && !isHidden) {
 			if (isDanger()) {  //the sight is nearby!
 				if (isArmored()) {
-					rotate();
+					rotate(); 
 					speed = 5;
 				} else {
 					hide();
@@ -107,7 +107,7 @@ public class Duck extends CreatureObject {
 		if (timeout > 0) {
 			timeout--;
 			return;
-		}
+		} 
 		
 		matrix.reset();
 		

@@ -44,6 +44,6 @@ public class ObstacleManager {
 			return;
 		}
 		Obstacle o = new Obstacle( mModel.mGrounds.get(wave), x, width);
-		mModel.mGrounds.get(wave-1).mObstacles.add(o);
+		mModel.mGrounds.get(wave).mObstacles.add(o);
 	}
 }

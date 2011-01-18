@@ -30,7 +30,8 @@ public class ForestLevel extends Level {
 		mCreatureVoices = new int[] {R.raw.hh_1, R.raw.hh_2, R.raw.hh_3};
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.apple;
-		mPointsToComplete = 2000;
+		
+		mPointsToComplete = 2500;
 		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
