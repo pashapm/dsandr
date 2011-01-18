@@ -1,6 +1,12 @@
 package ru.jecklandin.duckshot.levels;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
+
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.R;
@@ -13,38 +19,113 @@ public class LevelManager {
 		return sInstance;
 	}
 	
-	private ArrayList<Level> mAvailableLevels = new ArrayList<Level>();
+	private ArrayList<Level> mLevels = new ArrayList<Level>();
 	
 	public LevelManager() {
 		WaterLevel lev1 = new WaterLevel(1, R.drawable.level_thumb1, "Rocky Lakes");
-		mAvailableLevels.add(lev1);
+		mLevels.add(lev1);
 		
-		FarwaterLevel lev2 = new FarwaterLevel(2, R.drawable.level_thumb3, "Farvater");
-		mAvailableLevels.add(lev2);
+		FarwaterLevel lev2 = new FarwaterLevel(2, R.drawable.level_thumb3, "Fairway");
+		mLevels.add(lev2);
 		
 		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Homish Forest");
-		mAvailableLevels.add(lev3);
+		mLevels.add(lev3);
 		
-		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "<Locked>"));
-		mAvailableLevels.add(new Level(0, R.drawable.level_thumb0, "<Locked>"));
-	}
-	
-	public ArrayList<Level> getLevels() {
-		return mAvailableLevels;
-	}
-	
-	public void loadNextLevel() {
-		Level cur = DuckApplication.getInstance().getCurrentLevel();
-		int indx = mAvailableLevels.indexOf(cur);
-		if (indx != mAvailableLevels.size()-1) {
-			DuckApplication.getInstance().setLevel(mAvailableLevels.get(indx+1));
+		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
+		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
+		
+		SharedPreferences prefs = DuckApplication.getInstance()
+			.getSharedPreferences("duckshot", Activity.MODE_PRIVATE);
+		if (! prefs.contains("lastLevel")) {
+			Editor ed = prefs.edit();
+			ed.putInt("lastLevel", 1);
+			ed.commit();
 		}
 	}
 	
+	public ArrayList<Level> getLevels() {
+		return mLevels;
+	}
+	
+	public ArrayList<Level> getAvailableLevels() {
+		ArrayList<Level> avl = new ArrayList<Level>();
+		ListIterator<Level> it = mLevels.listIterator();
+		while (it.hasNext()) {
+			Level lvl = it.next();
+			if (isUnlocked(lvl.mLevelId)) {
+				avl.add(lvl);
+			}
+		}
+ 		return avl;
+	}
+	
+	public boolean loadNextLevel() {
+		
+		if (! isNextLevelAvailable()) {
+			return false;
+		}
+		
+		Level next = getNextLevel();
+		DuckApplication.getInstance().setLevel(next);
+		return true;
+	}
+	
 	public boolean isNextLevelAvailable() {
+		Level next = getNextLevel();
+		return next != null && next.mLevelId != 0;
+	}
+	
+	public boolean isAvailable(int lvl_id) {
+		return lvl_id != 0;
+	}
+	
+	public boolean isNextLevelUnlocked() {
+		
+		if (! isNextLevelAvailable()) {
+			return false;
+		}
+		
+		Level next = getNextLevel();
+		return isUnlocked(next.mLevelId);
+	}
+	
+	private Level getNextLevel() {
 		Level cur = DuckApplication.getInstance().getCurrentLevel();
-		int indx = mAvailableLevels.indexOf(cur);
-		return mAvailableLevels.get(indx+1).mLevelId != 0;
+		int indx = mLevels.indexOf(cur);
+		if (indx != mLevels.size()-1) {
+			return mLevels.get(indx+1);
+		} else {
+			return null;
+		}
+	}
+	
+	public void unlockNextLevel() {
+		
+		if (! isNextLevelAvailable()) {
+			return;
+		}
+		
+		Level next = getNextLevel();
+		SharedPreferences prefs = DuckApplication.getInstance()
+			.getSharedPreferences("duckshot", Activity.MODE_PRIVATE);
+		Editor ed = prefs.edit();
+		ed.putInt("lastLevel", next.mLevelId);
+		ed.commit();
+		
+		Log.d("GO SLING", "Level "+next.mLevelId+" is unlocked.");
+	}
+	
+	public boolean isUnlocked(int lvl_id) {
+		
+		if (lvl_id == 0) {   
+			return false;
+		}  
+		
+		SharedPreferences prefs = DuckApplication.getInstance()
+			.getSharedPreferences("duckshot", Activity.MODE_PRIVATE);
+		int lastLevel = prefs.getInt("lastLevel", 1);
+	   
+		return lastLevel >= lvl_id;
 	}
 	
 }

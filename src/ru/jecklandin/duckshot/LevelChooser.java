@@ -26,6 +26,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class LevelChooser extends ListActivity {
 
 	private LevelAdapter mAdapter;
+	private LevelManager mLvlManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,35 +42,56 @@ public class LevelChooser extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int pos,
 					long id) {
-				
-				final Level level = mAdapter.mLevels.get(pos);
-				if (level.mLevelId != 0) {
-					FlurryAgent.onEvent("onLevelLoaded", 
-							new HashMap<String, String>() {{ put("id", level.mLevelId+""); }}
-					);
-					DuckApplication.getInstance().setLevel(level);
-					Intent i1 = new Intent(LevelChooser.this, DuckGame.class);
-					i1.setAction(DuckGame.NEW_MATCH);
-					startActivity(i1);
-				} else {
-					int points = mAdapter.mLevels.get(pos-1).mPointsToComplete;
-					String hint;
-					if (points == 0) {
-						hint = getString(R.string.finish_prev_indef);
-					} else {
-						hint = String.format(getString(R.string.finish_prev), points);
-					}
-					Toast t = Toast.makeText(LevelChooser.this, hint, Toast.LENGTH_SHORT);
-					TextView tw = (TextView) getLayoutInflater().inflate(R.layout.level_toast, null);
-					tw.setText(hint);
-					DuckApplication.getInstance();
-					tw.setTypeface(DuckApplication.getCommonTypeface());
-					t.setView(tw);
-					t.show();
-				}
+				handleSelection(pos);
 			}
 		});
+	
+		mLvlManager = LevelManager.getInstance();
+	}
+	
+	private void handleSelection(int pos) {
+		final Level level = mAdapter.mLevels.get(pos);
 		
+		if (! mLvlManager.isUnlocked(level.mLevelId)) {
+			if (! mLvlManager.isAvailable(level.mLevelId)) {
+				showSorry();
+			} else {  //locked but available
+				showPointsToast(pos);
+			}
+		} else {
+			startGame(level);
+		}
+	}
+	
+	private void showPointsToast(int pos) {
+		int points = mAdapter.mLevels.get(pos-1).mPointsToComplete;
+		String hint;
+		if (points == 0) {
+			hint = getString(R.string.finish_prev_indef);
+		} else {
+			hint = String.format(getString(R.string.finish_prev), points);
+		}
+		Toast t = Toast.makeText(LevelChooser.this, hint, Toast.LENGTH_SHORT);
+		TextView tw = (TextView) getLayoutInflater().inflate(R.layout.level_toast, null);
+		tw.setText(hint);
+		DuckApplication.getInstance();
+		tw.setTypeface(DuckApplication.getCommonTypeface());
+		t.setView(tw);
+		t.show();
+	}
+	
+	private void showSorry() {
+		//nothing
+	}
+	
+	private void startGame(final Level level) {
+		FlurryAgent.onEvent("onLevelLoaded", 
+				new HashMap<String, String>() {{ put("id", level.mLevelId+""); }}
+		);
+		DuckApplication.getInstance().setLevel(level);
+		Intent i1 = new Intent(LevelChooser.this, DuckGame.class);
+		i1.setAction(DuckGame.NEW_MATCH);
+		startActivity(i1);
 	}
 	
 	@Override
@@ -113,16 +135,22 @@ public class LevelChooser extends ListActivity {
 			
 			Level lvl = (Level) getItem(pos);
 			
-			((ImageView) elem.findViewById(R.id.lvl_thumb)).setImageResource(lvl.mThumb);
-			((ImageView) elem.findViewById(R.id.lvl_thumb)).setBackgroundColor(lvl.mDominatingColor);
+			ImageView icon = (ImageView) elem.findViewById(R.id.lvl_thumb);
+			icon.setImageResource(lvl.mThumb);
+			icon.setBackgroundColor(lvl.mDominatingColor);
 			
 			TextView lvl_name = (TextView) elem.findViewById(R.id.lvl_name);
 			lvl_name.setText(lvl.mName);
 			lvl_name.setTypeface(DuckApplication.getCommonTypeface());
 			lvl_name.setTextColor(Color.parseColor(lvl.mLevelId == 0 ? "#ffaf3c" : "#88bae4"));
 			
+			if (! mLvlManager.isUnlocked(lvl.mLevelId) && mLvlManager.isAvailable(lvl.mLevelId)) {
+				icon.setImageResource(R.drawable.level_thumb0);
+				lvl_name.setText("<Locked>");
+			}
+			
 			return elem;
-		}
+		} 
 		
 	}
 	
