@@ -103,7 +103,7 @@ public class Level {
 	
 	@Override
 	public String toString() {
-		return mLevelId == 0 ? "<Locked>" : ("Level "+mLevelId+": "+mName);
+		return mLevelId == 0 ? "<N/A>" : ("Level "+mLevelId+": "+mName);
 	}
 	
 	public Bitmap[] getObstacleBitmaps() {

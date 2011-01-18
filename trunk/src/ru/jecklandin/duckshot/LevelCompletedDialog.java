@@ -42,10 +42,14 @@ public class LevelCompletedDialog extends Dialog {
 	
 	private boolean go_next_lvl = false;
 	
+	private LevelManager mLvlManager;
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
 		mMatch = DuckGame.getCurrentMatch();
+		
+		mLvlManager = LevelManager.getInstance();
 		
 		TextView timeV = (TextView) findViewById(R.id.lvltime);
 		timeV.setText(+mMatch.mInitialTime/60+":"+mMatch.mInitialTime%60);
@@ -62,6 +66,11 @@ public class LevelCompletedDialog extends Dialog {
 		} else {
 			levelCompl.setText("Level completed");
 			levelCompl.setTextColor(Color.parseColor("#f8e000"));
+			
+			if (! mLvlManager.isNextLevelUnlocked()) {
+				mLvlManager.unlockNextLevel();
+			}
+			LevelManager.getInstance().unlockNextLevel();
 		}
 		
 		mAwardsView.mAwards = mMatch.getAwards();

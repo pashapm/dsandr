@@ -62,9 +62,9 @@ public class HiScores extends Activity {
         
         mSpinner = (Spinner) findViewById(R.id.lvl_spinner);
         final LevelSpinnerAdapter spinnerAdapter = new LevelSpinnerAdapter(this, R.layout.select_lvl_elem, R.id.lvl_name, 
-        		LevelManager.getInstance().getLevels().toArray(new Level[0]));
+        		LevelManager.getInstance().getAvailableLevels().toArray(new Level[0]));
         mSpinner.setAdapter(spinnerAdapter);
-        mSpinner.setSelection(0, false);
+        mSpinner.setSelection(0, false); 
         mSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
