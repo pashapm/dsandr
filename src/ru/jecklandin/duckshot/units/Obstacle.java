@@ -72,6 +72,7 @@ public class Obstacle extends GameObject {
 	public Obstacle(GroundObject hostingGround, int x, int width) {
 		this.mHostingGround = hostingGround;
 		this.x = x;
+		this.y = hostingGround.y;
 		this.mWidth = width;
 		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
 	}

@@ -113,7 +113,7 @@ public class DuckShotModel {
 		}
 		Stone stone = new Stone(x, mGrounds.get(wave_number).y);
 		mStones.add(stone);
-		notifyDucks(stone, wave_number);
+		notifyCreatures(stone, wave_number);
 		notifyObstacles(stone, wave_number);
 	}
 	
@@ -125,7 +125,7 @@ public class DuckShotModel {
 		return mYes.get(mYes.size()-1) + GROUNDS_GAP;
 	}
 	
-	private void notifyDucks(Stone stone, int ny) {
+	private void notifyCreatures(Stone stone, int ny) {
 		for (CreatureObject creat : mGrounds.get(ny).mCreatures) {  
 			creat.notifyStoneWasThrown(stone); 
 		} 

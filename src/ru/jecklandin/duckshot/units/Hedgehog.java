@@ -59,8 +59,9 @@ public class Hedgehog extends CreatureObject {
 		overallTicks++;
 		if (Desk.getInstance().getSightVisibility() 
 				&& overallTicks % (DuckApplication.FPS) == 0) {
-			if (isDanger()) {  //the sight is nearby!
+			if (isDanger()) {  //the sight is nearby!  
 				rotate();
+				speed = 4;
 			}
 		}
 		
