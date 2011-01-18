@@ -274,6 +274,9 @@ public class Duck extends CreatureObject {
 	
 	public void setOwnedWave(GroundObject ground, int xa) {
 		mScoreValue = 50 + 10*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
+		if (isArmored()) {
+			mScoreValue *= 2.5;
+		}
 		isHidden = true;
 		appear();
 		super.setOwnedWave(ground, xa);
