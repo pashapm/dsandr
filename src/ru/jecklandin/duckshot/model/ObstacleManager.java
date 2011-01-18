@@ -38,4 +38,12 @@ public class ObstacleManager {
 			break;
 		}
 	}
+	
+	public void addStubObstacle(int wave, int x, int width) {
+		if (wave < 0) {
+			return;
+		}
+		Obstacle o = new Obstacle( mModel.mGrounds.get(wave), x, width);
+		mModel.mGrounds.get(wave-1).mObstacles.add(o);
+	}
 }
