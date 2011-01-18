@@ -28,20 +28,26 @@ public class FarwaterLevel extends WaterLevel {
 		mLevelImgMap.put("obstacle1", bm);
 		bm = loadBitmap(R.drawable.duck_armored);
 		mLevelImgMap.put("duck_armored", bm);
+		bm = loadBitmap(R.drawable.barrel);
+		mLevelImgMap.put("barrel", bm);
+		bm = loadBitmap(R.drawable.barrel2);
+		mLevelImgMap.put("barrel2", bm);
+//		bm = loadBitmap(R.drawable.rainbow);
+//		mLevelImgMap.put("rainbow", bm);
 	}
 	
 	@Override
 	public Bitmap[] getObstacleBitmaps() {
 		return new Bitmap[] {
 				ImgManager.getBitmap("obstacle1"),
-				ImgManager.getBitmap("obstacle1"),
-				ImgManager.getBitmap("obstacle1")
+				ImgManager.getBitmap("barrel"),
+				ImgManager.getBitmap("barrel2")
 		};
 	}
 	
 	public CreatureObject createCreatureObject(int x) {
 		Duck duck = (Duck) super.createCreatureObject(x);
-		if (Math.random() > .5d) {
+		if (Math.random() > .8d) {
 			duck.setArmored(true);
 		}
 		return duck;
@@ -53,6 +59,17 @@ public class FarwaterLevel extends WaterLevel {
 			go.mObstacles.clear();
 		}
 		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(20), 4);
-	}
+		ObstacleManager.getInstance().addStubObstacle(3, ScrProps.scale(20+70), ScrProps.scale(46));
+		
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(240), 6);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(160), 3);
+	}    
 	
+//	class FarvaterEnvironment extends WaterEnvironment {
+//
+//		FarvaterEnvironment(int bgColor) {
+//			super(bgColor);
+//		}
+//	}
+	 
 }

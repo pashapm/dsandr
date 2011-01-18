@@ -18,7 +18,7 @@ public class Obstacle extends GameObject {
 	protected int mWidth;
 	protected Stone mStone; 
 	
-	public enum Type {TYPE1, TYPE2, TYPE3, STUB};
+	public enum Type {TYPE1, TYPE2, TYPE3, STUB, TYPE4};
 	
 	protected static Bitmap mPic1;
 	protected static Bitmap mPic2;
@@ -60,6 +60,19 @@ public class Obstacle extends GameObject {
 		this.mHostingGround = hostingGround;
 		this.y = hostingGround.y;
 		this.mWidth = mainObs.mWidth;
+		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
+	}
+	
+	/**
+	 * Stub obstacle
+	 * @param hostingGround
+	 * @param obstacleOffset
+	 * @param width
+	 */
+	public Obstacle(GroundObject hostingGround, int x, int width) {
+		this.mHostingGround = hostingGround;
+		this.x = x;
+		this.mWidth = width;
 		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
 	}
 	

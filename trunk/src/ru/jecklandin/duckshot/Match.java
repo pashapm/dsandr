@@ -10,7 +10,7 @@ import android.os.Message;
 
 public class Match extends Thread {
 
-	public static int DEFAULT_TIME = 20;
+	public static int DEFAULT_TIME = 60;
 	
 	public enum Bonus {
 		NO, DOUBLE {
@@ -60,7 +60,7 @@ public class Match extends Thread {
 			public float getMultiplier() {
 				return 2.8f;
 			}
-		},
+		},  
 		MAXIKILL {
 			@Override
 			public String toString() {
