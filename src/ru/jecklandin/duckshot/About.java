@@ -1,22 +1,36 @@
 package ru.jecklandin.duckshot;
 
+import java.util.jar.Attributes.Name;
+
+import ru.jecklandin.duckshot.levels.Level;
+
 import com.flurry.android.FlurryAgent;
 
 import android.app.Activity;
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;  
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class About extends Activity {
+public class About extends ListActivity {
 	
 	private final String CREDITS_TEXT = "Evgeny Balandin, 2010";
 	private final String CREDITS_TEXT2 = "Music: Shake That Little Foot - West Fork Gals";
-	private final String LINKS_TEXT = "Send me a <a href=\"mailto:balandin.evgeny@gmail.com\">letter</a>"
-		+ " or see my other <a href=\'market://search?q=pub:\"Jeck Landin\"\'>apps</a>.";
+	private final String LINKS_TEXT = "Send me a <a href=\"mailto:balandin.evgeny@gmail.com\">letter</a>.";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +50,38 @@ public class About extends Activity {
 		
 		TextView creds = (TextView) findViewById(R.id.creds);
 		creds.setText(CREDITS_TEXT2);
+		
+		MyApp asciicamera = new MyApp();
+		asciicamera.icon = R.drawable.asciicamera;
+		asciicamera.descr = "Translates your images into ASCII-art";
+		asciicamera.name = "AsciiCamera";
+		asciicamera.pack = "ru.jecklandin.asciicam";
+		
+		MyApp smsilence = new MyApp();
+		smsilence.icon = R.drawable.smsilence;
+		smsilence.descr = "Allows your phone choose the ring mode depending on the incoming SMS";
+		smsilence.name = "SMSilence";
+		smsilence.pack = "ru.jecklandin.silencesign";
+		
+		MyApp[] apps = new MyApp[] { asciicamera, smsilence	};
+		final MyAppsAdapter adapter = new MyAppsAdapter(this, R.layout.my_apps_elem, R.id.app_name, apps);
+		getListView().setAdapter(adapter);
+		getListView().setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				MyApp app = adapter.getItem(arg2);
+				Intent i = new Intent();
+				i.setData(Uri.parse("market://details?id="+app.pack)); 
+				startActivity(i);
+			}
+		});
 	}
-	
+	 
 	@Override
 	protected void onStop() {
-		super.onStop();
+		super.onStop(); 
 		FlurryAgent.onEndSession(this);
 	}
 	
@@ -48,5 +89,40 @@ public class About extends Activity {
 	protected void onStart() {
 		FlurryAgent.onStartSession(this, DuckApplication.FLURRY_KEY);
 		super.onStart();
+	}
+	
+	private class MyApp {
+		public int icon;
+		public String name;
+		public String descr;
+		public String pack;
+	}
+
+	private class MyAppsAdapter extends ArrayAdapter<MyApp> {
+		
+		public MyAppsAdapter(Context context, int res, int textViewResourceId,
+				MyApp[] objects) {
+			super(context, res, textViewResourceId, objects);
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if (convertView == null) {
+				LayoutInflater inf = LayoutInflater.from(getContext());
+				convertView = inf.inflate(R.layout.my_apps_elem, null);
+			}
+			
+			ImageView icon = (ImageView) convertView.findViewById(R.id.app_icon);
+			TextView name = (TextView) convertView.findViewById(R.id.app_name);
+			TextView descr = (TextView) convertView.findViewById(R.id.app_descr);
+			
+			MyApp app = getItem(position);
+			
+			icon.setImageResource(app.icon);
+			name.setText(app.name);
+			descr.setText(app.descr);
+			
+			return convertView;
+		}
 	}
 }
