@@ -96,8 +96,11 @@ public class MainMenu extends Activity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == Activity.RESULT_CANCELED) { // BACK was pressed in game
+		if (resultCode == Activity.RESULT_CANCELED 
+				&& DuckApplication.getInstance().getCurrentMatch() != null) { // BACK was pressed in game
 			setResumeMode();
+		} else {
+			setStartMode();
 		}
 	}
 	
