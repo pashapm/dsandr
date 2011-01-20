@@ -135,7 +135,7 @@ public class DuckGame extends Activity {
 //		mFpsPr.setRunning(false);
 		super.onStop();
 	} 
-  
+   
 	@Override
 	protected void onResume() {
 		mMatch.resumeMatch();

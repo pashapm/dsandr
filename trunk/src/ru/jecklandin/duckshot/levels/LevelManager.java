@@ -28,7 +28,7 @@ public class LevelManager {
 		FarwaterLevel lev2 = new FarwaterLevel(2, R.drawable.level_thumb3, "Fairway");
 		mLevels.add(lev2);
 		
-		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Homish Forest");
+		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Apple Madness");
 		mLevels.add(lev3);
 		
 		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
