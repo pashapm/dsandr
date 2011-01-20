@@ -57,15 +57,15 @@ public class WaterLevel extends Level {
 		mLevelImgMap.put("obstacle2", bm);
 		bm = loadBitmap(R.drawable.rock_3);
 		mLevelImgMap.put("obstacle3", bm);
-		bm = loadBitmap(R.drawable.sling_socket);
+		bm = loadBitmap(R.drawable.sling_socket); 
 		mLevelImgMap.put("socket", bm);
 		bm = loadBitmap(R.drawable.stonea);
 		mLevelImgMap.put("missile", bm);
 		
-		makeAnimation(R.drawable.anifountain, 8, 84, 84, "fountain");
-		makeAnimation(R.drawable.duckdive, 16, 84, 84, "duckdive");
-		makeAnimation(R.drawable.shrapnel, 6, 100, 100, "shrapnel");
-		makeAnimation(R.drawable.duckemerge, 8, 84, 84, "duckemerge");
+		makeAnimation(R.drawable.anifountain, 8, ScrProps.scale(84), ScrProps.scale(84), "fountain");
+		makeAnimation(R.drawable.duckdive, 16, ScrProps.scale(84), ScrProps.scale(84), "duckdive");
+		makeAnimation(R.drawable.shrapnel, 6, ScrProps.scale(100), ScrProps.scale(100), "shrapnel");
+		makeAnimation(R.drawable.duckemerge, 8, ScrProps.scale(84), ScrProps.scale(84), "duckemerge");
 		
 		super.loadResources();
 	}

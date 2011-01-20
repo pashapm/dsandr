@@ -36,7 +36,7 @@ public class ForestLevel extends Level {
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
 		mEnvironment = new ForestEnvironment(mBgColor);
-		
+		 
 		mLevelSettings.putBoolean("fountain", true);
 	}
  
@@ -62,10 +62,10 @@ public class ForestLevel extends Level {
 		bm = loadBitmap(R.drawable.hh_spirit);
 		mLevelImgMap.put("spirit", bm);
 		
-		makeAnimation(R.drawable.apple_shrapnel, 5, 100, 100, "shrapnel");
-		makeAnimation(R.drawable.apple_fountain, 5, 100, 50, "fountain");
-		makeAnimation(R.drawable.hh_hide, 8, 75, 75, "hide");
-		makeAnimation(R.drawable.hh_appear, 8, 75, 75, "appear");
+		makeAnimation(R.drawable.apple_shrapnel, 5, ScrProps.scale(100), ScrProps.scale(100), "shrapnel");
+		makeAnimation(R.drawable.apple_fountain, 5, ScrProps.scale(100), ScrProps.scale(50), "fountain");
+		makeAnimation(R.drawable.hh_hide, 8, ScrProps.scale(75), ScrProps.scale(75), "hide");
+		makeAnimation(R.drawable.hh_appear, 8, ScrProps.scale(75), ScrProps.scale(75), "appear");
 		
 		super.loadResources();
 	}
