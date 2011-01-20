@@ -155,6 +155,12 @@ public class LevelChooser extends ListActivity {
 	}
 	
 	@Override
+	protected void onPause() {
+		setResult(Activity.RESULT_OK);
+		super.onPause();
+	}
+	
+	@Override
 	protected void onStop() {
 		super.onStop();
 		FlurryAgent.onEndSession(this);
