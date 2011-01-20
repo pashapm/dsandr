@@ -5,4 +5,6 @@
 	<string name="error_report">The game crashed last time. Would you mind sending a report?</string>
 	<string name="finish_prev">You need %1$d points\non the previous level\nto open this one.</string>
 	<string name="finish_prev_indef">You need to finish\nthe previous levels first.</string>
+	
+	<string name="see_other">Other apps</string>
 </resources>
