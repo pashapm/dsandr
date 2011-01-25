@@ -63,6 +63,7 @@ public class LevelCompletedDialog extends Dialog {
 			levelCompl.setText("Level failed");
 			levelCompl.setTextColor(Color.parseColor("#ff5660"));
 			findViewById(R.id.nextlev).setVisibility(View.INVISIBLE);
+			findViewById(R.id.or_btn).setVisibility(View.INVISIBLE);
 		} else {
 			levelCompl.setText("Level completed");
 			levelCompl.setTextColor(Color.parseColor("#f8e000"));
@@ -72,6 +73,7 @@ public class LevelCompletedDialog extends Dialog {
 			}
 			mLvlManager.unlockNextLevel();
 			findViewById(R.id.nextlev).setVisibility(View.VISIBLE);
+			findViewById(R.id.or_btn).setVisibility(View.VISIBLE);
 		}
 		
 		mAwardsView.mAwards = mMatch.getAwards();
@@ -148,6 +150,9 @@ public class LevelCompletedDialog extends Dialog {
 		Button bnext = (Button) findViewById(R.id.nextlev);
 		bnext.setTypeface(DuckApplication.getCommonTypeface());
 		 
+		Button bor = (Button) findViewById(R.id.or_btn);
+		bor.setTypeface(DuckApplication.getCommonTypeface());
+		
 		setOnCancelListener(new OnCancelListener() {
 			
 			@Override
@@ -165,16 +170,6 @@ public class LevelCompletedDialog extends Dialog {
 				}
 			}
 		});
-		
-//		setOnDismissListener(new OnDismissListener() {
-//			
-//			@Override
-//			public void onDismiss(DialogInterface dialog) {
-//				if (!mSubmitted && mMatch.getScore() != 0) {
-//					submitScore();
-//				}
-//			}
-//		});
 		
 		bretry.setOnClickListener(new View.OnClickListener() {
 			
@@ -198,9 +193,20 @@ public class LevelCompletedDialog extends Dialog {
 					cancel();
 				} else {
 					Intent i = new Intent(getContext(), Sorry.class);
+					i.putExtra("last", true);
 					getOwnerActivity().startActivity(i);
 				}
 			}
+		});
+		
+		bor.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getContext(), Sorry.class);
+				getOwnerActivity().startActivity(i);
+			}
+
 		});
 		
 		SharedPreferences prefs = getContext().getSharedPreferences("duckshot", Context.MODE_PRIVATE);
