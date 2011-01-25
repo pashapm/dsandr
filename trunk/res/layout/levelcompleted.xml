@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:orientation="vertical" android:layout_marginLeft="10dip"
-	android:layout_marginRight="10dip" android:minWidth="250dip">
+	android:layout_marginRight="10dip" android:minWidth="270dip">
 	<TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:textStyle="bold"
 		android:textColor="#f8e000" android:layout_gravity="center"
@@ -54,18 +54,14 @@
 		android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
 		android:layout_width="fill_parent" android:layout_marginTop="30dip">
 		<Button android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_margin="10dip"
-			android:text="Retry" android:padding="10dip" android:textColor="#5e2402"
+			android:layout_height="wrap_content" android:text="Retry" android:padding="10dip" android:textColor="#5e2402"
 			android:id="@+id/retry" android:textSize="15sp"
-			android:background="@drawable/woodenbutton_states"></Button>
-		<LinearLayout android:id="@+id/LinearLayout05"
-			android:layout_height="wrap_content" android:layout_width="fill_parent"
-			android:layout_weight="1"></LinearLayout>
+			android:background="@drawable/woodenbutton_states" android:layout_marginRight="5dip" android:layout_marginTop="5dip"></Button>
+		<Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="OR" android:background="@drawable/woodenbutton_states" android:id="@+id/or_btn" android:textColor="#5e2402" android:textSize="15sp" android:layout_margin="5dip"></Button>
 		<Button android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:layout_margin="10dip"
-			android:text="Next level" android:padding="10dip" android:textColor="#5e2402"
+			android:layout_height="wrap_content" android:textColor="#5e2402"
 			android:id="@+id/nextlev" android:textSize="15sp"
-			android:background="@drawable/woodenbutton_states"></Button>
+			android:background="@drawable/woodenbutton_states" android:text="Next " android:layout_marginLeft="5dip" android:layout_marginTop="5dip"></Button>
 
 	</LinearLayout>
 
