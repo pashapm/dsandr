@@ -51,8 +51,16 @@ public class DuckGame extends Activity {
         super.onCreate(savedInstanceState);
         
         DuckGame.s_instance = this;
-        
+         
         mApplication = (DuckApplication)getApplication();
+        
+        //kludge ): 
+        //check if the bitmaps were not loaded
+        if (ImgManager.mCommonImgMap == null) {
+        	finish();
+        	return;
+        }
+        
         mGf = new GameField(this);
         mTimer = new DuckTimer(mGf);
         mFpsPr = new FPSPrinter();
