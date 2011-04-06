@@ -65,6 +65,8 @@ public class DuckApplication extends Application {
 		
 		DuckShotModel.getInstance().reinitialize(level);
 		level.initItemsBitmaps();
+		ObjectDrawer.getInstance(this).mCreaturesOnTop 
+			= DuckApplication.getInstance().getCurrentLevel().getSettings().getBoolean("creaturesOnTop");
 	}
 	
 	public Level getCurrentLevel() {

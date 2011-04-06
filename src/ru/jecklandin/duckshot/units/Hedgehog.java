@@ -17,8 +17,6 @@ public class Hedgehog extends CreatureObject {
 
 	private int dead_stage;
 	
-	private static Bitmap[] mCupcake;
-	
 	private static Bitmap mAngel;
 	private static Bitmap[] mHidingAnim;
 	private static Bitmap[] mAppearingAnim;
@@ -34,7 +32,6 @@ public class Hedgehog extends CreatureObject {
 
 	@Override
 	protected void drawNormal(Canvas c, Paint p) {
-//		c.drawBitmap(mCupcake[(overallTicks/2)%8], matrix, p);
 		c.drawBitmap(CreatureObject.commonBm, matrix, p);
 		float[] point = new float[] {0, 0};   
 		matrix.mapPoints(point);
@@ -46,7 +43,6 @@ public class Hedgehog extends CreatureObject {
 		Hedgehog.mAngel = ImgManager.getBitmap("spirit" );
 		Hedgehog.mHidingAnim = ImgManager.getAnimation("hide");
 		Hedgehog.mAppearingAnim = ImgManager.getAnimation("appear");
-//		Hedgehog.mCupcake = ImgManager.getAnimation("cupcake");
 	}
 	
 	@Override

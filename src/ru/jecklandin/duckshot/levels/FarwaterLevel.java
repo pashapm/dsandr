@@ -33,8 +33,6 @@ public class FarwaterLevel extends WaterLevel {
 		mLevelImgMap.put("barrel", bm);
 		bm = loadBitmap(R.drawable.barrel2);
 		mLevelImgMap.put("barrel2", bm);
-//		bm = loadBitmap(R.drawable.rainbow);
-//		mLevelImgMap.put("rainbow", bm);
 	}
 	
 	@Override
