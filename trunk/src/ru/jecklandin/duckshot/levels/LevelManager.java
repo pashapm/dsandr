@@ -31,6 +31,9 @@ public class LevelManager {
 		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Apple Madness");
 		mLevels.add(lev3);
 		
+//		FriedLevel lev5 = new FriedLevel(5, R.drawable.level_thumb2, "Overdone Cupcakes");
+//		mLevels.add(lev5);
+		
 		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
 		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
 		

@@ -16,7 +16,7 @@ public class ImgManager {
 
 	private static Context mCtx;
 	
-	private static Map<String, Bitmap> mCommonImgMap = new HashMap<String, Bitmap>();
+	public static Map<String, Bitmap> mCommonImgMap = new HashMap<String, Bitmap>();
 	private static Map<String, Bitmap[]> mCommonAniMap = new HashMap<String, Bitmap[]>();
 	  
 	private static boolean mCommonBitmapsLoaded = false;
@@ -73,10 +73,6 @@ public class ImgManager {
 	}
 	
 	public static Bitmap[] getAnimation(String name) {
-//		return mCommonAniMap.containsKey(name) 
-//			? mCommonAniMap.get(name) : 
-//			  DuckApplication.getInstance().getCurrentLevel().getAnimation(name);
-			
 			if (mCommonAniMap.containsKey(name)) {
 				return mCommonAniMap.get(name);
 			} else {

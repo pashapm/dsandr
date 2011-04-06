@@ -131,8 +131,6 @@ public class ForestLevel extends Level {
 
 		@Override
 		public void init() {
-//			mCloud1 = ImgManager.getBitmap("cloud1");
-//			mCloud2 = ImgManager.getBitmap("cloud2");
 		}
 	}
 
