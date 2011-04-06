@@ -23,6 +23,8 @@ public class ObjectDrawer {
 	private DuckShotModel model = DuckShotModel.getInstance();
 	private ArrayList<CreatureObject> mMovingCreatures  = new ArrayList<CreatureObject>();
 
+	public boolean mCreaturesOnTop = false;
+	
 	private ObjectDrawer(Context ctx) {
 		mPaint = new Paint();
 		mPaint.setTypeface(DuckApplication.getCommonTypeface());
@@ -44,18 +46,30 @@ public class ObjectDrawer {
 
 	public void drawGroundObject(Canvas c, GroundObject w) {
 
-		for (CreatureObject d : w.mCreatures) {
-			d.draw(c, mPaint);
-			if (d.mMoveFlag) {
-				mMovingCreatures.add(d);
+		if (mCreaturesOnTop) {
+			w.draw(c, mPaint);
+			for (CreatureObject d : w.mCreatures) {
+				d.draw(c, mPaint);
+				if (d.mMoveFlag) {
+					mMovingCreatures.add(d);
+				}
 			}
+			for (Obstacle obs : w.mObstacles) {
+				obs.draw(c, mPaint);
+			}
+			
+		} else {
+			for (CreatureObject d : w.mCreatures) {
+				d.draw(c, mPaint);
+				if (d.mMoveFlag) {
+					mMovingCreatures.add(d);
+				}
+			}
+			for (Obstacle obs : w.mObstacles) {
+				obs.draw(c, mPaint);
+			}
+			w.draw(c, mPaint);
 		}
-		
-		for (Obstacle obs : w.mObstacles) {
-			obs.draw(c, mPaint);
-		}
-
-		w.draw(c, mPaint);
 	}
 
 	public boolean drawObjects(Canvas c) {
