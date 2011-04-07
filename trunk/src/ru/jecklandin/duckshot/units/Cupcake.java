@@ -7,6 +7,7 @@ import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.Match.Bonus;
+import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -30,7 +31,7 @@ public class Cupcake extends CreatureObject {
 
 	@Override
 	protected void drawNormal(Canvas c, Paint p) {
-		matrix.postTranslate(0, -commonBm.getHeight()/5);
+		matrix.postTranslate(0, -commonBm.getHeight()/5 + DuckShotModel.GROUNDS_GAP/2);
 		c.drawBitmap(mCupcake[(overallTicks/2)%8], matrix, p);
 	}
 

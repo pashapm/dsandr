@@ -36,22 +36,14 @@ public class DuckShotModel {
 		return s_instance;
 	}
 
-	public static final int GROUNDS_NUM = 10;
+	public static int GROUNDS_NUM = 10;
 	public static int GROUND_HEIGHT = 0;
 	public static int GROUND_OFFSET;
-	public static final int GROUNDS_GAP = ScrProps.scale(28);
+	public static int GROUNDS_GAP = ScrProps.scale(28);
 	
 	private ManipulatingThread mWorkingThread;
 	
 	public DuckShotModel() {
-		GROUND_OFFSET = ScrProps.screenHeight - GROUNDS_NUM * GROUNDS_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
-		GROUND_HEIGHT = GROUNDS_NUM * GROUNDS_GAP;
-		
-		// loading Y-coord
-		for (int i=0; i<GROUNDS_NUM; ++i) {
-			mYes.add(GROUND_OFFSET + i * GROUNDS_GAP);
-		} 
-		
 		mWorkingThread = new ManipulatingThread();
 		mWorkingThread.start();
 	}
@@ -65,9 +57,25 @@ public class DuckShotModel {
 	} 
 	
 	public void reinitialize(Level level) {
-		
 		mStones.clear();
 		mGrounds.clear();
+		
+		GROUNDS_NUM = DuckApplication.getInstance().getCurrentLevel().getSettings().getInt("groundsNumber", 10);
+		GROUNDS_GAP = ScrProps.scale( GROUNDS_NUM == 10 ? 28 : 40); //TODO rem hardcode
+		
+		GROUND_OFFSET = ScrProps.screenHeight - GROUNDS_NUM * GROUNDS_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
+//		if (GROUNDS_NUM == 6) {
+//			GROUND_OFFSET -= ScrProps.scale(50);
+//		}
+		GROUND_HEIGHT = GROUNDS_NUM * GROUNDS_GAP;
+		
+		
+		
+		// loading Y-coord
+		mYes.clear();
+		for (int i=0; i<GROUNDS_NUM; ++i) {
+			mYes.add(GROUND_OFFSET + i * GROUNDS_GAP);
+		} 
 		
 		for (int i=0; i<mYes.size(); ++i) {
 			// -50 .. +50
@@ -76,8 +84,6 @@ public class DuckShotModel {
 			int ms = i / 2;
 			mGrounds.add(level.createGroundObject(mx, mYes.get(i), ms, i));
 		}
-		
-		
 		
 		populate(0);
 		mWorkingThread.mQueue.clear();
