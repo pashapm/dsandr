@@ -24,7 +24,7 @@ public class SoundManager {
 	private Vibrator mVibrator;
 	private SoundPool mPool;
 	private Context mCtx;
-	private int[] mSounds = new int[7];
+	private int[] mSounds = new int[8];
 	
 	private int mSound = 4;
 	private int mEffects = 4;
@@ -82,6 +82,10 @@ public class SoundManager {
 		play(mSounds[5]);
 	}
 	
+	public void playWet() {
+		play(mSounds[7]);
+	}
+	
 	private void play(int id) {
 		mPool.play(id, mEffects/8f, mEffects/8f, 1, 0, 1);
 	} 
@@ -116,6 +120,7 @@ public class SoundManager {
 		mSounds[4] = mPool.load(mCtx, mLevel.mStoneHit, 1);
 		mSounds[5] = mPool.load(mCtx, R.raw.bulk, 1);
 		mSounds[6] = mPool.load(mCtx, R.raw.helmet, 1);
+		mSounds[7] = mPool.load(mCtx, R.raw.punch, 1);
 	}
 	
 	public void vibrate(int i) {
