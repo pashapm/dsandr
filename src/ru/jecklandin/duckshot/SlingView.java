@@ -8,20 +8,32 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.Log;
 import android.view.View;
 
 public class SlingView extends View {
 
+	/**
+	 * Location of the socket
+	 */
    public int slx;
    public int sly;
-	
-  
-   
+
+   /**
+    * Determines the location of the entire sling
+    */
    private static int SLING_X;
    private static int SLING_Y;
    
    static int SOCKET_DEFAULT_X;
    static int SOCKET_DEFAULT_Y;
+   
+   private int mLowestGround;
+   
+   /**
+    * The distance between the socket and the lowest ground
+    */
+   static int SOCKET_OFFSET;
    
    private static int SLING_AREA_HEIGHT;
    
@@ -42,10 +54,12 @@ public class SlingView extends View {
 		SLING_X = ScrProps.scale(80);
 		SLING_Y = ScrProps.screenHeight - mSlingBm.getHeight() + ScrProps.scale(20);
 		 
+//		SLING_AREA_HEIGHT = ScrProps.screenHeight - SOCKET_DEFAULT_Y;
+		mLowestGround = DuckShotModel.GROUND_OFFSET+DuckShotModel.GROUNDS_GAP*DuckShotModel.GROUNDS_NUM;
+		SLING_AREA_HEIGHT = ScrProps.screenHeight - mLowestGround;
+		
 		SOCKET_DEFAULT_X = SLING_X + ScrProps.scale(84);
 		SOCKET_DEFAULT_Y = SLING_Y + ScrProps.scale(40);
-		
-		SLING_AREA_HEIGHT = ScrProps.screenHeight - SOCKET_DEFAULT_Y;
 		
 		slx = SOCKET_DEFAULT_X;
 		sly = SOCKET_DEFAULT_Y;
@@ -71,6 +85,9 @@ public class SlingView extends View {
 		canvas.drawPath(p3, mPaint);
 		canvas.drawBitmap(mSocketBm, slx - mSocketBm.getWidth() / 2, sly
 				- mSocketBm.getHeight() / 2, mPaint);
+		
+		//
+		canvas.drawCircle(5, mLowestGround, 3, mPaint);
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
@@ -128,11 +145,12 @@ public class SlingView extends View {
 			int a1 = (int) Math.abs(SOCKET_DEFAULT_X - x);
 			int sightx = x>center ? center-a1 : center+a1;
 			int b1 = (int) (y<SOCKET_DEFAULT_Y ? 0 : y - SOCKET_DEFAULT_Y);
- 
-			int sighty = SOCKET_DEFAULT_Y - b1 * DuckShotModel.GROUND_HEIGHT / SLING_AREA_HEIGHT;
+			
+			int sighty = mLowestGround - b1 * DuckShotModel.GROUND_HEIGHT / SLING_AREA_HEIGHT;
 			Desk.getInstance().setSight(sightx, sighty); 
 			
 			int wave_num = DuckShotModel.GROUNDS_NUM - 1 - b1 * DuckShotModel.GROUNDS_NUM / SLING_AREA_HEIGHT;
+			Log.d(">>>", wave_num+"");
 			DuckShotModel.getInstance().setTargetWave(wave_num);
 		} 
 
