@@ -64,9 +64,9 @@ public class DuckShotModel {
 		GROUNDS_GAP = ScrProps.scale( GROUNDS_NUM == 10 ? 28 : 40); //TODO rem hardcode
 		
 		GROUND_OFFSET = ScrProps.screenHeight - GROUNDS_NUM * GROUNDS_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
-//		if (GROUNDS_NUM == 6) {
-//			GROUND_OFFSET -= ScrProps.scale(50);
-//		}
+		if (GROUNDS_NUM == 6) {
+			GROUND_OFFSET -= ScrProps.scale(50);
+		}
 		GROUND_HEIGHT = GROUNDS_NUM * GROUNDS_GAP;
 		
 		
