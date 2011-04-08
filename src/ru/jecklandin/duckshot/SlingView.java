@@ -56,10 +56,11 @@ public class SlingView extends View {
 		 
 //		SLING_AREA_HEIGHT = ScrProps.screenHeight - SOCKET_DEFAULT_Y;
 		mLowestGround = DuckShotModel.GROUND_OFFSET+DuckShotModel.GROUNDS_GAP*DuckShotModel.GROUNDS_NUM;
-		SLING_AREA_HEIGHT = ScrProps.screenHeight - mLowestGround;
 		
 		SOCKET_DEFAULT_X = SLING_X + ScrProps.scale(84);
 		SOCKET_DEFAULT_Y = SLING_Y + ScrProps.scale(40);
+		
+		SLING_AREA_HEIGHT = ScrProps.screenHeight - SOCKET_DEFAULT_Y;
 		
 		slx = SOCKET_DEFAULT_X;
 		sly = SOCKET_DEFAULT_Y;
