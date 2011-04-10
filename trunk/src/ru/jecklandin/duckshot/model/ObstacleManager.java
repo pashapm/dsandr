@@ -32,8 +32,8 @@ public class ObstacleManager {
 		case TYPE2:
 			o = new Obstacle(ground, x, type, h_offset);
 			ground.mObstacles.add(o);
-			GroundObject up_ground = mModel.getGround(wave_num-1);
 			if (wave_num > 0) {
+				GroundObject up_ground = mModel.getGround(wave_num-1);
 				Obstacle o2 = new Obstacle(o, ground);
 				up_ground.addObstacle(o2);
 			}
