@@ -191,4 +191,9 @@ public abstract class CreatureObject extends GameObject {
 	public void setRandomDelay() {
 		delay = (int) (Math.random() * 4 * DuckApplication.FPS);
 	}
+	
+	public boolean isOutOfScreen() {
+		return this.offset < -commonBm.getWidth() || 
+			   this.offset > ScrProps.screenWidth + commonBm.getWidth();
+	}
 }

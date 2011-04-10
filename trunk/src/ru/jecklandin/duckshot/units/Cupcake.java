@@ -22,8 +22,10 @@ public class Cupcake extends CreatureObject {
 	
 	public Cupcake(int x) {
 		super(); 
-		this.offset = x; 
-		speed = 2.5f;
+		this.offset = x < ScrProps.screenWidth/2 ? 
+				-mCupcakeDead.getWidth() : 
+				ScrProps.screenWidth+mCupcakeDead.getWidth(); 
+		speed = 4f;
 		addit_m = new Matrix();
 		
 		mHealth = 1;
@@ -43,10 +45,10 @@ public class Cupcake extends CreatureObject {
 		
 		overallTicks++;
 		if (Desk.getInstance().getSightVisibility() 
-				&& overallTicks % (DuckApplication.FPS) == 0) {
+				&& overallTicks % (DuckApplication.FPS * 2/3) == 0) {
 			if (isDanger()) {  //the sight is nearby!  
 				rotate();
-				speed = 4;
+				speed = 5;
 			}
 		}
 		
@@ -56,7 +58,9 @@ public class Cupcake extends CreatureObject {
 			offset -= speed;
 		}
 		
-		if (--ticksBeforeNextRotate < 0) {
+		if (isOutOfScreen()) {
+			hide();
+		} else if (--ticksBeforeNextRotate < 0) {
 			rotate();
 		}
 		
@@ -68,6 +72,10 @@ public class Cupcake extends CreatureObject {
 		return offset;
 	}
 
+	@Override
+	protected float generateNextSpeed() {
+		return (float) (Math.random()*2.5+2);
+	}
 	
 	@Override
 	public void draw(Canvas c, Paint p) {
@@ -133,6 +141,18 @@ public class Cupcake extends CreatureObject {
 		}
 	}
 	
+	@Override
+	public void hide() {
+		mMoveFlag  = true;
+		super.hide();
+	}
+	
+	@Override
+	public void appear() {
+		super.appear();
+		isHidden = false;
+	}
+	
 	private void drawScore(Canvas c, Paint p) {
 		dead_stage-=ScrProps.scale(4);
 		
@@ -166,6 +186,17 @@ public class Cupcake extends CreatureObject {
 			}
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
 		} 
+	}
+	
+	@Override
+	public void setOwnedWave(GroundObject ground, int xa) {
+		mScoreValue = 90 + 20*(DuckShotModel.getInstance().mGrounds.size() - 1 - ground.wave_num);
+		appear();
+		super.setOwnedWave(ground, xa);
+		this.offset = x < ScrProps.screenWidth/2 ? 
+				-mCupcakeDead.getWidth() : 
+				ScrProps.screenWidth+mCupcakeDead.getWidth(); 
+		setRandomDelay();
 	}
 	
 	@Override

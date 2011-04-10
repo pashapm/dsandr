@@ -54,7 +54,6 @@ public class SlingView extends View {
 		SLING_X = ScrProps.scale(80);
 		SLING_Y = ScrProps.screenHeight - mSlingBm.getHeight() + ScrProps.scale(20);
 		 
-//		SLING_AREA_HEIGHT = ScrProps.screenHeight - SOCKET_DEFAULT_Y;
 		mLowestGround = DuckShotModel.GROUND_OFFSET+DuckShotModel.GROUNDS_GAP*DuckShotModel.GROUNDS_NUM;
 		
 		SOCKET_DEFAULT_X = SLING_X + ScrProps.scale(84);
@@ -86,9 +85,6 @@ public class SlingView extends View {
 		canvas.drawPath(p3, mPaint);
 		canvas.drawBitmap(mSocketBm, slx - mSocketBm.getWidth() / 2, sly
 				- mSocketBm.getHeight() / 2, mPaint);
-		
-		//
-		canvas.drawCircle(5, mLowestGround, 3, mPaint);
 	}
 		
 		private Path getRectangle(int x1, int y1, int x2, int y2, int l) {
