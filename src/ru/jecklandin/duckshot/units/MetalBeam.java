@@ -20,7 +20,7 @@ public class MetalBeam extends GroundObject {
 		matrix.reset();
 		matrix.postTranslate(ScrProps.scale(-3), y + DuckShotModel.GROUNDS_GAP/2);
 		c.drawBitmap(mGroundBitmap, matrix, p); 
-		c.drawLine(0, this.y, 500, this.y, p);
+//		c.drawLine(0, this.y, 500, this.y, p);
 	}
 	
 	@Override

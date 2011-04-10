@@ -115,13 +115,7 @@ public class Cupcake extends CreatureObject {
 		if (isDead) {
 			drawDeadAnimation(c, p);
 		} else {
-			if (isHidden) {
-//				if (isAppearing) {
-//					drawEmerging(c, p);
-//				} else {
-//					drawHiding(c, p); 	
-//				}
-			} else {
+			if (!isHidden) {
 				drawNormal(c, p);
 			}
 		}
