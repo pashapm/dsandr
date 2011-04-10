@@ -29,7 +29,7 @@ public class Obstacle extends GameObject {
 	
 	private int h_offset;
 	
-	public Obstacle(GroundObject hostingGround, int x, Type type) {
+	public Obstacle(GroundObject hostingGround, int x, Type type, int h_offset) {
 		this.x = x;
 		this.y = hostingGround.y;
 		this.mHostingGround = hostingGround;
@@ -49,7 +49,13 @@ public class Obstacle extends GameObject {
 		}
 		
 		this.mWidth = mCurrentBitmap.getWidth();  
-		h_offset = mCurrentBitmap.getHeight() - Wave.mGroundBitmap.getHeight();
+		this.h_offset = h_offset == -1 ? 
+				mCurrentBitmap.getHeight() - Wave.mGroundBitmap.getHeight()
+				: h_offset;
+	}
+	
+	public Obstacle(GroundObject hostingGround, int x, Type type) {
+		this(hostingGround, x, type, -1);
 	}
 	
 	/**
