@@ -53,4 +53,8 @@ public abstract class GroundObject extends GameObject {
 	public CreatureObject getCreature(int loc) {
 		return mCreatures.get(loc); 
 	} 
+	
+	public void addObstacle(Obstacle obs) {
+		mObstacles.add(obs);
+	}
 }

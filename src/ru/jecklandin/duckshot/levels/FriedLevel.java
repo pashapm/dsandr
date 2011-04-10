@@ -79,10 +79,10 @@ public class FriedLevel extends Level {
 		for (GroundObject go : DuckShotModel.getInstance().mGrounds) {
 			go.mObstacles.clear();
 		}
-		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(10), 1);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(100), 2);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(220), 3);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(210), 5);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(10), 1, DuckShotModel.GROUNDS_GAP+ScrProps.scale(5));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(100), 2, DuckShotModel.GROUNDS_GAP+ScrProps.scale(5));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(220), 3, ScrProps.scale(10));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(210), 5, ScrProps.scale(15));
 	}
 	
 	@Override

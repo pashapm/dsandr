@@ -258,6 +258,10 @@ public class DuckShotModel {
 		return mTargetWave;
 	}
 	
+	public GroundObject getGround(int num) {
+		return mGrounds.get(num);
+	}
+	
 	class ManipulatingThread extends Thread {
 		
 		BlockingQueue<Integer> mQueue = new LinkedBlockingQueue<Integer>();
