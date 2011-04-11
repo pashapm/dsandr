@@ -4,6 +4,7 @@ import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
@@ -37,6 +38,12 @@ public class FriedLevel extends Level {
 		mLevelSettings.putBoolean("fountain", false);
 		mLevelSettings.putBoolean("creaturesOnTop", true);
 		mLevelSettings.putInt("groundsNumber", 6);
+	}
+	
+	@Override
+	public void loadSounds() {
+		SoundManager.getInstance().loadObstacleSounds(new int[] 
+		  {R.raw.metal, R.raw.metal, R.raw.apple});
 	}
 	
 	@Override

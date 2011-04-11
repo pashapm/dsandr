@@ -147,7 +147,6 @@ public class SlingView extends View {
 			Desk.getInstance().setSight(sightx, sighty); 
 			
 			int wave_num = DuckShotModel.GROUNDS_NUM - 1 - b1 * DuckShotModel.GROUNDS_NUM / SLING_AREA_HEIGHT;
-			Log.d(">>>", wave_num+"");
 			DuckShotModel.getInstance().setTargetWave(wave_num);
 		} 
 

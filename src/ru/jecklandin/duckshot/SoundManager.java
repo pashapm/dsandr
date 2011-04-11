@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.jecklandin.duckshot.levels.Level;
+import ru.jecklandin.duckshot.units.Obstacle;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
@@ -12,6 +13,7 @@ import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.Log;
 
 public class SoundManager {
 	
@@ -24,7 +26,9 @@ public class SoundManager {
 	private Vibrator mVibrator;
 	private SoundPool mPool;
 	private Context mCtx;
+	
 	private int[] mSounds = new int[8];
+	private int[] mObstacleSounds = new int[3];
 	
 	private int mSound = 4;
 	private int mEffects = 4;
@@ -89,6 +93,18 @@ public class SoundManager {
 	private void play(int id) {
 		mPool.play(id, mEffects/8f, mEffects/8f, 1, 0, 1);
 	} 
+	
+	public void loadObstacleSounds(int[] sounds) {
+		for (int i=0; i<3; i++) {
+			Log.d("!!!!", sounds[i]+" load");
+			mObstacleSounds[i] = mPool.load(mCtx, sounds[i], 1);
+		}
+	}
+	
+	public void playObstacleSound(Obstacle.Type type) {
+		Log.d("!!!!", type.ordinal()+"");
+		mPool.play(mObstacleSounds[type.ordinal()], mEffects/8f, mEffects/8f, 1, 0, 1);
+	}
 	
 	public void readSettings() {
 		SharedPreferences prefs = mCtx.getSharedPreferences("ducks", Context.MODE_PRIVATE);
