@@ -34,7 +34,7 @@ public class LevelManager {
 		FriedLevel lev5 = new FriedLevel(5, R.drawable.level_thumb4, "Overdone Cupcakes");
 		mLevels.add(lev5);
 		
-		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
+//		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
 		
 		SharedPreferences prefs = DuckApplication.getInstance()
 			.getSharedPreferences("duckshot", Activity.MODE_PRIVATE);

@@ -20,6 +20,8 @@ public class Obstacle extends GameObject {
 	
 	public enum Type {TYPE1, TYPE2, TYPE3, STUB, TYPE4};
 	
+	protected Type mType;
+	
 	protected static Bitmap mPic1;
 	protected static Bitmap mPic2;
 	protected static Bitmap mPic3;
@@ -33,8 +35,9 @@ public class Obstacle extends GameObject {
 		this.x = x;
 		this.y = hostingGround.y;
 		this.mHostingGround = hostingGround;
+		this.mType = type;
 		
-		switch (type) {
+		switch (mType) {
 		case TYPE1:
 			mCurrentBitmap = mPic1;
 			break;
@@ -66,6 +69,7 @@ public class Obstacle extends GameObject {
 		this.mHostingGround = hostingGround;
 		this.y = hostingGround.y;
 		this.mWidth = mainObs.mWidth;
+		this.mType = mainObs.mType;
 		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
 	}
 	
@@ -75,11 +79,12 @@ public class Obstacle extends GameObject {
 	 * @param obstacleOffset
 	 * @param width
 	 */
-	public Obstacle(GroundObject hostingGround, int x, int width) {
+	public Obstacle(GroundObject hostingGround, int x, int width, Obstacle.Type parentType) {
 		this.mHostingGround = hostingGround;
 		this.x = x;
 		this.y = hostingGround.y;
 		this.mWidth = width;
+		this.mType = parentType;
 		mCurrentBitmap = Bitmap.createBitmap(mWidth, 1, Config.ALPHA_8);
 	}
 	
@@ -105,11 +110,16 @@ public class Obstacle extends GameObject {
 				mStone.bounce();
 				mStone = null;
 				
-				SoundManager.getInstance().playRockHit(); 
+//				SoundManager.getInstance().playRockHit(); 
+				SoundManager.getInstance().playObstacleSound(mType);
 			}
 		}
 	}
 
+	public void playSound() {
+		
+	}
+	
 	@Override
 	public float getNextOffset(float curOffset) {
 		return 0;

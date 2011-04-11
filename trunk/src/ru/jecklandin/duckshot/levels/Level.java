@@ -74,6 +74,7 @@ public class Level {
 		mBitmapsLoaded = true;
 		
 		GroundObject.initBitmaps();
+		loadSounds();
 	}
 	
 	public void unloadResources() {
@@ -135,6 +136,9 @@ public class Level {
 	}
 
 	public void setObstacles() {
+	}
+	
+	public void loadSounds() {
 	}
 	
 	protected Bitmap[] makeAnimation(int source, int frames_num, int dx, int dy, String storeAs) {

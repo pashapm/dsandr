@@ -46,12 +46,12 @@ public class ObstacleManager {
 		addObstacle(type, x, wave_num, -1);
 	}
 	
-	public void addStubObstacle(int wave_num, int x, int width) {
+	public void addStubObstacle(int wave_num, int x, int width, Obstacle.Type parentType) {
 		if (wave_num < 0) {
 			return;
 		}
 		GroundObject ground = mModel.getGround(wave_num);
-		Obstacle o = new Obstacle(ground, x, width);
+		Obstacle o = new Obstacle(ground, x, width, parentType);
 		ground.addObstacle(o);
 	}
 }

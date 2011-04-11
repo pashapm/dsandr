@@ -4,6 +4,7 @@ import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
@@ -33,7 +34,13 @@ public class WaterLevel extends Level {
 		
 		mLevelSettings.putBoolean("fountain", true);
 	}
-
+	
+	@Override
+	public void loadSounds() {
+		SoundManager.getInstance().loadObstacleSounds(new int[] 
+		  {R.raw.rock1, R.raw.rock1, R.raw.rock1});
+	}
+	
 	@Override
 	public void loadResources() {
 		

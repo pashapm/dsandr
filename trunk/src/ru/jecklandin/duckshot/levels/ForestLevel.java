@@ -11,6 +11,7 @@ import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.levels.WaterLevel.WaterEnvironment;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
@@ -40,6 +41,12 @@ public class ForestLevel extends Level {
 		mLevelSettings.putBoolean("fountain", true);
 	}
  
+	@Override
+	public void loadSounds() {
+		SoundManager.getInstance().loadObstacleSounds(new int[] 
+		  {R.raw.apple, R.raw.apple, R.raw.apple});
+	}
+	
 	@Override
 	public void loadResources() {
 		

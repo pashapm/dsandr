@@ -1,7 +1,6 @@
 package ru.jecklandin.duckshot;
 
 
-import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.utils.FpsCounter;
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,16 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Vibrator;
 import android.os.Handler.Callback;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 public class DuckGame extends Activity {
     
@@ -115,7 +110,7 @@ public class DuckGame extends Activity {
 		};
         
         mTimer.start();
-        mFpsPr.start();
+//        mFpsPr.start();
         if (getIntent().getAction().equals(NEW_MATCH)) {
         	mMatch.start();
         }

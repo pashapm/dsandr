@@ -3,6 +3,7 @@ package ru.jecklandin.duckshot.levels;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
@@ -20,6 +21,12 @@ public class FarwaterLevel extends WaterLevel {
 		mPointsToComplete = 1300;
 	}
 
+	@Override
+	public void loadSounds() {
+		SoundManager.getInstance().loadObstacleSounds(new int[] 
+		  {R.raw.metal, R.raw.metal, R.raw.metal});
+	}
+	
 	@Override
 	public void loadResources() {
 		super.loadResources();
@@ -58,7 +65,7 @@ public class FarwaterLevel extends WaterLevel {
 			go.mObstacles.clear();
 		}
 		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(20), 4);
-		ObstacleManager.getInstance().addStubObstacle(3, ScrProps.scale(20+70), ScrProps.scale(50));
+		ObstacleManager.getInstance().addStubObstacle(3, ScrProps.scale(20+70), ScrProps.scale(50), Type.TYPE1);
 		
 		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(240), 6);
 		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(160), 3);
