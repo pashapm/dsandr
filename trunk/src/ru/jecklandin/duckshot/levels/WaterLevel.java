@@ -26,7 +26,7 @@ public class WaterLevel extends Level {
 		mCreatureVoices = new int[] {R.raw.quack1, R.raw.quack2, R.raw.quack3};
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.rock1;
-		mPointsToComplete = 1000;
+		mPointsToComplete = 1200;
 		
 		mEnvironment = new WaterEnvironment(mBgColor);
 		setDominatingColor(Color.parseColor("#18084a"));

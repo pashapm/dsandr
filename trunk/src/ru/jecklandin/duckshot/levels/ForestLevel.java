@@ -29,7 +29,7 @@ public class ForestLevel extends Level {
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.apple;
 		
-		mPointsToComplete = 2500;
+		mPointsToComplete = 2000;
 		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));

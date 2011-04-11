@@ -179,8 +179,10 @@ public class LevelCompletedDialog extends Dialog {
 					go_next_lvl = true;
 					cancel();
 				} else {
-					Intent i = new Intent(getContext(), Sorry.class);
-					i.putExtra("last", true);
+//					Intent i = new Intent(getContext(), Sorry.class);
+//					i.putExtra("last", true);
+					Intent i = new Intent(getContext(), PictureActivity.class);
+					i.putExtra("pic", R.drawable.duck_hate);
 					getOwnerActivity().startActivity(i);
 				}
 			}
