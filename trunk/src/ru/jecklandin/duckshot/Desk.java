@@ -1,17 +1,14 @@
 package ru.jecklandin.duckshot;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import ru.jecklandin.duckshot.Match.Bonus;
-import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class Desk { 
 	  

@@ -4,13 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.jecklandin.duckshot.levels.Level;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
-import android.os.Debug;
-import android.util.Log;
 
 public class ImgManager {
 

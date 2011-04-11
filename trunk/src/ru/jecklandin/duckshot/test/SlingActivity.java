@@ -1,25 +1,10 @@
 package ru.jecklandin.duckshot.test;
 
-
-
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SlingView;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.CornerPathEffect;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RectF;
-import android.graphics.Path.Direction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 
 public class SlingActivity extends Activity {
 

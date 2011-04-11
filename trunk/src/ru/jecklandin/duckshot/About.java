@@ -1,21 +1,12 @@
 package ru.jecklandin.duckshot;
 
-import java.util.jar.Attributes.Name;
-
-import ru.jecklandin.duckshot.levels.Level;
-
-import com.flurry.android.FlurryAgent;
-
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;  
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.flurry.android.FlurryAgent;
 
 public class About extends ListActivity {
 	

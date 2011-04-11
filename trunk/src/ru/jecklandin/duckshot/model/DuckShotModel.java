@@ -14,7 +14,6 @@ import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
-import ru.jecklandin.duckshot.units.Obstacle.Type;
 import android.util.Log;
 
 public class DuckShotModel {

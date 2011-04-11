@@ -1,37 +1,24 @@
 package ru.jecklandin.duckshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.flurry.android.FlurryAgent;
-
-import ru.jecklandin.duckshot.Match.Bonus;
 import ru.jecklandin.duckshot.levels.LevelManager;
-
-import android.app.Activity;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.sax.StartElementListener;
 import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.flurry.android.FlurryAgent;
 
 public class LevelCompletedDialog extends Dialog {
 

@@ -6,17 +6,13 @@ import java.io.FileWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlSerializer;
 
 import ru.jecklandin.duckshot.levels.Level;
-
 import android.content.Context;
-import android.os.Environment;
 import android.util.Xml;
 
 public class HiScoresManager {

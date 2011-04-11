@@ -1,15 +1,10 @@
 package ru.jecklandin.duckshot;
 
-import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.utils.FpsCounter;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.os.Debug;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 public class GameField extends View {

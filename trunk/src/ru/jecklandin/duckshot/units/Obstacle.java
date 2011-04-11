@@ -1,10 +1,8 @@
 package ru.jecklandin.duckshot.units;
 
 import ru.jecklandin.duckshot.DuckApplication;
-import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.SoundManager;
 import ru.jecklandin.duckshot.Stone;
-import ru.jecklandin.duckshot.levels.Level;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
