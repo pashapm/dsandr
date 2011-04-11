@@ -2,7 +2,6 @@ package ru.jecklandin.duckshot;
 
 import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.model.DuckShotModel;
-import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
 import android.app.Application;
 import android.graphics.Typeface;
@@ -42,8 +41,8 @@ public class DuckApplication extends Application {
 		return mCurrentMatch;
 	}
 	
-	public void newMatch(int seconds, Handler han) {
-		mCurrentMatch = new Match(seconds, han);
+	public void newMatch(Handler han) {
+		mCurrentMatch = new Match(mCurrentLevel.mLevelTime, han);
 	}
 
 	public void setHandler(Handler han) {

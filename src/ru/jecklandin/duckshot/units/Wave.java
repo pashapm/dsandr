@@ -1,11 +1,8 @@
 package ru.jecklandin.duckshot.units;
 
-import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.ScrProps;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 
 public class Wave extends GroundObject {

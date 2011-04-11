@@ -75,7 +75,7 @@ public class DuckGame extends Activity {
 		});  
         
         if (getIntent().getAction().equals(NEW_MATCH)) {
-        	mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler);
+        	mApplication.newMatch(mMatchHandler);
         	SoundManager.getInstance().seekAtZero();
         } else {
         	mApplication.setHandler(mMatchHandler);
@@ -210,7 +210,7 @@ public class DuckGame extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		if (intent.getAction().equals(NEW_MATCH)) {
-			mApplication.newMatch(Match.DEFAULT_TIME, mMatchHandler); 
+			mApplication.newMatch(mMatchHandler); 
 			mMatch = mApplication.getCurrentMatch();
 			mMatch.start();
 			mShownDialog = false;

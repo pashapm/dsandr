@@ -33,6 +33,7 @@ public class WaterLevel extends Level {
 		setBackgroundColor(Color.parseColor("#5984c8"));
 		
 		mLevelSettings.putBoolean("fountain", true);
+		mLevelTime = 60;
 	}
 	
 	@Override

@@ -1,8 +1,5 @@
 package ru.jecklandin.duckshot;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.units.Obstacle;
 import android.content.Context;
@@ -11,7 +8,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 

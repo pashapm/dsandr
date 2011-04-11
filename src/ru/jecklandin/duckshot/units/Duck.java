@@ -4,20 +4,14 @@ import ru.jecklandin.duckshot.Desk;
 import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.DuckGame;
 import ru.jecklandin.duckshot.ImgManager;
-import ru.jecklandin.duckshot.Match;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SoundManager;
-import ru.jecklandin.duckshot.Stone;
-import ru.jecklandin.duckshot.Desk.DigitType;
 import ru.jecklandin.duckshot.Match.Bonus;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.util.Log;
    
 public class Duck extends CreatureObject {
 

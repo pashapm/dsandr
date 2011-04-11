@@ -3,8 +3,6 @@ package ru.jecklandin.duckshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.flurry.android.FlurryAgent;
-
 import ru.jecklandin.duckshot.levels.Level;
 import ru.jecklandin.duckshot.levels.LevelManager;
 import android.app.Activity;
@@ -22,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.flurry.android.FlurryAgent;
 
 public class LevelChooser extends ListActivity {
 

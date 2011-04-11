@@ -9,9 +9,7 @@ import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.Cupcake;
-import ru.jecklandin.duckshot.units.Grass;
 import ru.jecklandin.duckshot.units.GroundObject;
-import ru.jecklandin.duckshot.units.Hedgehog;
 import ru.jecklandin.duckshot.units.MetalBeam;
 import ru.jecklandin.duckshot.units.Obstacle.Type;
 import android.graphics.Bitmap;
@@ -29,7 +27,7 @@ public class FriedLevel extends Level {
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.metal;
 		
-		mPointsToComplete = 3500;
+		mPointsToComplete = 1000;
 		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
@@ -38,6 +36,7 @@ public class FriedLevel extends Level {
 		mLevelSettings.putBoolean("fountain", false);
 		mLevelSettings.putBoolean("creaturesOnTop", true);
 		mLevelSettings.putInt("groundsNumber", 6);
+		mLevelTime = 30;
 	}
 	
 	@Override

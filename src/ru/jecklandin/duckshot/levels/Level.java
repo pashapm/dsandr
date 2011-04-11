@@ -2,28 +2,18 @@ package ru.jecklandin.duckshot.levels;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import ru.jecklandin.duckshot.DuckApplication;
 import ru.jecklandin.duckshot.Environment;
-import ru.jecklandin.duckshot.ImgManager;
-import ru.jecklandin.duckshot.R;
-import ru.jecklandin.duckshot.ScrProps;
+import ru.jecklandin.duckshot.Match;
 import ru.jecklandin.duckshot.SlingView;
 import ru.jecklandin.duckshot.Stone;
-import ru.jecklandin.duckshot.model.DuckShotModel;
-import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Obstacle;
-import ru.jecklandin.duckshot.units.Obstacle.Type;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.os.Bundle;
 
 public class Level {
@@ -32,6 +22,7 @@ public class Level {
 	public String mName;
 	public int mLevelId;
 	public int mPointsToComplete;
+	public int mLevelTime = Match.DEFAULT_TIME;
 	
 	protected boolean mBitmapsLoaded = false;
 	

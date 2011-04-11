@@ -2,26 +2,23 @@ package ru.jecklandin.duckshot.levels;
 
 import java.util.ArrayList;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 import ru.jecklandin.duckshot.Environment;
 import ru.jecklandin.duckshot.ImgManager;
 import ru.jecklandin.duckshot.R;
 import ru.jecklandin.duckshot.ScrProps;
 import ru.jecklandin.duckshot.SoundManager;
-import ru.jecklandin.duckshot.levels.WaterLevel.WaterEnvironment;
 import ru.jecklandin.duckshot.model.DuckShotModel;
 import ru.jecklandin.duckshot.model.ObstacleManager;
 import ru.jecklandin.duckshot.units.CreatureObject;
-import ru.jecklandin.duckshot.units.Duck;
 import ru.jecklandin.duckshot.units.Grass;
 import ru.jecklandin.duckshot.units.GroundObject;
 import ru.jecklandin.duckshot.units.Hedgehog;
 import ru.jecklandin.duckshot.units.Grass.GRASS_TYPE;
 import ru.jecklandin.duckshot.units.Obstacle.Type;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 public class ForestLevel extends Level {
 
@@ -39,6 +36,7 @@ public class ForestLevel extends Level {
 		mEnvironment = new ForestEnvironment(mBgColor);
 		 
 		mLevelSettings.putBoolean("fountain", true);
+		mLevelTime = 40;
 	}
  
 	@Override

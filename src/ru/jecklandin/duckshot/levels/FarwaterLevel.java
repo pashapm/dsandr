@@ -19,6 +19,7 @@ public class FarwaterLevel extends WaterLevel {
 		
 		mStoneHit = R.raw.metal;
 		mPointsToComplete = 1300;
+		mLevelTime = 50;
 	}
 
 	@Override
