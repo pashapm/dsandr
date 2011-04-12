@@ -44,7 +44,7 @@ public class FriedLevel extends Level {
 	@Override
 	public void loadSounds() {
 		SoundManager.getInstance().loadObstacleSounds(new int[] 
-		  {R.raw.metal, R.raw.metal, R.raw.apple});
+		  {R.raw.bell1, R.raw.bell2, R.raw.hiss});
 	}
 	
 	@Override
@@ -66,7 +66,10 @@ public class FriedLevel extends Level {
 		mLevelImgMap.put("missile", bm);
 		bm = loadBitmap(R.drawable.fire);
 		mLevelImgMap.put("bg_pic", bm);
+		bm = loadBitmap(R.drawable.hypno_socket);
+		mLevelImgMap.put("socket", bm);
 		
+		makeAnimation(R.drawable.hypno, 4, ScrProps.scale(30), ScrProps.scale(30), "missile");
 		makeAnimation(R.drawable.cupcake, 8, ScrProps.scale(50), ScrProps.scale(50), "cupcake");
 		makeAnimation(R.drawable.anifountain, 8, ScrProps.scale(84), ScrProps.scale(84), "fountain");
 		makeAnimation(R.drawable.shrapnel, 6, ScrProps.scale(100), ScrProps.scale(100), "shrapnel");

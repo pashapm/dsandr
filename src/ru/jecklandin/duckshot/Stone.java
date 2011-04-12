@@ -10,7 +10,8 @@ public class Stone extends GameObject {
 
 	private static final String TAG = "Stone";
 	
-	public static Bitmap mStone;
+	public static Bitmap mMissile;
+	public static Bitmap mMissileAnimation[];
 	public static Bitmap[] mAniFountain;
 	public static Bitmap[] mShrapnel;
 	
@@ -23,8 +24,11 @@ public class Stone extends GameObject {
 	private float y_dest;
 	private float x_dest;
 	private int anim_frame = 0;
+	private int overall_draws = 0;
 	public boolean sank = false;
 	
+	
+	private static boolean mAnimated = false;
 	private static int SPEED_Y = 20;
 	
 	public SpeedVector mVector;
@@ -53,7 +57,11 @@ public class Stone extends GameObject {
 	}
 	
 	public static void initBitmaps() {
-		Stone.mStone = ImgManager.getBitmap("missile");
+		Stone.mMissile = ImgManager.getBitmap("missile");
+		Stone.mMissileAnimation = ImgManager.getAnimation("missile");
+		if (Stone.mMissileAnimation != null) {
+			Stone.mAnimated = true;
+		}
 		Stone.mAniFountain = ImgManager.getAnimation("fountain");
 		Stone.mShrapnel = ImgManager.getAnimation("shrapnel");
 	}
@@ -78,8 +86,14 @@ public class Stone extends GameObject {
 			getNextOffset(offset);
 			matrix.setTranslate(mVector.x, mVector.y);
 			matrix.postRotate(rot_degree, mVector.x, mVector.y);
-			c.drawBitmap(mStone, matrix, p);
+			if (Stone.mAnimated) {
+				c.drawBitmap(mMissileAnimation[overall_draws%4], matrix, p);
+			} else {
+				c.drawBitmap(mMissile, matrix, p);
+			}
 		}
+		
+		overall_draws++;
 	}
 
 	private void drawFountain(Canvas c, Paint p) {
