@@ -61,6 +61,10 @@ public class Stone extends GameObject {
 		Stone.mMissileAnimation = ImgManager.getAnimation("missile");
 		if (Stone.mMissileAnimation != null) {
 			Stone.mAnimated = true;
+			Stone.mMissile = null;
+		} else {
+			Stone.mAnimated = false;
+			Stone.mMissileAnimation = null;
 		}
 		Stone.mAniFountain = ImgManager.getAnimation("fountain");
 		Stone.mShrapnel = ImgManager.getAnimation("shrapnel");

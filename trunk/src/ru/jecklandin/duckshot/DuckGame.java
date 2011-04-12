@@ -138,7 +138,7 @@ public class DuckGame extends Activity {
 //		mFpsPr.setRunning(false);
 		super.onStop();
 	} 
-   
+	
 	@Override
 	protected void onResume() {
 		mMatch.resumeMatch();
@@ -148,6 +148,7 @@ public class DuckGame extends Activity {
 //		Debug.startMethodTracing("ducks2");
 		
 		SoundManager.getInstance().turnMusic(true);
+		mSling.initConstants();
 		
 		super.onResume();
 	}   

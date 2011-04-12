@@ -46,7 +46,7 @@ public class FriedLevel extends Level {
 		SoundManager.getInstance().loadObstacleSounds(new int[] 
 		  {R.raw.bell1, R.raw.bell2, R.raw.hiss});
 	}
-	
+	 
 	@Override
 	public void loadResources() {
 		
