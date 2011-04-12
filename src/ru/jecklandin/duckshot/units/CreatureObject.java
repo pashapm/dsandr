@@ -36,7 +36,7 @@ public abstract class CreatureObject extends GameObject {
     protected int ticksBeforeNextDive = generateNextDive();
     protected int ticksBeforeNextRotate = generateNextRotate();
     protected int timeout = 0;
-    protected boolean isDead = false;
+    public boolean isDead = false;
     protected int delay = 0;
     protected int overallTicks = 0;
     protected boolean end_animation = false;

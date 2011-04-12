@@ -106,6 +106,7 @@ public class Cupcake extends CreatureObject {
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {
 				handleHit(mStone.HPS);
+				mStone.mHasHitSomething = true;
 			}
 			mStone = null;
 		}
@@ -130,7 +131,7 @@ public class Cupcake extends CreatureObject {
 		drawScore(c, p);
 		sp-=acceleration;
 		acceleration-=2;
-		if (sp < -ScrProps.scale(480)) { 
+		if (sp > ScrProps.scale(480)) { 
 			end_animation = true;
 		}
 	}
@@ -173,12 +174,16 @@ public class Cupcake extends CreatureObject {
 			isDead = true;
 			SoundManager.getInstance().playScream();
 			SoundManager.getInstance().playHit();
-			DuckGame.getCurrentMatch().requestNextCreatureIfNeed();
+//			DuckGame.getCurrentMatch().requestNextCreatureIfNeed();
 			Bonus bonus = DuckGame.getCurrentMatch().addKilledCreature(this);
 			if (bonus != Bonus.NO) {
 				Desk.getInstance().playBonus(bonus);
 			}
 			DuckGame.getCurrentMatch().addScore((int) (mSumValues *= bonus.getMultiplier()));
+			
+			if (DuckShotModel.getInstance().getCreaturesNumber() == 0) {
+				DuckApplication.getInstance().getCurrentMatch().stopMatch();
+			}
 		} 
 	}
 	

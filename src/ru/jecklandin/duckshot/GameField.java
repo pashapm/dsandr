@@ -13,7 +13,6 @@ public class GameField extends View {
 	
 	public GameField(Context context) {
 		super(context);
-//		setBackgroundColor(Color.parseColor("#6b98df"));
 	}  
  
 	@Override

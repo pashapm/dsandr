@@ -20,7 +20,7 @@ public class ObstacleManager {
 		return sInstance;
 	}
 	
-	public void addObstacle(Type type, int x, int wave_num, int h_offset) {
+	public Obstacle addObstacle(Type type, int x, int wave_num, int h_offset) {
 		Obstacle o;
 		GroundObject ground = mModel.getGround(wave_num);
 		switch (type) {
@@ -28,7 +28,7 @@ public class ObstacleManager {
 		case TYPE3:
 			o = new Obstacle(ground, x, type, h_offset);
 			ground.mObstacles.add(o);
-			break;
+			return o;
 		case TYPE2:
 			o = new Obstacle(ground, x, type, h_offset);
 			ground.mObstacles.add(o);
@@ -37,13 +37,15 @@ public class ObstacleManager {
 				Obstacle o2 = new Obstacle(o, ground);
 				up_ground.addObstacle(o2);
 			}
+			return o;
 		default:
 			break;
 		}
+		return null;
 	}
 	
-	public void addObstacle(Type type, int x, int wave_num) {
-		addObstacle(type, x, wave_num, -1);
+	public Obstacle addObstacle(Type type, int x, int wave_num) {
+		return addObstacle(type, x, wave_num, -1);
 	}
 	
 	public void addStubObstacle(int wave_num, int x, int width, Obstacle.Type parentType) {

@@ -32,6 +32,10 @@ public class Stone extends GameObject {
 
 	private boolean mBounce = false;
 	
+	public static boolean sDestroyedByGround = false;
+	
+	public boolean mHasHitSomething = false;
+	
 	public Stone(int x_dest, int y_dest) {
 		super();
 		this.x = SlingView.SOCKET_DEFAULT_X;
@@ -55,7 +59,7 @@ public class Stone extends GameObject {
 	}
 	
 	@Override
-	public void draw(Canvas c, Paint p) { 
+	public void draw(Canvas c, Paint p) {
 		matrix.reset();
 		if (fallen) {
 			if (!vibrated) {
@@ -63,21 +67,20 @@ public class Stone extends GameObject {
 				vibrated = true;
 			}
 
-			if (makeFountain) { 
+			if (makeFountain) {
 				matrix.setTranslate(mVector.x, mVector.y);
 				drawFountain(c, p);
 			} else if (mBounce) {
 				matrix.setTranslate(mVector.x, mVector.y);
 				drawShrapnel(c, p);
 			}
-	} else {
+		} else {
 			getNextOffset(offset);
 			matrix.setTranslate(mVector.x, mVector.y);
 			matrix.postRotate(rot_degree, mVector.x, mVector.y);
 			c.drawBitmap(mStone, matrix, p);
 		}
-		
-	}  
+	}
 
 	private void drawFountain(Canvas c, Paint p) {
 		matrix.postTranslate(- mAniFountain[0].getWidth()/2, - mAniFountain[0].getHeight()*6/10);
@@ -110,6 +113,10 @@ public class Stone extends GameObject {
 		rot_degree+=3;
 		
 		if (this.y_dest >= mVector.y) { 
+//			if (sDestroyedByGround) {
+//				bounce();
+//				SoundManager.getInstance().playArmorHit();
+//			}
 			fallen = true;
 		}
 		
@@ -122,7 +129,5 @@ public class Stone extends GameObject {
 	
 	public void bounce() {
 		mBounce = true;
-		fallen = true;
 	}
-	
 }

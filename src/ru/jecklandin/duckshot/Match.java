@@ -117,8 +117,8 @@ public class Match extends Thread {
 		mInitialTime = seconds;
 		mHandler = han;
 		
-		DuckShotModel.getInstance().addObstacles(3);
-		DuckShotModel.getInstance().populate(5);
+		DuckShotModel.getInstance().addObstacles();
+		DuckShotModel.getInstance().populate(DuckApplication.getInstance().getCurrentLevel().mInitialUnitNumber);
 	}
 	
 	public void setHandler(Handler han) {
@@ -145,6 +145,12 @@ public class Match extends Thread {
 		return mPaused;
 	}
 
+	public void stopMatch() {
+		Message mess = new Message();
+		mess.arg1 = 42;
+		mHandler.sendMessage(mess);
+	}
+	
 	@Override
 	public void run() {
 		while (! isInterrupted()) {
@@ -157,14 +163,7 @@ public class Match extends Thread {
 				if (mMatchMs > 50) {
 					mMatchMs-=50;
 				} else {
-					Message mess = new Message();
-					mess.arg1 = 42;
-					mHandler.sendMessage(mess);
-					
-					//test
-//					DuckApplication.getInstance().getCurrentLevel().unloadResources();
-					
-					
+					stopMatch();
 					return;
 				}
 			}

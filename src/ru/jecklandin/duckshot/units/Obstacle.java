@@ -29,6 +29,8 @@ public class Obstacle extends GameObject {
 	
 	private int h_offset;
 	
+	private boolean mBounce = true;
+	
 	public Obstacle(GroundObject hostingGround, int x, Type type, int h_offset) {
 		this.x = x;
 		this.y = hostingGround.y;
@@ -105,10 +107,10 @@ public class Obstacle extends GameObject {
 			if (isIntersects((int) mStone.mVector.x)) {
 				mStone.makeFountain = false;
 				mStone.fallen = true; 
-				mStone.bounce();
+				if (mBounce) {
+					mStone.bounce();
+				}
 				mStone = null;
-				
-//				SoundManager.getInstance().playRockHit(); 
 				SoundManager.getInstance().playObstacleSound(mType);
 			}
 		}
@@ -139,4 +141,7 @@ public class Obstacle extends GameObject {
 		mStone = stone;
 	}
 	
+	public void setBounce(boolean bounce) {
+		mBounce = bounce;
+	}
 }
