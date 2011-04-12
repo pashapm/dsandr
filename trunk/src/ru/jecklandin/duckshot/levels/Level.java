@@ -23,6 +23,7 @@ public class Level {
 	public int mLevelId;
 	public int mPointsToComplete;
 	public int mLevelTime = Match.DEFAULT_TIME;
+	public int mInitialUnitNumber = 5;
 	
 	protected boolean mBitmapsLoaded = false;
 	

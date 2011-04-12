@@ -51,7 +51,7 @@ public class DuckShotModel {
 	 * 
 	 * @param density - how many obstacles (1,2,3)
 	 */
-	public void addObstacles(int density) {
+	public void addObstacles() {
 		DuckApplication.getInstance().getCurrentLevel().setObstacles();
 	} 
 	
@@ -103,11 +103,12 @@ public class DuckShotModel {
 		int sum = 0;
 		for (GroundObject w : mGrounds) {
 			for (CreatureObject d : w.mCreatures) {
-				if (!d.toRecycle) {
+				if (!d.isDead) {
 					sum ++;
 				}
 			}
 		}
+		Log.d("!!!~!", sum+"");
 		return sum;
 	}
 	

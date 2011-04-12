@@ -7,6 +7,7 @@ import android.app.Application;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Bundle;
 import android.os.Handler;
 
 public class DuckApplication extends Application {
@@ -64,8 +65,12 @@ public class DuckApplication extends Application {
 		
 		DuckShotModel.getInstance().reinitialize(level);
 		level.initItemsBitmaps();
+		
+		Bundle lvlSettings = getCurrentLevel().getSettings();
+		
 		ObjectDrawer.getInstance(this).mCreaturesOnTop 
-			= DuckApplication.getInstance().getCurrentLevel().getSettings().getBoolean("creaturesOnTop");
+			= lvlSettings.getBoolean("creaturesOnTop");
+		Stone.sDestroyedByGround = lvlSettings.getBoolean("destroyedByGround");
 	}
 	
 	public Level getCurrentLevel() {

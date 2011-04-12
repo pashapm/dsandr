@@ -36,6 +36,8 @@ public class FriedLevel extends Level {
 		mLevelSettings.putBoolean("fountain", false);
 		mLevelSettings.putBoolean("creaturesOnTop", true);
 		mLevelSettings.putInt("groundsNumber", 6);
+		mLevelSettings.putBoolean("destroyedByGround", true);
+		
 		mLevelTime = 30;
 	}
 	
@@ -88,7 +90,8 @@ public class FriedLevel extends Level {
 		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(10), 1, DuckShotModel.GROUNDS_GAP+ScrProps.scale(5));
 		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(100), 2, DuckShotModel.GROUNDS_GAP+ScrProps.scale(5));
 		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(220), 3, ScrProps.scale(10));
-		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(210), 5, ScrProps.scale(15));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(210), 5, ScrProps.scale(15))
+			.setBounce(false);
 	}
 	
 	@Override
