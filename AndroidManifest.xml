@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ru.jecklandin.duckshot" android:versionCode="10"
-	android:versionName="0.7.2">
+	package="ru.jecklandin.duckshot" android:versionCode="11"
+	android:versionName="0.9">
 
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:name="ru.jecklandin.duckshot.DuckApplication" android:debuggable="true">
@@ -18,7 +19,7 @@
 				<action android:name="android.intenmn t.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>-->
-		</activity>
+		</activity> 
 
 		<activity android:name=".MainMenu" android:label="@string/app_name"
 			android:screenOrientation="portrait"
