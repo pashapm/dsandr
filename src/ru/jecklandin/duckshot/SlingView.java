@@ -49,7 +49,11 @@ public class SlingView extends View {
 	public SlingView(Context context) {
 		super(context);
 		mSlingBm = BitmapFactory.decodeResource(context.getResources(), ru.jecklandin.duckshot.R.drawable.sling2 );
-		
+		initConstants();
+		mPaint.setAntiAlias(true);
+	}
+	
+	public void initConstants() {
 		SLING_X = ScrProps.scale(80);
 		SLING_Y = ScrProps.screenHeight - mSlingBm.getHeight() + ScrProps.scale(20);
 		 
@@ -62,8 +66,6 @@ public class SlingView extends View {
 		
 		slx = SOCKET_DEFAULT_X;
 		sly = SOCKET_DEFAULT_Y;
-		
-		mPaint.setAntiAlias(true);
 	}
 	
 	public static void initBitmaps() {
