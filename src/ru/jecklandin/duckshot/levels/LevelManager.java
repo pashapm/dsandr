@@ -31,8 +31,8 @@ public class LevelManager {
 		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Apple Madness");
 		mLevels.add(lev3);
 		
-		FriedLevel lev5 = new FriedLevel(5, R.drawable.level_thumb4, "Overdone Cupcakes");
-		mLevels.add(lev5);
+		FriedLevel lev4 = new FriedLevel(4, R.drawable.level_thumb4, "Overdone Cupcakes");
+		mLevels.add(lev4);
 		
 //		mLevels.add(new Level(0, R.drawable.level_thumb0, "<N/A>"));
 		
@@ -46,7 +46,7 @@ public class LevelManager {
 	}
 	
 	public ArrayList<Level> getLevels() {
-		return mLevels;
+		return mLevels; 
 	}
 	
 	public ArrayList<Level> getAvailableLevels() {
@@ -69,7 +69,7 @@ public class LevelManager {
 		
 		Level next = getNextLevel();
 		DuckApplication.getInstance().setLevel(next);
-		return true;
+		return true; 
 	}
 	
 	public boolean isNextLevelAvailable() {

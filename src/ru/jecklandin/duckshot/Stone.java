@@ -34,6 +34,7 @@ public class Stone extends GameObject {
 	public SpeedVector mVector;
 	SpeedVector mDeltaVector;
 
+	private boolean mMayBounce = true;
 	private boolean mBounce = false;
 	
 	public static boolean sDestroyedByGround = false;
@@ -53,7 +54,9 @@ public class Stone extends GameObject {
 		mDeltaVector = new SpeedVector(SPEED_Y/ratio, -SPEED_Y);
 		
 		Bundle settings = DuckApplication.getInstance().getCurrentLevel().getSettings();
+		
 		makeFountain = settings.getBoolean("fountain", true);
+		mMayBounce = settings.getBoolean("bounce", true);
 	}
 	
 	public static void initBitmaps() {
@@ -146,6 +149,8 @@ public class Stone extends GameObject {
 	}
 	
 	public void bounce() {
-		mBounce = true;
+		if (mMayBounce) {
+			mBounce = true;
+		}
 	}
 }

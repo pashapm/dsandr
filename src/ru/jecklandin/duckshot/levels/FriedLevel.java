@@ -34,6 +34,7 @@ public class FriedLevel extends Level {
 		mEnvironment = new FireEnvironment(mBgColor);
 		 
 		mLevelSettings.putBoolean("fountain", false);
+		mLevelSettings.putBoolean("bounce", false);
 		mLevelSettings.putBoolean("creaturesOnTop", true);
 		mLevelSettings.putInt("groundsNumber", 6);
 		mLevelSettings.putBoolean("destroyedByGround", true);
