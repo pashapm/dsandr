@@ -69,6 +69,6 @@ public class FarwaterLevel extends WaterLevel {
 		ObstacleManager.getInstance().addStubObstacle(3, ScrProps.scale(20+70), ScrProps.scale(50), Type.TYPE1);
 		
 		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(240), 6);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(160), 3);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(160), 3, ScrProps.scale(10));
 	}    
 }
