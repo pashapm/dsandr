@@ -109,7 +109,7 @@ public class Hedgehog extends CreatureObject {
 			matrix.setScale(-1, 1);
 			matrix.postTranslate(commonBm.getWidth(), 0);
 		}
-		matrix.postTranslate(next_offset, y - commonBm.getHeight() / 2);
+		matrix.postTranslate(next_offset, y - commonBm.getHeight() / 6);
 		
 		if (!isDead && mStone != null && mStone.mVector.y <= this.y) {
 			if (isIntersects((int) mStone.mVector.x)) {

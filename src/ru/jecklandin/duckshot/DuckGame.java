@@ -33,7 +33,7 @@ public class DuckGame extends Activity {
     private DuckTimer mTimer;
     private FPSPrinter mFpsPr;
     
-    private SlingView mSling;
+    SlingView mSling;
     
     private boolean mShownDialog = false;
     private Handler mDialogHandler;
@@ -138,9 +138,13 @@ public class DuckGame extends Activity {
 //		mFpsPr.setRunning(false);
 		super.onStop();
 	} 
-	
+   
 	@Override
 	protected void onResume() {
+		if (mMatch == null) {
+			finish();
+			return;
+		}
 		mMatch.resumeMatch();
 		mTimer.setRunning(!mShownDialog);
 		mFpsPr.setRunning(!mShownDialog);
@@ -148,7 +152,6 @@ public class DuckGame extends Activity {
 //		Debug.startMethodTracing("ducks2");
 		
 		SoundManager.getInstance().turnMusic(true);
-		mSling.initConstants();
 		
 		super.onResume();
 	}   
