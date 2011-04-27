@@ -107,7 +107,7 @@ public class WaterLevel extends Level {
 		for (GroundObject go : DuckShotModel.getInstance().mGrounds) {
 			go.mObstacles.clear();
 		}
-		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(10), 6);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(10), 6, ScrProps.scale(10));
 		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(30), 0);
 		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(80), 2);
 		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(200), 3);
