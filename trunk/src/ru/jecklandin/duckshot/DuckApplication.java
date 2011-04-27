@@ -71,6 +71,10 @@ public class DuckApplication extends Application {
 		ObjectDrawer.getInstance(this).mCreaturesOnTop 
 			= lvlSettings.getBoolean("creaturesOnTop");
 		Stone.sDestroyedByGround = lvlSettings.getBoolean("destroyedByGround");
+		
+		if (DuckGame.s_instance != null) {
+			DuckGame.s_instance.mSling.initConstants();
+		}
 	}
 	
 	public Level getCurrentLevel() {

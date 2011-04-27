@@ -29,7 +29,7 @@ public class ForestLevel extends Level {
 		mPunch = R.raw.punch;
 		mStoneHit = R.raw.apple;
 		
-		mPointsToComplete = 2000;
+		mPointsToComplete = 1500;
 		
 		setDominatingColor(Color.parseColor("#234a25"));
 		setBackgroundColor(Color.parseColor("#226c26"));
@@ -115,10 +115,10 @@ public class ForestLevel extends Level {
 		for (GroundObject go : DuckShotModel.getInstance().mGrounds) {
 			go.mObstacles.clear();
 		}
-		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(10), 4);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(160), 0);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(220), 1);
-		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(200), 7);
+		ObstacleManager.getInstance().addObstacle(Type.TYPE1, ScrProps.scale(10), 4, ScrProps.scale(13));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(160), 0, ScrProps.scale(85));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE2, ScrProps.scale(220), 1, ScrProps.scale(80));
+		ObstacleManager.getInstance().addObstacle(Type.TYPE3, ScrProps.scale(200), 6, ScrProps.scale(10));
 	}
 	
 	public static class ForestEnvironment extends Environment {

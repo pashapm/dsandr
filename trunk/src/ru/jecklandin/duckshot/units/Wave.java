@@ -41,10 +41,11 @@ public class Wave extends GroundObject {
 	@Override
 	public void draw(Canvas c, Paint p) {
 		matrix.reset();
-		matrix.postTranslate(getNextOffset(x), y);
+		matrix.postTranslate(getNextOffset(x), y + ScrProps.scale(4));
 		c.drawBitmap(mGroundBitmap, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
-		c.drawRect(0, y+mGroundBitmap.getHeight()-2, ScrProps.screenWidth, y+mGroundBitmap.getHeight()+ScrProps.scale(50), p);
+		c.drawRect(0, y + mGroundBitmap.getHeight() + ScrProps.scale(2), 
+				ScrProps.screenWidth, y + mGroundBitmap.getHeight() + ScrProps.scale(30), p);
 	}
 	
 	@Override

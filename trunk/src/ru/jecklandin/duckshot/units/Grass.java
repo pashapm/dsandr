@@ -30,10 +30,14 @@ public class Grass extends GroundObject {
 	@Override
 	public void draw(Canvas c, Paint p) {
 		matrix.reset();
-		matrix.postTranslate(0, y);
+		matrix.postTranslate(0, y + ScrProps.scale(13));
 		c.drawBitmap(mCurrentBitmap, matrix, p);  
 		p.setColor(mColor);
-		c.drawRect(0, y+mCurrentBitmap.getHeight()-2, ScrProps.screenWidth, y+mCurrentBitmap.getHeight()+ScrProps.scale(50), p);
+		c.drawRect(0, y+mCurrentBitmap.getHeight() + ScrProps.scale(11),
+				ScrProps.screenWidth, y + mCurrentBitmap.getHeight() + ScrProps.scale(50), p);
+		
+//		p.setColor(Color.BLACK);
+//		c.drawLine(0, y, 500, y, p);
 	}
 	
 	public void setBitmap(GRASS_TYPE type) {

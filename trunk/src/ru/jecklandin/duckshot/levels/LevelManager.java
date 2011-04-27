@@ -25,7 +25,7 @@ public class LevelManager {
 		WaterLevel lev1 = new WaterLevel(1, R.drawable.level_thumb1, "Rocky Lakes");
 		mLevels.add(lev1);
 		
-		FarwaterLevel lev2 = new FarwaterLevel(2, R.drawable.level_thumb3, "Fairway");
+		FarwaterLevel lev2 = new FarwaterLevel(2, R.drawable.level_thumb3, "The Fairway");
 		mLevels.add(lev2);
 		
 		ForestLevel lev3 = new ForestLevel(3, R.drawable.level_thumb2, "Apple Madness");
@@ -41,8 +41,8 @@ public class LevelManager {
 		if (! prefs.contains("lastLevel")) {
 			Editor ed = prefs.edit();
 			ed.putInt("lastLevel", 1);
-			ed.commit();
-		}
+			ed.commit(); 
+		} 
 	}
 	
 	public ArrayList<Level> getLevels() {
