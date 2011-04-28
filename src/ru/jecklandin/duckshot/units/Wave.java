@@ -45,7 +45,7 @@ public class Wave extends GroundObject {
 		c.drawBitmap(mGroundBitmap, matrix, p);  
 		p.setColor(Color.parseColor("#5984c8"));
 		c.drawRect(0, y + mGroundBitmap.getHeight() + ScrProps.scale(2), 
-				ScrProps.screenWidth, y + mGroundBitmap.getHeight() + ScrProps.scale(30), p);
+				ScrProps.screenWidth, y + mGroundBitmap.getHeight() + ScrProps.scale(50), p);
 	}
 	
 	@Override

@@ -40,7 +40,7 @@ public class LevelManager {
 			.getSharedPreferences("duckshot", Activity.MODE_PRIVATE);
 		if (! prefs.contains("lastLevel")) {
 			Editor ed = prefs.edit();
-			ed.putInt("lastLevel", 1);
+			ed.putInt("lastLevel", 1); 
 			ed.commit(); 
 		} 
 	}

@@ -24,4 +24,12 @@ public class ScrProps {
 	public static int scale(int p) {
 		return (int) (p*mMetrics.density);
 	}
+	
+	public static boolean isHdpi() {
+		return mMetrics.density > 1f;
+	}
+	
+	public static boolean isLdpi() {
+		return mMetrics.density < 1f;
+	}
 }
