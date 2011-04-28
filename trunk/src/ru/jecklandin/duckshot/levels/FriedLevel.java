@@ -29,7 +29,7 @@ public class FriedLevel extends Level {
 		
 		mPointsToComplete = 1000;
 		
-		setDominatingColor(Color.parseColor("#234a25"));
+		setDominatingColor(Color.parseColor("#a74603"));
 		setBackgroundColor(Color.parseColor("#226c26"));
 		mEnvironment = new FireEnvironment(mBgColor);
 		 

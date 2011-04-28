@@ -63,12 +63,15 @@ public class DuckShotModel {
 		GROUNDS_GAP = ScrProps.scale( GROUNDS_NUM == 10 ? 28 : 40); //TODO rem hardcode
 		
 		GROUND_OFFSET = ScrProps.screenHeight - GROUNDS_NUM * GROUNDS_GAP - Desk.mDesk.getHeight() - ScrProps.scale(80); 
-		if (GROUNDS_NUM == 6) {
+		if (GROUNDS_NUM == 6 || ScrProps.isHdpi()) {
 			GROUND_OFFSET -= ScrProps.scale(50);
-		}
+		} 
+		
+//		else if (ScrProps.isLdpi()) {
+//			GROUND_OFFSET += ScrProps.scale(20);
+//		}
+		
 		GROUND_HEIGHT = GROUNDS_NUM * GROUNDS_GAP;
-		
-		
 		
 		// loading Y-coord
 		mYes.clear();

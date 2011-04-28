@@ -149,7 +149,8 @@ public class WaterLevel extends Level {
 			}
 			
 			p.setColor(Color.parseColor("#5984c8")); 
-			c.drawRect(0, ScrProps.screenHeight-200, ScrProps.screenWidth, ScrProps.screenHeight, p);
+			c.drawRect(0, DuckShotModel.GROUND_OFFSET + DuckShotModel.GROUND_HEIGHT,
+					ScrProps.screenWidth, ScrProps.screenHeight, p);
 		}
 
 		@Override
