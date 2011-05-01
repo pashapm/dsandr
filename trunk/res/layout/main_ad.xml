@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_height="fill_parent"
+	android:layout_width="fill_parent" android:background="#457bd5">
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_weight="1">
+		<ViewAnimator android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:id="@+id/animator"
+			android:layout_weight="1">
+		</ViewAnimator>
+	</LinearLayout>
+	<com.mobclix.android.sdk.MobclixMMABannerXLAdView 
+	        android:id="@+id/advertising_banner_view"
+	        android:layout_height="50dp"
+	        android:layout_width="320dp"
+	        android:layout_gravity="center"
+	        android:tag="adspace"/>
+
+
+</LinearLayout>

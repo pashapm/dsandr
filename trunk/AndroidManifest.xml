@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="ru.jecklandin.duckshot" android:versionCode="11"
-	android:versionName="0.9">
+	package="ru.jecklandin.duckshot" android:versionCode="12"
+	android:versionName="0.9.1">
 
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:name="ru.jecklandin.duckshot.DuckApplication" android:debuggable="true">
+		android:name="ru.jecklandin.duckshot.DuckApplication" android:debuggable="false">
 		<activity android:name=".DuckGame" android:label="@string/app_name"
 			android:screenOrientation="portrait"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -73,6 +74,11 @@
 		<activity android:name=".Sorry" android:label="@string/app_name"
 			android:screenOrientation="portrait" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 		</activity>
+ 
+ 		<!-- Mobclix Required Parameter -->
+		<meta-data android:name="com.mobclix.APPLICATION_ID" android:value="2C8EA96A-6A9F-48AD-8123-36AFFE497223"/>
+		<activity android:name="com.mobclix.android.sdk.MobclixBrowserActivity"
+			android:theme="@android:style/Theme.Translucent.NoTitleBar" />
  
 	</application>    
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>
