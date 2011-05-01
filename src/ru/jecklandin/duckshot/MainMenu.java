@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,9 +23,12 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 
 import com.flurry.android.FlurryAgent;
+import com.mobclix.android.sdk.MobclixAdView;
+import com.mobclix.android.sdk.MobclixAdViewListener;
+import com.mobclix.android.sdk.MobclixMMABannerXLAdView;
 import com.nullwire.trace.ExceptionHandler;
 
-public class MainMenu extends Activity implements OnClickListener {
+public class MainMenu extends Activity implements OnClickListener, MobclixAdViewListener {
 	
 	public static final String SHOW_RESUME = "ru.jecklandin.duckshot.SHOW_RESUME"; 
 	public static final String SHOW_MAIN_MENU = "ru.jecklandin.duckshot.SHOW_MAIN_MENU"; 
@@ -38,6 +42,8 @@ public class MainMenu extends Activity implements OnClickListener {
 	private DucksSeekBar mSoundBar;
 	private DucksSeekBar mEffectsBar;
 	private CheckBox mVibroCheck;
+	
+	private MobclixMMABannerXLAdView mBanner;
 	
 	enum State {MAIN, RESUME};
 	State mState = State.MAIN;
@@ -54,7 +60,12 @@ public class MainMenu extends Activity implements OnClickListener {
 		mSl = getLayoutInflater().inflate(R.layout.settings, null);
 		mRl = getLayoutInflater().inflate(R.layout.resume, null);
 		
-		final ViewAnimator anim = new ViewAnimator(this);
+		setContentView(R.layout.main_ad);
+		
+		mBanner = (MobclixMMABannerXLAdView) findViewById(R.id.advertising_banner_view);
+		mBanner.addMobclixAdViewListener(this);
+		
+		final ViewAnimator anim = (ViewAnimator) findViewById(R.id.animator);
 		anim.setBackgroundResource(R.drawable.menubackt);
 		mAnimator = anim;
 		Animation ina = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
@@ -62,7 +73,6 @@ public class MainMenu extends Activity implements OnClickListener {
 		anim.setInAnimation(ina);
 		anim.setOutAnimation(outa);
 		
-		setContentView(anim);
 		setStartMode();
 		
 		mSoundBar = ((DucksSeekBar) findViewById(R.id.soundbar));
@@ -231,6 +241,7 @@ public class MainMenu extends Activity implements OnClickListener {
 	@Override
 	protected void onStart() {
 		FlurryAgent.onStartSession(this, DuckApplication.FLURRY_KEY);
+		mBanner.getAd();
 		super.onStart();
 	}
 	
@@ -269,5 +280,41 @@ public class MainMenu extends Activity implements OnClickListener {
 			});
 			b.show();
 		}
+	}
+
+	// AD stuff
+	
+	@Override
+	public String keywords() {
+		return "game, casual, fun";
+	}
+
+	@Override
+	public void onAdClick(MobclixAdView arg0) {
+		FlurryAgent.onEvent("adClicked");
+	}
+
+	@Override
+	public void onCustomAdTouchThrough(MobclixAdView arg0, String arg1) {
+	}
+
+	@Override
+	public void onFailedLoad(MobclixAdView arg0, int arg1) {
+		Log.d("Duckshot", "ad loading fail "+arg1);
+	}
+
+	@Override
+	public boolean onOpenAllocationLoad(MobclixAdView arg0, int arg1) {
+		return false;
+	}
+
+	@Override
+	public void onSuccessfulLoad(MobclixAdView arg0) {
+		Log.d("Duckshot", "ad is loaded");
+	}
+
+	@Override
+	public String query() {
+		return null;
 	}
 }
